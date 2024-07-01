@@ -23,9 +23,10 @@ Link do Lintian:
 ### Empacotamento
 Breve descrição das alterações no pacote.
 
+PRINT DAS ALTERAÇÕES FEITAS
+OBS: COLOQUE APENAS OS ARQUIVOS QUE VOCÊ ALTEROU DIRETAAMENTE SEM O USO DA BUILD
 
-
-Revisor: Nome do revisor
+Revisor: Nome do revisor [@nickname_revisor](link_do_salsa)
 
 PRINT DO OVERVIEW DO MERGE REQUEST
 
