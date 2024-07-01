@@ -45,4 +45,3 @@ Revisor: Samuel Henrique - [@samueloph](https://salsa.debian.org/samueloph)
 
 Link do Merge Request: <https://salsa.debian.org/python-team/packages/python-bracex/-/merge_requests/1>
 
-## OBS: Caso haja mais pacotes, faça o mesmo processo acima para eles.
