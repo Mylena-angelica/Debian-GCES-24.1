@@ -29,18 +29,22 @@ Link do Lintian: <https://udd.debian.org/lintian/?packages=python-bracex>
 ### Empacotamento
 Ao gerar o upstream, foram alterados os arquivos de dependências do pacote, e também foi criado um arquivo gbp.conf para definir a branch 'debian/latest' como default.
 
+![Imagem 4](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/leonardo_goncalves/bracex-changes.png)
+<div align="center">
+  Imagem 3: Mudanças
+</div>
 
 
 Revisor: Samuel Henrique - [@samueloph](https://salsa.debian.org/samueloph)
 
 ![Imagem 4](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/leonardo_goncalves/bracex-merge-overview.png)
 <div align="center">
-  Imagem 3: Merge Request
+  Imagem 4: Merge Request
 </div>
 
 ![Imagem 5](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/leonardo_goncalves/bracex-commits.png)
 <div align="center">
-  Imagem 4: Commits
+  Imagem 5: Commits
 </div>
 
 Link do Merge Request: <https://salsa.debian.org/python-team/packages/python-bracex/-/merge_requests/1>
