@@ -108,11 +108,23 @@ Link do respositório no salsa: <https://salsa.debian.org/ruby-team/hiera>
 Link do Tracker: <https://tracker.debian.org/pkg/hiera>
 
 ### Empacotamento
-Ao gerar o upstream, foram alterados
+Ao gerar o upstream, foram alterados o changelog, e foi feito um patch para o pacote.
 
-![Imagem 4](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/hiera-changes.jpeg)
+![Imagem 4](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/hiera-changes1.jpeg)
 <div align="center">
-  Imagem 11: Mudanças
+  Imagem 11: Mudanças 1
+</div>
+
+
+![Imagem 4](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/hiera-changes2.jpeg)
+<div align="center">
+  Imagem 12: Mudanças 2
+</div>
+
+
+![Imagem 4](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/hiera-changes3.jpeg)
+<div align="center">
+  Imagem 13: Mudanças 3
 </div>
 
 
@@ -120,12 +132,12 @@ Revisor: Samuel Henrique - [@samueloph](https://salsa.debian.org/samueloph)
 
 ![Imagem 4](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/hiera-merge-overview.jpeg)
 <div align="center">
-  Imagem 12: Merge Request
+  Imagem 14: Merge Request
 </div>
 
-![Imagem 5](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelicxa/hiera-migrate-testing.jpeg)
+![Imagem 5](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/hiera-migrate-testing.jpeg)
 <div align="center">
-  Imagem 13: Migração
+  Imagem 15: Migração
 </div>
 
 Link do Merge Request: <https://salsa.debian.org/ruby-team/hiera/-/merge_requests/1>
