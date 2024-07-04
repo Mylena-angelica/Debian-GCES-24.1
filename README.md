@@ -82,6 +82,11 @@
                 <h5 class="text-center"> <br> Ingrid da Silva Carvalho Matrícula: 190029731 </h5>
             </a>
         </td>
-    </tr>
+      <td align="center">
+        <a href="https://github.com/Jvsoutomaior">
+            <img style="border-radius: 50%;" src="https://github.com/Jvsoutomaior.png" width="150px;"/>
+            <h5 class="text-center"> <br> João Vítor Motta Souto Maior Matrícula: 200020927 </h5>
+        </a>
+    </td>
 </table>
 
