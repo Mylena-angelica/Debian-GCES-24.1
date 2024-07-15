@@ -1,6 +1,7 @@
 # Sprint 1 
 
-Data de Realização: 
+Data de Realização: 11/04/2024 a 04/07/2024.
+
 
 ## Planning
 
@@ -15,3 +16,10 @@ Data de Realização:
 ## Review
 
 Essa sprint ocorreu durante o período de greve. Dessa forma, o grupo se distanciou, deixando alguns colegas mais à frente que outros. Assim, alguns conseguiram contribuir nesse período e os que não são listados nessa sprint permaneceram no processo de configuração do ambiente de desenvolvimento.
+
+## Contribuidores
+- Ana Luíza;
+- Hellen;
+- Ingrid;
+- Leonardo;
+- Mylena.

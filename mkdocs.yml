@@ -47,17 +47,23 @@ nav:
   - Home: index.md
   - Sprint 1:
     - Sprint Planning: sprintPlanning1.md
-    - Ana Luíza: anaLuiza1.md
-    - Hellen: hellen1.md
-    - Ingrid: ingrid1.md
-    - Leonardo: leonardo1.md
-    - Mylena: mylena1.md
+    - Ana Luíza: sprint1\anaLuiza1.md
+    - Hellen: sprint1\hellen1.md
+    - Ingrid: sprint1\ingrid1.md
+    - Leonardo: sprint1\leonardo1.md
+    - Mylena: sprint1\mylena1.md
   - Sprint 2:
     - Sprint Planning: sprintPlanning2.md
-    - Ana Luíza: anaLuiza2.md
-    - Hellen: hellen2.md
-    - Ingrid: ingrid2.md
-    - Leonardo: leonardo2.md
-    - Luana Ribeiro: luana2.md
-    - Mylena: mylena2.md
+    - Ana Luíza: Sprint2\anaLuiza2.md
+    - Bruno: Sprint2\bruno2.md
+    - Guilherme: Sprint2\guilherme2.md
+    - Hellen: Sprint2\hellen2.md
+    - Henrique: Sprint2\henrique.md
+    - Igor: Sprint2\igor2.md
+    - Ingrid: Sprint2\ingrid2.md
+    - João: Sprint2\joao2.md
+    - Leonardo: Sprint2\leonardo2.md
+    - Luana: Sprint2\luana2.md
+    - Marcelo: Sprint2\marcelo2.md
+    - Mylena: Sprint2\mylena2.md
 

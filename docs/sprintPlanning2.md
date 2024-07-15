@@ -1,6 +1,6 @@
 # Sprint 2
 
-Data de Realização: 
+Data de Realização: 09/07/2024 a 18/07/2024
 
 ## Planning
 
