@@ -1,29 +1,19 @@
 site_name: GCES-24.1 Debian
-site_description: GCES-24.1 Debian Documentation
+site_description: Documentação da disciplina de GCES 24.1 do grupo Debian
 
-nav:
-  - Home: 'index.md'
-  - Sprint 1: 
-    - Sprint Planning: 'sprintPlanning1.md'
-    - Ana Luíza: 'anaLuiza1.md'
-    - Hellen: 'hellen1.md'
-    - Ingrid: 'ingrid1.md'
-    - Leonardo: 'leonardo1.md'
-    - Mylena: 'mylena1.md'
+repo_name: Debian-GCES-24.1
+repo_url: https://github.com/Mylena-angelica/Debian-GCES-24.1
+site_url: https://mylena-angelica.github.io/GCES-24.1/
 
-  - Sprint 2: 
-    - Sprint Planning: 'sprintPlanning2.md'
-    - Ana Luíza: 'anaLuiza2.md'
-    - Hellen: 'hellen2.md'
-    - Ingrid: 'ingrid2.md'
-    - Leonardo: 'leonardo2.md'
-    - Luana Ribeiro: 'luana2.md'
-    - Mylena: 'mylena2.md'
-  
+copyright: Copyright &copy; 2024 Debian GCES 24.1  
 
 theme:
   name: material
-  language: pt
+  language: pt-BR
+  logo: img\logo-debian.png
+  favicon: img\icon-debian.png
+  icon:
+    repo: fontawesome/brands/github-alt
   features:
     - navigation.tabs
     - navigation.tabs.sticky
@@ -38,16 +28,36 @@ theme:
     - content.code.copy
   palette:
     - scheme: default
-      primary: #CE0056
+      primary: red
       toggle:
         icon: material/weather-night
         name: Modo noturno
     - scheme: slate
-      primary: #CE0056
+      primary: red
       toggle:
         icon: material/weather-sunny
         name: Modo claro
+
 extra_css:
   - stylesheets/extra.css
 extra:
   generator: false
+
+nav:
+  - Home: index.md
+  - Sprint 1:
+    - Sprint Planning: sprintPlanning1.md
+    - Ana Luíza: anaLuiza1.md
+    - Hellen: hellen1.md
+    - Ingrid: ingrid1.md
+    - Leonardo: leonardo1.md
+    - Mylena: mylena1.md
+  - Sprint 2:
+    - Sprint Planning: sprintPlanning2.md
+    - Ana Luíza: anaLuiza2.md
+    - Hellen: hellen2.md
+    - Ingrid: ingrid2.md
+    - Leonardo: leonardo2.md
+    - Luana Ribeiro: luana2.md
+    - Mylena: mylena2.md
+
