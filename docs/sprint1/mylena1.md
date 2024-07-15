@@ -8,28 +8,28 @@ Link da issue: <https://salsa.debian.org/debian-brasilia-team/docs/-/issues/213>
 ###  ruby-airbrussh
 Airbrussh é um formatador de log para Capistrano e SSHKit.
 
-![Imagem 1](img\mylena\brussh-rep.png)
+![Imagem 1](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/brussh-rep.png)
 <div align="center">
   Imagem 1: Repositório
 </div>
 
 Link do respositório no salsa: <https://salsa.debian.org/ruby-team/ruby-airbrussh>
 
-![Imagem 2](img\mylena\brussh-tracker.png)
+![Imagem 2](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/brussh-tracker.png)
 <div align="center">
   Imagem 2: Tracker
 </div>
 
 Link do Tracker: <https://tracker.debian.org/pkg/ruby-airbrussh>
 
-![Imagem 3](docs\img\mylena\brussh-lintian.png)
+![Imagem 3](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/brussh-lintian.png)
 
 Link do Lintian: <https://udd.debian.org/lintian/?packages=ruby-airbrussh>
 
 ### Empacotamento
 Ao gerar o upstream, foi alterado apenas o changelog
 
-![Imagem 4](docs\img\mylena\brussh-changes.png)
+![Imagem 4](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/brussh-changes.png)
 <div align="center">
   Imagem 3: Mudanças
 </div>
@@ -37,12 +37,12 @@ Ao gerar o upstream, foi alterado apenas o changelog
 
 Revisor: Samuel Henrique - [@samueloph](https://salsa.debian.org/samueloph)
 
-![Imagem 4](docs\img\mylena\brussh-merge-overview.png)
+![Imagem 4](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/brussh-merge-overview.png)
 <div align="center">
   Imagem 4: Merge Request
 </div>
 
-![Imagem 5](docs\img\mylena\brussh-commits.png)
+![Imagem 5](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/brussh-commits.png)
 <div align="center">
   Imagem 5: Commits
 </div>
@@ -57,7 +57,7 @@ Link da issue: <https://salsa.debian.org/debian-brasilia-team/docs/-/issues/219>
 ###  python-shodan
 Shodan é uma engine de busca de dispositivos conectados na rede.
 
-![Imagem 1](docs\img\mylena\shodan-issue.jpeg)
+![Imagem 1](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/shodan-issue.jpeg)
 <div align="center">
   Imagem 6: Issue
 </div>
@@ -71,7 +71,7 @@ Link do Lintian: <https://udd.debian.org/lintian/?packages=python-shodan>
 ### Empacotamento
 Ao gerar o upstream, foi alterado apenas o changelog.
 
-![Imagem 4](docs\img\mylena\shodan-changes.png)
+![Imagem 4](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/shodan-changes.png)
 <div align="center">
   Imagem 7: Mudanças
 </div>
@@ -79,12 +79,12 @@ Ao gerar o upstream, foi alterado apenas o changelog.
 
 Revisor: Samuel Henrique - [@samueloph](https://salsa.debian.org/samueloph)
 
-![Imagem 4](docs\img\mylena\shodan-merge-overview.jpeg)
+![Imagem 4](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/shodan-merge-overview.jpeg)
 <div align="center">
   Imagem 8: Merge Request
 </div>
 
-![Imagem 5](docs\img\mylena\shodan-migrate-testing.jpeg)
+![Imagem 5](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/shodan-migrate-testing.jpeg)
 <div align="center">
   Imagem 9: Migração
 </div>
@@ -98,7 +98,7 @@ Link da issue: <https://salsa.debian.org/debian-brasilia-team/docs/-/issues/244>
 
 ###  hiera 
 Um banco de dados hierárquico
-![Imagem 1](docs\img\mylena\hiera-issue.jpeg)
+![Imagem 1](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/hiera-issue.jpeg)
 <div align="center">
   Imagem 10: Issue
 </div>
@@ -110,19 +110,19 @@ Link do Tracker: <https://tracker.debian.org/pkg/hiera>
 ### Empacotamento
 Ao gerar o upstream, foram alterados o changelog, e foi feito um patch para o pacote.
 
-![Imagem 4](docs/img/mylena/hiera-changes1.jpeg)
+![Imagem 4](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/hiera-changes1.jpeg)
 <div align="center">
   Imagem 11: Mudanças 1
 </div>
 
 
-![Imagem 4](docs\img\mylena\hiera-changes2.jpeg)
+![Imagem 4](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/hiera-changes2.jpeg)
 <div align="center">
   Imagem 12: Mudanças 2
 </div>
 
 
-![Imagem 4](docs\img\mylena\hiera-changes3.jpeg)
+![Imagem 4](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/hiera-changes3.jpeg)
 <div align="center">
   Imagem 13: Mudanças 3
 </div>
@@ -130,12 +130,12 @@ Ao gerar o upstream, foram alterados o changelog, e foi feito um patch para o pa
 
 Revisor: Samuel Henrique - [@samueloph](https://salsa.debian.org/samueloph)
 
-![Imagem 4](docs\img\mylena\hiera-merge-overview.jpeg)
+![Imagem 4](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/hiera-merge-overview.jpeg)
 <div align="center">
   Imagem 14: Merge Request
 </div>
 
-![Imagem 5](docs\img\mylena\shodan-migrate-testing.jpeg)
+![Imagem 5](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/hiera-migrate-testing.jpeg)
 <div align="center">
   Imagem 15: Migração
 </div>
