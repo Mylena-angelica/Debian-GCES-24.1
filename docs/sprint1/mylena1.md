@@ -8,7 +8,7 @@ Link da issue: <https://salsa.debian.org/debian-brasilia-team/docs/-/issues/213>
 ###  ruby-airbrussh
 Airbrussh é um formatador de log para Capistrano e SSHKit.
 
-![Imagem 1](https://raw.githubusercontent.com/Mylena-angelica/GCES-24.1/main/Sprint1/assets/mylena_angelica/brussh-rep.png)
+![Imagem 1](https://github.com/Mylena-angelica/Debian-GCES-24.1/blob/a71747b1338d2789e1901914c5a569e380c15f18/docs/img/mylena/brussh-rep.png)
 <div align="center">
   Imagem 1: Repositório
 </div>
