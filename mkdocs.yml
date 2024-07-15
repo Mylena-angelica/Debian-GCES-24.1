@@ -1,1 +1,53 @@
-site_name: My Docs
+site_name: GCES-24.1 Debian
+site_description: GCES-24.1 Debian Documentation
+
+nav:
+  - Home: 'index.md'
+  - Sprint 1: 
+    - Sprint Planning: 'sprintPlanning1.md'
+    - Ana Luíza: 'anaLuiza1.md'
+    - Hellen: 'hellen1.md'
+    - Ingrid: 'ingrid1.md'
+    - Leonardo: 'leonardo1.md'
+    - Mylena: 'mylena1.md'
+
+  - Sprint 2: 
+    - Sprint Planning: 'sprintPlanning2.md'
+    - Ana Luíza: 'anaLuiza2.md'
+    - Hellen: 'hellen2.md'
+    - Ingrid: 'ingrid2.md'
+    - Leonardo: 'leonardo2.md'
+    - Luana Ribeiro: 'luana2.md'
+    - Mylena: 'mylena2.md'
+  
+
+theme:
+  name: material
+  language: pt
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - toc.integrate
+    - content.action.edit
+    - content.action.view
+    - navigation.top
+    - content.tabs.link
+    - content.code.annotation
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: #CE0056
+      toggle:
+        icon: material/weather-night
+        name: Modo noturno
+    - scheme: slate
+      primary: #CE0056
+      toggle:
+        icon: material/weather-sunny
+        name: Modo claro
+extra_css:
+  - stylesheets/extra.css
+extra:
+  generator: false
