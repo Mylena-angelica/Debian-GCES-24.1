@@ -1,21 +1,23 @@
-# Nome do contribuinte
+# Igor e Silva Penha
 
 Breve resumo do que fez:
 
 ## Pacote 1
-### Nome da issue do pacote
+### Package hcxdumptool
 Breve descrição sobre o que é feito na issue.
-Link: tracker
-Link issue no Salsa:
+Link: https://tracker.debian.org/pkg/hcxdumptool
+Link issue no Salsa: https://salsa.debian.org/pkg-security-team/hcxdumptool
 PRINT DO REPOSITÓRIO DO PACOTE
 
-Link do respositório no salsa:
+Link do respositório no salsa: https://salsa.debian.org/pkg-security-team/hcxdumptool
 
 PRINT DA PÁGINA DO TRACKER
 
-Link do Tracker: 
+Link do Tracker: https://tracker.debian.org/pkg/hcxdumptool
 
 PRINT DA PÁGINA DO LINTIAN
+
+Link do Lintian: https://udd.debian.org/lintian/?packages=hcxdumptool
 
 ### Empacotamento
 
