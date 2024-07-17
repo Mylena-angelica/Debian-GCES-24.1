@@ -1,41 +1,37 @@
-# Nome do contribuinte
+# Mylena Angélica Silva Farias
 
-Breve resumo do que fez:
+Nessa Sprint 2, que teve uma duração de 9 dias eu fiz a atualização upstream de 1 pacote e no outro eu fiz a atualização upstream e estou iniciando a parte de QA.
+<br> Durante esse período, eu inicie os estudos da documentação do Debian Policy.
 
-## Pacote 1
-### Nome da issue do pacote
-Breve descrição sobre o que é feito na issue.
-Link: tracker
-Link issue no Salsa:
-PRINT DO REPOSITÓRIO DO PACOTE
+## ruby-web-console
+### Package ruby-web-console
+Nesse pacote foi feita a atualização upstream que já está na versão unstable.
+Contudo, ele ainda está em uma versão atrasada do Debian Policy, o que requer um trabalho mais aprimorado de QA. O qual pretendo fazer para a próxima Sprint.
+<br> [Link tracker](https://tracker.debian.org/pkg/ruby-web-console)
+<br> [Link issue no Salsa](https://salsa.debian.org/debian-brasilia-team/docs/-/issues/257)
+![image](https://github.com/user-attachments/assets/0904e880-17a5-4ef9-aba7-ec8b6924635d)
 
-Link do respositório no salsa:
+## golang-github-vjeantet-grok
+### Package golang-github-vjeantet-grok
+Nesse pacote foi feita a atualização upstream que já está na versão unstable.
+Contudo, ele ainda está em uma versão atrasada do Debian Policy, o que requer um trabalho mais aprimorado de QA. O qual pretendo fazer para a próxima Sprint.
+<br> [Link tracker](https://tracker.debian.org/pkg/golang-github-vjeantet-grok)
+<br> [Link issue no Salsa](https://salsa.debian.org/debian-brasilia-team/docs/-/issues/225)
+![image](https://github.com/user-attachments/assets/c2f931d2-e7c6-42f5-a0cf-56ac7feb8814)
 
-PRINT DA PÁGINA DO TRACKER
-
-Link do Tracker: 
-
-PRINT DA PÁGINA DO LINTIAN
 
 ### Empacotamento
 
-Aqui fale o que você fez, mostre alterações nos commits e afins
-PRINT DAS ALTERAÇÕES FEITAS 
+As alterações feitas foram as de upstream normal, somente fazendo alterações no debian/changelog.
 
-OBS: COLOQUE APENAS OS ARQUIVOS QUE VOCÊ ALTEROU DIRETAAMENTE SEM O USO DA BUILD
+### Próximos passos
+ As documentações a serem estudadas para a próxima Sprint, que será atualização da Debian Policy são as seguintes:
+- [Debian Policy Manual](https://www.debian.org/doc/debian-policy/)
+- [Upgrading checklist](https://www.debian.org/doc/debian-policy/upgrading-checklist.html)
+Além disso, como não existe tutorial na wiki do Debian Brasília, pretendo contribuir para a comunidade, criando uma page que trata sobre atualizações da Debian Policy.
 
-### Updates
+### Histórico de versão
 
-Coloque as datas e o que aconteceu. Pode adicionar imagens
- Ex:
- - 15/07/27- Merge Request criado e enviado para revisão
-	 - Link do Merge Request: 
-	 - Revisor: Nome do revisor [@nickname_revisor](link_do_salsa)
-PRINT DO OVERVIEW DO MERGE REQUEST
-PRINT DA LISTA DE COMMITS DO MERGE REQUEST
- - 15/07/24- Comentários de revisão
- PRINTS  
-  - 15/07/24- Upload feito
-  -  PRINTS  
-
-# OBS: Caso haja mais pacotes, faça o mesmo processo acima para eles.
+|Data|Autora|Versão|
+|----|------|------|
+| 17/07/2024 | Mylena | Criação do documento| 
