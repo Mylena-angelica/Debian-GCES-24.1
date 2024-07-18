@@ -1,41 +1,50 @@
-# Nome do contribuinte
+# Ana Luíza Rodrigues
 
-Breve resumo do que fez:
+Durante a Sprint 2, foram revisados os dois pacotes que trabalhei na Sprint 1 e pude implementar as correções necessárias. Nas reuniões do Debian Brasília, pude esclarecer dúvidas sobre o processo de empacotamento. Enfrentei um problema com o pacote jqp e, após uma análise detalhada, o revisor recomendou que deixássemos esse pacote de lado para focarmos no pacote aionotify. Após essa decisão, o pacote aionotify foi revisado e consegui implementar as alterações solicitadas.
 
-## Pacote 1
-### Nome da issue do pacote
-Breve descrição sobre o que é feito na issue.
-Link: tracker
-Link issue no Salsa:
-PRINT DO REPOSITÓRIO DO PACOTE
+## Aionotify
 
-Link do respositório no salsa:
+### Package aionotify #240
 
-PRINT DA PÁGINA DO TRACKER
+A issue se refere a atualização do upstream do pacote
 
-Link do Tracker: 
+- Tracker: <https://tracker.debian.org/pkg/aionotify>
 
-PRINT DA PÁGINA DO LINTIAN
+- Issue no Salsa: <https://salsa.debian.org/debian-brasilia-team/docs/-/issues/240>
+
+- Link do respositório no salsa: <https://salsa.debian.org/python-team/packages/aionotify>
+
+<center>
+![image](../img/ana-luiza/aionotify-tracker.png)
+Figura 1: Página do pacote no Tracker
+</center>
 
 ### Empacotamento
 
-Aqui fale o que você fez, mostre alterações nos commits e afins
-PRINT DAS ALTERAÇÕES FEITAS 
+Na revisão do pacote foi necessário fazer alterações no debian/changelog, debian/control e debian/copyright. 
 
-OBS: COLOQUE APENAS OS ARQUIVOS QUE VOCÊ ALTEROU DIRETAAMENTE SEM O USO DA BUILD
+<center>
+![image](../img/ana-luiza/aionotify-commit-review.png)
+Figura 2: Alterações solicitadas na revisão
+</center>
+
 
 ### Updates
 
-Coloque as datas e o que aconteceu. Pode adicionar imagens
- Ex:
- - 15/07/27- Merge Request criado e enviado para revisão
-	 - Link do Merge Request: 
-	 - Revisor: Nome do revisor [@nickname_revisor](link_do_salsa)
-PRINT DO OVERVIEW DO MERGE REQUEST
-PRINT DA LISTA DE COMMITS DO MERGE REQUEST
- - 15/07/24- Comentários de revisão
- PRINTS  
-  - 15/07/24- Upload feito
-  -  PRINTS  
+- Link do Merge Request: <https://salsa.debian.org/python-team/packages/aionotify/-/merge_requests/2>
 
-# OBS: Caso haja mais pacotes, faça o mesmo processo acima para eles.
+- Revisor: Guilherme Puida Moreira [@puida](https://salsa.debian.org/puida)
+
+### jqp
+
+Após atualizar o upstream, não foi possível realizar o build devido à necessidade de atualização da biblioteca bubbletea, que por sua vez dependia de algumas bibliotecas ainda não empacotadas. Para contornar essa situação, segui a alternativa sugerida na revisão, que era atualizar o método Sequence. No entanto, após uma avaliação detalhada durante a reunião do Debian Brasília, foi avaliada a complexidade envolvida e, até que a situação da atualização da biblioteca seja resolvida e decisão tomada foi abandonar esse pacote.
+
+- Link da revisão: <https://salsa.debian.org/debian-brasilia-team/docs/-/issues/248#note_504549>
+
+- Revisor: Guilherme Puida Moreira [@puida](https://salsa.debian.org/puida)
+
+### Histórico de versão
+
+|Data|Autora|Versão|
+|----|------|------|
+| 17/07/2024 | Ana Luíza | Criação do documento| 
