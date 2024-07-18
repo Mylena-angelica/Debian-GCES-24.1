@@ -9,7 +9,7 @@ Link da issue:
 Ruby-concord é ultilizado para auxiliar na composição de objetos
 
 PRINT DO REPOSITÓRIO DO PACOTE
-![Imagem 1](docs\img\ingridrepositorioPacote.png)
+![Imagem 1](https://github.com/Mylena-angelica/Debian-GCES-24.1/blob/05a937755aea6f6ef81c2d73cef22c98732fb15f/docs/img/ingrid/repositorioPacote.png)
 <div align="center">
   Imagem 1: Repositório
 </div>
@@ -18,7 +18,7 @@ PRINT DO REPOSITÓRIO DO PACOTE
 Link do respositório no salsa: https://salsa.debian.org/ruby-team/ruby-concord
 
 PRINT DA PÁGINA DO TRACKER
-![Imagem 2](docs\img\ingrid\tracker.png)
+![Imagem 2](https://github.com/Mylena-angelica/Debian-GCES-24.1/blob/05a937755aea6f6ef81c2d73cef22c98732fb15f/docs/img/ingrid/tracker.png)
 <div align="center">
   Imagem 2: Tracker
 </div>
@@ -26,7 +26,7 @@ PRINT DA PÁGINA DO TRACKER
 Link do Tracker: https://tracker.debian.org/pkg/ruby-concord
 
 PRINT DA PÁGINA DO LINTIAN
-![Imagem 3](docs\img\ingrid/litian.png)
+![Imagem 3](https://github.com/Mylena-angelica/Debian-GCES-24.1/blob/05a937755aea6f6ef81c2d73cef22c98732fb15f/docs/img/ingrid/litian.png)
 <div align="center">
   Imagem 3: Lintian
 </div>
@@ -39,29 +39,18 @@ Foi necessário alterar o link para a homepage e o changelog foi alterado ao ger
 
 PRINT DAS ALTERAÇÕES FEITAS
 
-![Imagem 4](docs\img\ingrid/commit1.png)
+![Imagem 4](https://github.com/Mylena-angelica/Debian-GCES-24.1/blob/05a937755aea6f6ef81c2d73cef22c98732fb15f/docs/img/ingrid/commit1.png)
 <div align="center">
   Imagem 4: Mudanças commit: d/watch: track releases from github instead of gemwatch
 </div>
 
-
-![Imagem 5](docs\img\ingrid/commit2.png)
+![Imagem 5](https://github.com/Mylena-angelica/Debian-GCES-24.1/blob/05a937755aea6f6ef81c2d73cef22c98732fb15f/docs/img/ingrid/commit4.png)
 <div align="center">
-  Imagem 5: Mudanças commit: New upstream version 0.1.6
-</div>
-
-![Imagem 6](docs\img\ingrid/commit3.png)
-<div align="center">
-  Imagem 6: Mudanças commit: Update upstream source from tag 'upstream/0.1.6' 
-</div>
-
-![Imagem 7](docs\img\ingrid/commit4.png)
-<div align="center">
-  Imagem 7: Mudanças commit: Update changelog for 0.1.6-1 release
+  Imagem 5: Mudanças commit: Update changelog for 0.1.6-1 release
 6' 
 </div>
 
-![Imagem 8](docs\img\ingrid/commit5.png)
+![Imagem 6](https://github.com/Mylena-angelica/Debian-GCES-24.1/blob/05a937755aea6f6ef81c2d73cef22c98732fb15f/docs/img/ingrid/commit5.png)
 <div align="center">
-  Imagem 8: Mudanças commit: Atualizando pacote
+  Imagem 6: Mudanças commit: Atualizando pacote
 </div>
