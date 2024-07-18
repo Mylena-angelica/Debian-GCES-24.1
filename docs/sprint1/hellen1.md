@@ -29,6 +29,6 @@ Ao gerar o upstream, foi alterado o changelog e o control.
 ![image](https://github.com/Mylena-angelica/GCES-24.1/assets/84354824/291466ea-164a-453b-8571-a85067916768)
 
 
-Revisor: Sem revisor.
+Link do merge request: https://salsa.debian.org/python-team/packages/gtts-token/-/merge_requests/2
  
 ## OBS: Esperando a issue ser aprovada para dar continuidade com o PR.
