@@ -72,5 +72,5 @@ O changelog foi atualizado e o Merge Request foi realizado, estando atualmente e
 
 |Data|Autor|Descrição|Versão|
 |----|------|------|----|
-| 17/07/2024 | Igor Penha | Criação do documento | `1.0` |
+| 18/07/2024 | Igor Penha | Criação do documento | `1.0` |
 
