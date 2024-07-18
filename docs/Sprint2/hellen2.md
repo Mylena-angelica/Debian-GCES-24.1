@@ -1,7 +1,6 @@
 # Hellen Faria
 
-Breve resumo do que fez:
-Atualização do pacote aioxmlrpc
+Atualização do pacote aioxmlrpc.
 
 ## Pacote 1
 ### Package aioxmlrpc
@@ -16,7 +15,6 @@ Link issue no Salsa: https://salsa.debian.org/debian-brasilia-team/docs/-/issues
 Link do respositório no salsa:
 https://salsa.debian.org/debian-brasilia-team/docs/-/issues/259
 
-PRINT DA PÁGINA DO TRACKER
 ![image](https://github.com/user-attachments/assets/88d35aab-b5da-4364-b9ee-3d4e44a91845)
 
 Link do Tracker: https://tracker.debian.org/pkg/aioxmlrpc
@@ -26,10 +24,10 @@ Link do Tracker: https://tracker.debian.org/pkg/aioxmlrpc
 
 ### Empacotamento
 
-Não finalizei 
+Não finalizado.
 
 ### Updates
 
 
 
-# OBS: Caso haja mais pacotes, faça o mesmo processo acima para eles.
+# OBS: 
