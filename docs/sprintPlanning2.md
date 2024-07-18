@@ -33,3 +33,5 @@ Os subgrupos foram criados de acordo com o nível de avanço de cada aluno, para
 - Guilherme, Henrique Pucci e João Victor Souto
 
 ## Review
+
+Nesta sprint, os integrantes do grupo participaram mais ativamente do processo de contribuição. 
