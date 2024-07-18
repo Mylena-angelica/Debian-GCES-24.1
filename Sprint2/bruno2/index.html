@@ -77,7 +77,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#nome-do-contribuinte" class="md-skip">
+        <a href="#bruno-ribeiro" class="md-skip">
           Pular para conteúdo
         </a>
       
@@ -526,19 +526,12 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pacote-1" class="md-nav__link">
-    Pacote 1
+  <a href="#package-bruteforce-luks" class="md-nav__link">
+    Package bruteforce-luks
   </a>
   
-    <nav class="md-nav" aria-label="Pacote 1">
+    <nav class="md-nav" aria-label="Package bruteforce-luks">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#nome-da-issue-do-pacote" class="md-nav__link">
-    Nome da issue do pacote
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#empacotamento" class="md-nav__link">
@@ -550,6 +543,13 @@
           <li class="md-nav__item">
   <a href="#updates" class="md-nav__link">
     Updates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#historico-de-versao" class="md-nav__link">
+    Histórico de versão
   </a>
   
 </li>
@@ -745,35 +745,44 @@
   
 
 
-<h1 id="nome-do-contribuinte">Nome do contribuinte</h1>
-<p>Breve resumo do que fez:</p>
-<h2 id="pacote-1">Pacote 1</h2>
-<h3 id="nome-da-issue-do-pacote">Nome da issue do pacote</h3>
-<p>Breve descrição sobre o que é feito na issue.
-Link: tracker
-Link issue no Salsa:
-PRINT DO REPOSITÓRIO DO PACOTE</p>
-<p>Link do respositório no salsa:</p>
-<p>PRINT DA PÁGINA DO TRACKER</p>
-<p>Link do Tracker: </p>
-<p>PRINT DA PÁGINA DO LINTIAN</p>
+<h1 id="bruno-ribeiro">Bruno Ribeiro</h1>
+<p>Na Sprint 2, com duração de 9 dias, conduzi a atualização upstream de um pacote. Para realizar esse empacotamento, foi necessário estudar detalhadamente arquivos como debian/watch, além de adquirir e aplicar conhecimentos sobre gerenciamento de patches e testes automatizados.</p>
+<h2 id="package-bruteforce-luks">Package bruteforce-luks</h2>
+<p>O objetivo deste programa é tentar encontrar a senha de um volume criptografado com LUKS.</p>
+<p>Ele pode ser usado de duas maneiras:</p>
+<ul>
+<li>Testar todas as senhas possíveis, dado um conjunto de caracteres.</li>
+<li>Testar todas as senhas em um arquivo.</li>
+</ul>
+<p>Há uma opção na linha de comando para especificar o número de threads a serem utilizadas.</p>
+<p>Enviar um sinal USR1 para um processo bruteforce-luks em execução faz com que ele imprima o progresso e continue.</p>
+<p><a href="https://salsa.debian.org/debian-brasilia-team/docs/-/issues/254">Link issue no Salsa</a>
+<br> <a href="https://salsa.debian.org/pkg-security-team/bruteforce-luks">Link do respositório no salsa</a>
+<br> <a href="https://udd.debian.org/lintian/?packages=bruteforce-luks">Link do Lintian</a>
+<br> <a href="https://tracker.debian.org/pkg/bruteforce-luks">Link do tracker</a></p>
 <h3 id="empacotamento">Empacotamento</h3>
-<p>Aqui fale o que você fez, mostre alterações nos commits e afins
-PRINT DAS ALTERAÇÕES FEITAS </p>
-<p>OBS: COLOQUE APENAS OS ARQUIVOS QUE VOCÊ ALTEROU DIRETAAMENTE SEM O USO DA BUILD</p>
+<p>O primeiro passo foi modificar o arquivo debian/watch, pois ele não conseguia baixar e ler corretamente o arquivo de assinatura do mantenedor do pacote. Para solucionar essa questão, o arquivo foi atualizado para o padrão utilizando a API do GitHub.</p>
+<p>Adicionalmente, a RegEx foi ajustada para funcionar corretamente. Agora, a busca pela assinatura é realizada nas releases, em vez de nas tags.</p>
 <h3 id="updates">Updates</h3>
-<p>Coloque as datas e o que aconteceu. Pode adicionar imagens
- Ex:
- - 15/07/27- Merge Request criado e enviado para revisão
-     - Link do Merge Request: 
-     - Revisor: Nome do revisor <a href="link_do_salsa">@nickname_revisor</a>
-PRINT DO OVERVIEW DO MERGE REQUEST
-PRINT DA LISTA DE COMMITS DO MERGE REQUEST
- - 15/07/24- Comentários de revisão
- PRINTS<br />
-  - 15/07/24- Upload feito
-  -  PRINTS  </p>
-<h1 id="obs-caso-haja-mais-pacotes-faca-o-mesmo-processo-acima-para-eles">OBS: Caso haja mais pacotes, faça o mesmo processo acima para eles.</h1>
+<h3 id="historico-de-versao">Histórico de versão</h3>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Autor</th>
+<th>Descrição</th>
+<th>Versão</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>18/07/2024</td>
+<td>Bruno Ribeiro</td>
+<td>Criação do documento</td>
+<td><code>1.0</code></td>
+</tr>
+</tbody>
+</table>
 
 
 

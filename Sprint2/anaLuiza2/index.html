@@ -77,7 +77,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#nome-do-contribuinte" class="md-skip">
+        <a href="#ana-luiza-rodrigues" class="md-skip">
           Pular para conteúdo
         </a>
       
@@ -512,16 +512,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pacote-1" class="md-nav__link">
-    Pacote 1
+  <a href="#aionotify" class="md-nav__link">
+    Aionotify
   </a>
   
-    <nav class="md-nav" aria-label="Pacote 1">
+    <nav class="md-nav" aria-label="Aionotify">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#nome-da-issue-do-pacote" class="md-nav__link">
-    Nome da issue do pacote
+  <a href="#package-aionotify-240" class="md-nav__link">
+    Package aionotify #240
   </a>
   
 </li>
@@ -536,6 +536,20 @@
           <li class="md-nav__item">
   <a href="#updates" class="md-nav__link">
     Updates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jqp" class="md-nav__link">
+    jqp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#historico-de-versao" class="md-nav__link">
+    Histórico de versão
   </a>
   
 </li>
@@ -745,35 +759,68 @@
   
 
 
-<h1 id="nome-do-contribuinte">Nome do contribuinte</h1>
-<p>Breve resumo do que fez:</p>
-<h2 id="pacote-1">Pacote 1</h2>
-<h3 id="nome-da-issue-do-pacote">Nome da issue do pacote</h3>
-<p>Breve descrição sobre o que é feito na issue.
-Link: tracker
-Link issue no Salsa:
-PRINT DO REPOSITÓRIO DO PACOTE</p>
-<p>Link do respositório no salsa:</p>
-<p>PRINT DA PÁGINA DO TRACKER</p>
-<p>Link do Tracker: </p>
-<p>PRINT DA PÁGINA DO LINTIAN</p>
+<h1 id="ana-luiza-rodrigues">Ana Luíza Rodrigues</h1>
+<p>Durante a Sprint 2, foram revisados os dois pacotes que trabalhei na Sprint 1 e pude implementar as correções necessárias. Nas reuniões do Debian Brasília, pude esclarecer dúvidas sobre o processo de empacotamento. Enfrentei um problema com o pacote jqp e, após uma análise detalhada, o revisor recomendou que deixássemos esse pacote de lado para focarmos no pacote aionotify. Após essa decisão, o pacote aionotify foi revisado e consegui implementar as alterações solicitadas.</p>
+<h2 id="aionotify">Aionotify</h2>
+<h3 id="package-aionotify-240">Package aionotify #240</h3>
+<p>A issue se refere a atualização do upstream do pacote</p>
+<ul>
+<li>
+<p>Tracker: <a href="https://tracker.debian.org/pkg/aionotify">https://tracker.debian.org/pkg/aionotify</a></p>
+</li>
+<li>
+<p>Issue no Salsa: <a href="https://salsa.debian.org/debian-brasilia-team/docs/-/issues/240">https://salsa.debian.org/debian-brasilia-team/docs/-/issues/240</a></p>
+</li>
+<li>
+<p>Link do respositório no salsa: <a href="https://salsa.debian.org/python-team/packages/aionotify">https://salsa.debian.org/python-team/packages/aionotify</a></p>
+</li>
+</ul>
+<p><center>
+<img alt="image" src="../../img/ana-luiza/aionotify-tracker.png" />
+Figura 1: Página do pacote no Tracker
+</center></p>
 <h3 id="empacotamento">Empacotamento</h3>
-<p>Aqui fale o que você fez, mostre alterações nos commits e afins
-PRINT DAS ALTERAÇÕES FEITAS </p>
-<p>OBS: COLOQUE APENAS OS ARQUIVOS QUE VOCÊ ALTEROU DIRETAAMENTE SEM O USO DA BUILD</p>
+<p>Na revisão do pacote foi necessário fazer alterações no debian/changelog, debian/control e debian/copyright. </p>
+<p><center>
+<img alt="image" src="../../img/ana-luiza/aionotify-commit-review.png" />
+Figura 2: Alterações solicitadas na revisão
+</center></p>
 <h3 id="updates">Updates</h3>
-<p>Coloque as datas e o que aconteceu. Pode adicionar imagens
- Ex:
- - 15/07/27- Merge Request criado e enviado para revisão
-     - Link do Merge Request: 
-     - Revisor: Nome do revisor <a href="link_do_salsa">@nickname_revisor</a>
-PRINT DO OVERVIEW DO MERGE REQUEST
-PRINT DA LISTA DE COMMITS DO MERGE REQUEST
- - 15/07/24- Comentários de revisão
- PRINTS<br />
-  - 15/07/24- Upload feito
-  -  PRINTS  </p>
-<h1 id="obs-caso-haja-mais-pacotes-faca-o-mesmo-processo-acima-para-eles">OBS: Caso haja mais pacotes, faça o mesmo processo acima para eles.</h1>
+<ul>
+<li>
+<p>Link do Merge Request: <a href="https://salsa.debian.org/python-team/packages/aionotify/-/merge_requests/2">https://salsa.debian.org/python-team/packages/aionotify/-/merge_requests/2</a></p>
+</li>
+<li>
+<p>Revisor: Guilherme Puida Moreira <a href="https://salsa.debian.org/puida">@puida</a></p>
+</li>
+</ul>
+<h3 id="jqp">jqp</h3>
+<p>Após atualizar o upstream, não foi possível realizar o build devido à necessidade de atualização da biblioteca bubbletea, que por sua vez dependia de algumas bibliotecas ainda não empacotadas. Para contornar essa situação, segui a alternativa sugerida na revisão, que era atualizar o método Sequence. No entanto, após uma avaliação detalhada durante a reunião do Debian Brasília, foi avaliada a complexidade envolvida e, até que a situação da atualização da biblioteca seja resolvida e decisão tomada foi abandonar esse pacote.</p>
+<ul>
+<li>
+<p>Link da revisão: <a href="https://salsa.debian.org/debian-brasilia-team/docs/-/issues/248#note_504549">https://salsa.debian.org/debian-brasilia-team/docs/-/issues/248#note_504549</a></p>
+</li>
+<li>
+<p>Revisor: Guilherme Puida Moreira <a href="https://salsa.debian.org/puida">@puida</a></p>
+</li>
+</ul>
+<h3 id="historico-de-versao">Histórico de versão</h3>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Autora</th>
+<th>Versão</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>17/07/2024</td>
+<td>Ana Luíza</td>
+<td>Criação do documento</td>
+</tr>
+</tbody>
+</table>
 
 
 

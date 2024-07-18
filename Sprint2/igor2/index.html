@@ -77,7 +77,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#nome-do-contribuinte" class="md-skip">
+        <a href="#igor-e-silva-penha" class="md-skip">
           Pular para conteúdo
         </a>
       
@@ -582,19 +582,12 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#pacote-1" class="md-nav__link">
-    Pacote 1
+  <a href="#package-hcxdumptool" class="md-nav__link">
+    Package hcxdumptool
   </a>
   
-    <nav class="md-nav" aria-label="Pacote 1">
+    <nav class="md-nav" aria-label="Package hcxdumptool">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#nome-da-issue-do-pacote" class="md-nav__link">
-    Nome da issue do pacote
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#empacotamento" class="md-nav__link">
@@ -606,6 +599,13 @@
           <li class="md-nav__item">
   <a href="#updates" class="md-nav__link">
     Updates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#historico-de-versao" class="md-nav__link">
+    Histórico de versão
   </a>
   
 </li>
@@ -745,35 +745,72 @@
   
 
 
-<h1 id="nome-do-contribuinte">Nome do contribuinte</h1>
-<p>Breve resumo do que fez:</p>
-<h2 id="pacote-1">Pacote 1</h2>
-<h3 id="nome-da-issue-do-pacote">Nome da issue do pacote</h3>
-<p>Breve descrição sobre o que é feito na issue.
-Link: tracker
-Link issue no Salsa:
-PRINT DO REPOSITÓRIO DO PACOTE</p>
-<p>Link do respositório no salsa:</p>
-<p>PRINT DA PÁGINA DO TRACKER</p>
-<p>Link do Tracker: </p>
-<p>PRINT DA PÁGINA DO LINTIAN</p>
+<h1 id="igor-e-silva-penha">Igor e Silva Penha</h1>
+<p>Na Sprint 2, que teve uma duração de 9 dias, realizei a atualização upstream de um pacote, para a realização desse empacotamento foi necessário o estudo sobre alguns arquivos como o debian/watch e debian/control, além de ter estudo e aplicado conhecimentos de gerenciamento de patches.</p>
+<h2 id="package-hcxdumptool">Package hcxdumptool</h2>
+<p>Uma ferramenta para capturar pacotes de dispositivos WLAN e descobrir possíveis pontos fracos dentro das próprias redes WiFi executando ataques de camada 2 contra o protocolo WPA.</p>
+<p><a href="https://salsa.debian.org/pkg-security-team/hcxdumptool">Link issue no Salsa</a>
+<br> <a href="https://salsa.debian.org/pkg-security-team/hcxdumptool">Link do respositório no salsa</a>
+<br> <a href="https://udd.debian.org/lintian/?packages=hcxdumptool">Link do Lintian</a>
+<br> <a href="https://tracker.debian.org/pkg/hcxdumptool">Link do tracker</a></p>
+<p><img alt="rep" src="../../img/igor/hcxdumptool-issue.png" /></p>
+<div style="text-align:center"> Figura 1: Issue no salsa</div>
+<p><br></p>
+<p><img alt="rep" src="../../img/igor/hcxdumptool-repo.png" /></p>
+<div style="text-align:center"> Figura 2: Repositório do pacote no salsa</div>
+<p><br></p>
+<p><img alt="rep" src="../../img/igor/hcxdumptool-litian.png" /></p>
+<div style="text-align:center"> Figura 3: Imagem do Litian</div>
+<p><br></p>
+<p><img alt="rep" src="../../img/igor/hcxdumptool-tracker.png" /></p>
+<div style="text-align:center"> Figura 4: Imagem do tracker</div>
+
 <h3 id="empacotamento">Empacotamento</h3>
-<p>Aqui fale o que você fez, mostre alterações nos commits e afins
-PRINT DAS ALTERAÇÕES FEITAS </p>
-<p>OBS: COLOQUE APENAS OS ARQUIVOS QUE VOCÊ ALTEROU DIRETAAMENTE SEM O USO DA BUILD</p>
+<p>O primeiro passo realizado foi alterar o arquivo debian/watch, pois ele não conseguia baixar e ler corretamente o arquivo de assinatura do mantenedor do pacote. Para solucionar isso, o arquivo foi atualizado para o padrão utilizando a API do GitHub. </p>
+<p>Além disso, a expressão regular (regex) foi organizada para funcionar corretamente. Agora, ao invés de buscar a assinatura na aba de tags, a busca é feita pela release.</p>
+<p><img alt="rep" src="../../img/igor/hcxdumptool-d-watch.png" /></p>
+<div style="text-align:center"> Figura 5: Alterações do arquivo debian/watch</div>
+<p><br></p>
+<p>Em seguida, foram identificados problemas nos patches. Para resolver essa questão, foi necessário excluir o arquivo debian/patches/20-fix-typo.patch e o retirar do arquivo debian/patches/series, pois ele tratava de um problema já resolvido e implementado. </p>
+<p>Ademais, ao analisar o arquivo debian/patches/10-fix-makefile-FTBFS.kfreebsd.patch, foi constatado que o problema informado como resolvido não estava relacionado com a correção mencionada no pull request (PR). Portanto, a seção de "forwarded" foi devidamente atualizada. Com essas alterações, foi realizado o rebase.</p>
+<p><img alt="rep" src="../../img/igor/hcxdumptool-d-p-10-fix.png" /></p>
+<div style="text-align:center"> Figura 6: Alterações do arquivo debian/patches/10-fix-makefile-FTBFS.kfreebsd.patch</div>
+<p><br></p>
+<p>Adicionalmente, o arquivo debian/control foi atualizado para adicionar uma nova dependência, alterar o nome de uma dependência que precisava ser atualizada, e modificar a Standards-Version para a versão mais recente contemplada. Por fim, o arquivo hcxpioff foi removido da manpage, pois ele foi excluído do projeto.</p>
+<p><img alt="rep" src="../../img/igor/hcxdumptool-d-control.png" /></p>
+<div style="text-align:center"> Figura 7: Alterações do arquivo debian/control</div>
+<p><br></p>
+<p>O changelog foi atualizado e o Merge Request foi realizado, estando atualmente em revisão.</p>
 <h3 id="updates">Updates</h3>
-<p>Coloque as datas e o que aconteceu. Pode adicionar imagens
- Ex:
- - 15/07/27- Merge Request criado e enviado para revisão
-     - Link do Merge Request: 
-     - Revisor: Nome do revisor <a href="link_do_salsa">@nickname_revisor</a>
-PRINT DO OVERVIEW DO MERGE REQUEST
-PRINT DA LISTA DE COMMITS DO MERGE REQUEST
- - 15/07/24- Comentários de revisão
- PRINTS<br />
-  - 15/07/24- Upload feito
-  -  PRINTS  </p>
-<h1 id="obs-caso-haja-mais-pacotes-faca-o-mesmo-processo-acima-para-eles">OBS: Caso haja mais pacotes, faça o mesmo processo acima para eles.</h1>
+<ul>
+<li>12/07/24 - Merge Request criado e enviado para revisão<ul>
+<li><a href="https://salsa.debian.org/pkg-security-team/hcxdumptool/-/merge_requests/6">Link do Merge Request</a></li>
+<li>Revisor: Saumel Henrique <a href="https://salsa.debian.org/samueloph">@samueloph</a></li>
+</ul>
+</li>
+</ul>
+<p><img alt="rep" src="../../img/igor/hcxdumptool-merge-request.png" /></p>
+<div style="text-align:center"> Figura 8: Imagem do merge request</div>
+
+<h3 id="historico-de-versao">Histórico de versão</h3>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Autor</th>
+<th>Descrição</th>
+<th>Versão</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>18/07/2024</td>
+<td>Igor Penha</td>
+<td>Criação do documento</td>
+<td><code>1.0</code></td>
+</tr>
+</tbody>
+</table>
 
 
 
