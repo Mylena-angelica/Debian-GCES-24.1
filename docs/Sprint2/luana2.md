@@ -1,41 +1,23 @@
-# Nome do contribuinte
+# Luana Ribeiro
 
-Breve resumo do que fez:
+## Subliminal
+### nova versão upstream
+Subliminal é uma ferramenta utilizada na linha de comando para buscar e baixar legendas.
 
-## Pacote 1
-### Nome da issue do pacote
-Breve descrição sobre o que é feito na issue.
-Link: tracker
-Link issue no Salsa:
-PRINT DO REPOSITÓRIO DO PACOTE
+![image](https://github.com/user-attachments/assets/6fdf8289-43ee-400e-80ed-4c3821af9136)
 
-Link do respositório no salsa:
+<br> [Link issue no Salsa](https://salsa.debian.org/debian-brasilia-team/docs/-/issues/260)
 
-PRINT DA PÁGINA DO TRACKER
+<br> [Link do respositório no salsa](https://salsa.debian.org/python-team/packages/subliminal)
 
-Link do Tracker: 
+<br> [Link do Tracker](https://tracker.debian.org/pkg/subliminal)
 
-PRINT DA PÁGINA DO LINTIAN
+<br> [Link para o Lintian](https://udd.debian.org/lintian/?packages=subliminal)
+
+![image](https://github.com/user-attachments/assets/8781a1dd-578c-4442-86f7-2bef5b96c585)
 
 ### Empacotamento
 
-Aqui fale o que você fez, mostre alterações nos commits e afins
-PRINT DAS ALTERAÇÕES FEITAS 
+Nesta issue foi realizada a atualização para a nova versão upstream e atualização do watch para uma nova versão.
 
-OBS: COLOQUE APENAS OS ARQUIVOS QUE VOCÊ ALTEROU DIRETAAMENTE SEM O USO DA BUILD
-
-### Updates
-
-Coloque as datas e o que aconteceu. Pode adicionar imagens
- Ex:
- - 15/07/27- Merge Request criado e enviado para revisão
-	 - Link do Merge Request: 
-	 - Revisor: Nome do revisor [@nickname_revisor](link_do_salsa)
-PRINT DO OVERVIEW DO MERGE REQUEST
-PRINT DA LISTA DE COMMITS DO MERGE REQUEST
- - 15/07/24- Comentários de revisão
- PRINTS  
-  - 15/07/24- Upload feito
-  -  PRINTS  
-
-# OBS: Caso haja mais pacotes, faça o mesmo processo acima para eles.
+![image](https://github.com/user-attachments/assets/3224b38f-e7cf-4d81-93e1-dc8209bd0e9f)
