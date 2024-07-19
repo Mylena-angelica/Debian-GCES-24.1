@@ -1,6 +1,6 @@
 # Hellen Faria
 
-Atualização do pacote aioxmlrpc.
+O pacote aioxmlrpc é uma versão assíncrona da biblioteca padrão xmlrpc do Python, projetada para funcionar com asyncio. 
 
 ## Pacote 1
 ### Package aioxmlrpc
