@@ -67,9 +67,16 @@ nav:
     - Marcelo: sprint2\marcelo2.md
     - Mylena: sprint2\mylena2.md
   - Sprint 3:
-    - Ana Luíza: sprint3\anaLuiza3.md
-    - Mylena: sprint3\mylena3.md
-    - Luana: sprint3\luana3.md
+    - Ana Luíza: sprint3\anaLuiza3.md    
+    - Bruno: sprint3\bruno3.md  
+    - Hellen: sprint3\hellen3.md
+    - Henrique: sprint3\henrique3.md
+    - Igor: sprint3\igor3.md
+    - Ingrid: sprint3\ingrid3.md  
+    - Leonardo: sprint3\leonardo3.md
+    - Luana: sprint3\luana3.md  
+    - Mylena: sprint3\mylena3.md  
+    
   - Tutoriais:
     - Nova versão Upstream: tutoriais\atualizacao_upstream.md
 
