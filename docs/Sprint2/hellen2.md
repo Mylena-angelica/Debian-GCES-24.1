@@ -4,8 +4,7 @@ O pacote aioxmlrpc é uma versão assíncrona da biblioteca padrão xmlrpc do Py
 
 A biblioteca padrão xmlrpc do Python permite que programas realizem chamadas de procedimento remoto (RPC) usando XML-RPC. XML-RPC é um protocolo que usa XML para codificar chamadas de procedimento remoto e HTTP como mecanismo de transporte.
 
-## Pacote 1
-### Package aioxmlrpc
+## Package aioxmlrpc
 
 Atualização do pacote para a versão  0.8.1
 
@@ -25,12 +24,14 @@ Link do Lintian: https://salsa.debian.org/python-team/packages/aioxmlrpc
 
 Link da Issue: https://salsa.debian.org/debian-brasilia-team/docs/-/issues/259
 
-### Empacotamento
+### Problemas encontrados
+
+Erro encontado após atualizar o pacote e tentar construir.
+
+![image](https://github.com/user-attachments/assets/0b864cb6-f11e-4991-86c0-ef3b5ab27407)
+
+Pacote já tinha um mantedor ativo, tentei entrar em contato para tirar dúvidas e ver a questão da atualização.
 
 
 
-### Updates
-
-
-
-# OBS: 
+ 
