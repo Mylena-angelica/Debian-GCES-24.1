@@ -46,14 +46,14 @@ extra:
 nav:
   - Home: index.md
   - Sprint 1:
-    - Sprint Planning: sprintPlanning1.md
+    - Sprint Planning: sprint1\sprintPlanning1.md
     - Ana Luíza: sprint1\anaLuiza1.md
     - Hellen: sprint1\hellen1.md
     - Ingrid: sprint1\ingrid1.md
     - Leonardo: sprint1\leonardo1.md
     - Mylena: sprint1\mylena1.md
   - Sprint 2:
-    - Sprint Planning: sprintPlanning2.md
+    - Sprint Planning: sprint2\sprintPlanning2.md
     - Ana Luíza: sprint2\anaLuiza2.md
     - Bruno: sprint2\bruno2.md
     - Guilherme: sprint2\guilherme2.md
