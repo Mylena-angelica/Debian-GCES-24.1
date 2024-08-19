@@ -148,7 +148,7 @@ letters (a-z), digits (0-9), full stops (.), plus signs (+), minus signs
 What is the upstream version? [1.31.0]
 ```
 Assim que aparecer a pergunta: What is the upstream version? [número da versão]. 
-Você irá conferir se a que apareceu é a mesma que está indicado no tracker. Se for, só colocar ***y*** e aguardar que a nova versão seja importada.
+Você irá conferir se a que apareceu é a mesma que está indicado no tracker. Se for, só colocar ***o número da versão que aparece em [ ]*** e aguardar que a nova versão seja importada.
 
 A saída será algo do tipo: `gbp:info: Successfully imported version 1.31.0 of ../python-shodan_1.31.0.orig.tar.gz`
 

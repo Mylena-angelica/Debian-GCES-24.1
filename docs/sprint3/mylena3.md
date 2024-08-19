@@ -30,10 +30,13 @@ Como não houve atualização de versão upstream, apenas adicionei os patches �
 	 - Revisor: Samuel 
 ![Merge Request](image-1.png)
 
+- 18/08/2024- Revisão feita e ajustes realizados
+
 ### Histórico de versão
 
 |Data|Autora|Versão|
 |----|------|------|
 | 31/07/2024 | Mylena | Adição de informações | 
 | 01/08/2024 | Mylena | Revisão  | 
+| 18/08/2024 | Mylena | Correções |
 
