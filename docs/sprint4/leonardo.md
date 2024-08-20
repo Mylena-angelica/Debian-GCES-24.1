@@ -22,3 +22,12 @@ Link do Lintian: <https://udd.debian.org/lintian/?packages=octave-dicom>
 ### Empacotamento
 Problema de geração da build após importar as mudanças da nova versão.
 
+![erro1](../img/leonardo/octave-error1.png)
+
+Para a solução do erro, foi criado o arquivo include-binaries na pasta debian/source
+
+![change1](../img/leonardo/octave-changes.png)
+
+A inclusão do arquivo resolveu o problema com os arquivos na pasta doc, porém também há um problema em relação a patches na versão upstream
+
+![error2](../img/leonardo/octave-error2.png)
