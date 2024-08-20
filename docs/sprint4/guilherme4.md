@@ -16,4 +16,4 @@ Biblioteca de software projetada para descoberta de pares (ou "peers") em redes 
 
 ## Merge Request
 
-![Página do Merge Request](docs/img/Guilherme%20Lima/sp4tracker.png)
+![Página do Merge Request](../img/Guilherme%20Lima/sp4tracker.png)
