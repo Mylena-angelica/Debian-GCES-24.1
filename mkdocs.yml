@@ -78,7 +78,7 @@ nav:
     - Mylena: sprint3\mylena3.md  
     - João: sprint3\joao3.md
   - Sprint 4:
-    #- Ana Luíza: sprint4\anaLuiza4.md
+    - Ana Luíza: sprint4\anaLuiza4.md
     #- Bruno: sprint4\bruno4.md
     - Guilherme: sprint4\guilherme4.md
     #- Hellen: sprint4\hellen4.md
@@ -91,3 +91,4 @@ nav:
     - Mylena: sprint4\mylena4.md
   - Tutoriais:
     - Nova versão Upstream: tutoriais\atualizacao_upstream.md
+    - Erros comuns na atualização upstream: tutoriais\erro_atualizacao_upstream.md
