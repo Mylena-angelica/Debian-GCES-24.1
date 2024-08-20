@@ -1,6 +1,6 @@
 # Ana Luíza Rodrigues
 
-Na sprint 4 atualizei o upstream do pacote crudini
+Na sprint 4 atualizei o upstream do pacote crudini.
 
 ## Pacote crudini
 
@@ -29,3 +29,9 @@ Figura 2: Changelog Crudini
 O merge request foi criado e está aguardando revisão. 
 
 [Link para o merge](https://salsa.debian.org/python-team/packages/crudini/-/merge_requests/1)
+
+### Histórico de versão
+
+|Data|Autora|Versão|
+|----|------|------|
+| 20/08/2024 | Ana Luíza | Criação do documento | 
