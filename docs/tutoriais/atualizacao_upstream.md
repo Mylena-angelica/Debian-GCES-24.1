@@ -193,8 +193,16 @@ Depois da alteração deverás er algo assim:
 ![Debian/changelog](image-2.png)
 
 2. Fazer os commits finais
+
+Uma dica importante é que você deve commitar os arquivos que editou separadamente. Por exemplo, se você precisou editar além do changelog, o arquivo watch, você fará um commit para o changelog e outro para o watch.
+
 ```shell 
 git add debian/changelog
+git commit --amend
+``` 
+
+```shell 
+git add debian/watch
 git commit --amend
 ``` 
 
@@ -211,6 +219,8 @@ git push --all && git push --tags
 ```
 Feito isso, o salsa já irá reconhecer que houve mudanças e irá sugerir que seja feito um merge request. Então você irá no repositório oficial e seguir os passos que o próprio salsa pede para realizar o Merge. 
 
+Lembrete: geralmente o merge request ocorre direto para a master, porém, no debian também pode ocorrer da branch master ser nomeada como debian/sid, que é equivalente à master, então não se assuste você está no caminho certo!
+
 
 ## 8. Revisão
  Agora o seu pacote será revisado por algum DM do Debian. É só aguardar e ficar de olho nos comentários, pois o seu revisor poderá sugerir alterações.
@@ -220,3 +230,4 @@ Feito isso, o salsa já irá reconhecer que houve mudanças e irá sugerir que s
 |Data|Autora|Versão|
 |----|------|------|
 | 31/07/2024 | Mylena | Criação do tutorial | 
+| 19/08/2024 | Luana | Adição de informações |

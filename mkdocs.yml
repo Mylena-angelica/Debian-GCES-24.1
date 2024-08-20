@@ -87,7 +87,7 @@ nav:
     #- Ingrid: sprint4\ingrid4.md
     #- João: sprint4\joao4.md
     #- Leonardo: sprint4\leonardo4.md
-    #- Luana: sprint4\luana4.md
+    - Luana: sprint4\luana4.md
     - Mylena: sprint4\mylena4.md
   - Tutoriais:
     - Nova versão Upstream: tutoriais\atualizacao_upstream.md
