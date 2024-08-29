@@ -16,6 +16,8 @@
         <link rel="prev" href="../../sprint4/mylena4/">
       
       
+        <link rel="next" href="../erro_atualizacao_upstream/">
+      
       <link rel="icon" href="../../img/icon-debian.png">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.1.6">
     
@@ -263,7 +265,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../sprint4/mylena4/" class="md-tabs__link">
+      <a href="../../sprint4/anaLuiza4/" class="md-tabs__link">
         Sprint 4
       </a>
     </li>
@@ -900,6 +902,132 @@
   
   
     <li class="md-nav__item">
+      <a href="../../sprint4/anaLuiza4/" class="md-nav__link">
+        Ana Luíza
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sprint4/guilherme4/" class="md-nav__link">
+        Guilherme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sprint4/hellen4/" class="md-nav__link">
+        Hellen
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sprint4/henriqu.md" class="md-nav__link">
+        Henrique
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sprint4/igor4md" class="md-nav__link">
+        Igor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sprint4/ingrid4/" class="md-nav__link">
+        Ingrid
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sprint4/joao4/" class="md-nav__link">
+        João
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sprint4/leonardo4/" class="md-nav__link">
+        Leonardo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sprint4/luana4/" class="md-nav__link">
+        Luana
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../sprint4/mylena4/" class="md-nav__link">
         Mylena
       </a>
@@ -1091,6 +1219,20 @@
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../erro_atualizacao_upstream/" class="md-nav__link">
+        Erros comuns na atualização upstream
+      </a>
     </li>
   
 
@@ -1295,7 +1437,11 @@ Depois da alteração deverás er algo assim:</p>
 <ol>
 <li>Fazer os commits finais</li>
 </ol>
+<p>Uma dica importante é que você deve commitar os arquivos que editou separadamente. Por exemplo, se você precisou editar além do changelog, o arquivo watch, você fará um commit para o changelog e outro para o watch.</p>
 <pre><code class="language-shell">git add debian/changelog
+git commit --amend
+</code></pre>
+<pre><code class="language-shell">git add debian/watch
 git commit --amend
 </code></pre>
 <ol>
@@ -1311,6 +1457,7 @@ git commit --amend
 <pre><code class="language-shell">git push --all &amp;&amp; git push --tags
 </code></pre>
 <p>Feito isso, o salsa já irá reconhecer que houve mudanças e irá sugerir que seja feito um merge request. Então você irá no repositório oficial e seguir os passos que o próprio salsa pede para realizar o Merge. </p>
+<p>Lembrete: geralmente o merge request ocorre direto para a master, porém, no debian também pode ocorrer da branch master ser nomeada como debian/sid, que é equivalente à master, então não se assuste você está no caminho certo!</p>
 <h2 id="8-revisao">8. Revisão</h2>
 <p>Agora o seu pacote será revisado por algum DM do Debian. É só aguardar e ficar de olho nos comentários, pois o seu revisor poderá sugerir alterações.</p>
 <h3 id="historico-de-versao">Histórico de versão</h3>
@@ -1327,6 +1474,11 @@ git commit --amend
 <td>31/07/2024</td>
 <td>Mylena</td>
 <td>Criação do tutorial</td>
+</tr>
+<tr>
+<td>19/08/2024</td>
+<td>Luana</td>
+<td>Adição de informações</td>
 </tr>
 </tbody>
 </table>
