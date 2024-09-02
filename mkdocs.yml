@@ -89,6 +89,9 @@ nav:
     - Leonardo: sprint4\leonardo4.md
     - Luana: sprint4\luana4.md
     - Mylena: sprint4\mylena4.md
+  - Sprint 5:
+    - Clean Code: sprint5\clean-code.md
   - Tutoriais:
     - Nova versão Upstream: tutoriais\atualizacao_upstream.md
     - Erros comuns na atualização upstream: tutoriais\erro_atualizacao_upstream.md
+ 
