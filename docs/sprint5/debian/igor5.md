@@ -35,8 +35,7 @@ python-cytoolz é uma implementação do pacote toolz, o qual provê uma alta pe
 <br> [Link do respositório no salsa](https://salsa.debian.org/python-team/packages/python-cytoolz)
 <br> [Link do Lintian](https://udd.debian.org/lintian/?packages=python-cytoolz)
 <br> [Link do tracker](https://tracker.debian.org/pkg/python-cytoolz)
-
-<br> [Link do Merge Request](https://salsa.debian.org/python-team/packages/python-pika/-/merge_requests/3)
+<br> [Link do Merge Request](https://salsa.debian.org/python-team/packages/python-cytoolz/-/merge_requests/3)
 
 ## Package paste
 
