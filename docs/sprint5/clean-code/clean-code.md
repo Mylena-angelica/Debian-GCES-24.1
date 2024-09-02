@@ -7,6 +7,19 @@ No contexto da tarefa, sugerimos mudanças baseadas nesses princípios para melh
 ## OWASP
 ### Bruno
 ### Igor 
+### Hellen Faria
+Para a entrega do Clean Code, escolhi o projeto OWASP [Juice Shop](https://github.com/juice-shop/juice-shop). Utilizando a ferramenta Code Climate, foi possível analisar o projeto como um todo e identificar possíveis melhorias. A sugestão de melhoria se concentra no arquivo lib/startup/customizeApplication.ts, especificamente na função customizeApplication.
+![image](https://github.com/user-attachments/assets/698dd83d-7f8b-41de-9667-0b617550aa4a)
+Note que a função tem uma complexidade ciclomática de 8 devido ao número de ramos condicionais (if statements) e chamadas de funções diferentes. Essa alta complexidade torna o código mais difícil de entender, testar, e manter.
+### Refatoração proposta
+Refatorar a função customizeApplication para usar uma abordagem baseada em configuração, traz várias melhorias significativas em termos de Clean Code e manutenibilidade.
+
+![image](https://github.com/user-attachments/assets/446639b9-04d8-458d-aedd-8fe0c17f0b3c)
+
+Essa refatoração melhora a organização, modularidade, e clareza do código, seguindo princípios de Clean Code como a responsabilidade única e a redução da repetição. O código torna-se mais fácil de manter, menos propenso a erros e mais adaptável a mudanças futuras.
+
+
+
 ## MEC-ENERGIA API
 ### Leonardo
 
