@@ -776,6 +776,33 @@ Após a refatoração, o código foi submetido a um pull request. A refatoraçã
         <img src="../../img/henrique/sprint5/juice_MR.png" alt="getCodingChallenge" width="40%"/>
 </div>
 
+### Luana Ribeiro
+
+#### Juice-Shop
+
+O Juice-Shop é uma aplicação Web Pode ser utilizada em formações de segurança, demonstrações de consciencialização, CTFs e como cobaia para ferramentas de segurança. A Juice Shop engloba vulnerabilidades de todo o Top 10 da OWASP, juntamente com muitas outras falhas de segurança encontradas em aplicações do mundo real!
+
+![image](https://github.com/user-attachments/assets/89fd7678-27b5-487f-8e09-382e4581b424)
+
+### Análise de problemáticas
+
+Utilizando a ferramenta code climate foi encontrada uma função que precisava ser refatorada:
+![image](https://github.com/user-attachments/assets/24d36990-45ea-4d41-8917-5c9e74ebe649)
+![image](https://github.com/user-attachments/assets/60497b49-5455-4c74-8478-2c5e5afe8550)
+![image](https://github.com/user-attachments/assets/f5741ee8-c704-4461-b262-b95e7b2ca9b2)
+A função além de muito grande, possuem problemas de complexidade. 
+
+### Correções 
+
+Dessa forma, funções e variáveis foram renomeadas para descreverem melhor seus objetivos. Com relação a  modularidade, função foi dividida em várias funções menores para melhorar a legibilidade e reutilização. Por fim, o tratamento de erros foi direcionado para uma seção específica.
+
+![image](https://github.com/user-attachments/assets/87b9ec2c-2435-47c7-b1c6-09fdc1408c2a)
+![image](https://github.com/user-attachments/assets/54bf1044-4966-472b-b3b2-2e6ca5894806)
+
+### Pull Requests
+
+![image](https://github.com/user-attachments/assets/fc0dc6a8-3a38-4faa-b01d-adb4ce776206)
+
 ## MEC-ENERGIA API
 
 ### Leonardo
