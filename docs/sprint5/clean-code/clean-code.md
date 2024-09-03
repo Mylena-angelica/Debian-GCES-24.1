@@ -780,6 +780,97 @@ Após a refatoração, o código foi submetido a um pull request. A refatoraçã
 
 ### Leonardo
 
+Utilizando a ferramenta `Clean Code` no repositório [mec-energia-api](https://gitlab.com/lappis-unb/projetos-energia/mec-energia/mec-energia-api) foram encontrados possíveis problemas envolvendo má elaboração de código. Nesse caso, foi selecionado o método `validate_csv_row` do arquivo `contracts/services.py`. Segundo a análise do `Code Climate`, o método apresentava complexidade cognitiva de 37, sendo que o recomendado é 5, ou seja, muito acima do recomendado. 
+
+![cleancode1](../../img/leonardo/cleancode1.jpeg)
+
+## Refatoração proposta
+
+Para a refatoração do código foram criados outros 4 métodos, sendo eles: `error_append`, `check_value`, `get_max_values` e `error_detection`.
+
+    def error_append(self, field, errors):
+        errors[field].append(EnergyBillValueError if field=='invoice_in_reais' else ValueMaxError)
+
+    def check_value(self, value, max_value, row, field, errors):
+        try: 
+            value = float(value.replace(',', '.'))
+            if value > max_value:
+                self.error_append(field, errors)
+        except: 
+            row[field] = value
+            if(value != ""):
+                self.error_append(field, errors)
+
+    def get_max_values(self):
+        return [
+            ('invoice_in_reais', 99999999.99),
+            ('peak_consumption_in_kwh', 9999999.99),
+            ('off_peak_consumption_in_kwh', 9999999.99),
+            ('peak_measured_demand_in_kw', 9999999.99),
+            ('off_peak_measured_demand_in_kw', 9999999.99),
+        ]
+
+    def error_detection(self, row, errors):
+        for field, max_value in self.get_max_values():
+            value = row.get(field, "")
+            if isinstance(value, str):
+                self.check_value(value, max_value, row, field, errors)
+            
+            elif math.isnan(value):
+                row[field] = ""
+
+            elif value > max_value:
+                row[field] = value
+                self.error_append(field, errors)
+
+        if row.get('invoice_in_reais') == '':
+            errors['invoice_in_reais'].append(EnergyBillValueError)
+            
+
+    def validate_csv_row(self, row, consumer_unit_id):
+        errors = defaultdict(list)
+        date = ContractUtils().validate_date(row["date"])
+        if(not isinstance(date, datetime.date)):
+            errors["date"].append(FormatDateError)
+
+        elif models.EnergyBill.check_energy_bill_month_year(consumer_unit_id, date):
+            errors['date'].append(AlreadyHasEnergyBill)
+
+        else:
+            covered, contract_date = models.EnergyBill.check_energy_bill_covered_by_contract(consumer_unit_id, date)
+            if not covered:
+                month_name = contract_date.strftime("%B")
+                month_name_pt = month_translation[month_name]
+                contract_date_str = f"{month_name_pt} de {contract_date.year}"
+                dynamic_error_message = ErrorMensageParser.parse(DateNotCoverByContractError, (contract_date_str))
+                errors["date"].append(dynamic_error_message)
+
+        self.error_detection(row, errors)
+        return errors, date
+## Resultados
+
+Os resultados mostram que a função com maior complexidade do arquivo apresenta valor 6, e infelizamente, uma das funções possui um parâmetro a mais do que o recomendado.
+
+![cleancode2](../../img/leonardo/cleancode2.png)
+
+## Merge Request
+
+Foi criado um Merge Request para as alterações, além de uma issue detalhando as motivações da alteração.
+
+[Link Issue](https://gitlab.com/lappis-unb/projetos-energia/mec-energia/mec-energia-api/-/issues/200)
+
+[Link MR](https://gitlab.com/lappis-unb/projetos-energia/mec-energia/mec-energia-api/-/merge_requests/140)
+
+Entretanto, ao realizar o fork do projeto, a suíte de testes falhou em 2 testes.
+
+![uptodate](../../img/leonardo/uptodate.png)
+
+![pipeline](../../img/leonardo/pipeline.png)
+
+![errors](../../img/leonardo/errors.png)
+
+Após a refatoração do código, apenas esses mesmos erros persistiram.
+
 ### Mylena
 
 Para essa atividade, foi utilizado o código do projeto [mec-energia-api](https://gitlab.com/lappis-unb/projetos-energia/mec-energia/mec-energia-api). Realizei uma análise utilizando a ferramenta `Code Climate` e, a partir dos resultados obtidos, decidi quais aspectos seriam abordados para refatoração. A sugestão de melhoria foi implementada no código do arquivo `utils/energy_bill_util.py`, no qual a  complexidade cognitiva  seguindo os princípios de _Clean Code_
