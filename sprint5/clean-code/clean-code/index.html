@@ -1484,6 +1484,47 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#ingrid" class="md-nav__link">
+    Ingrid
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#melhorias-aplicadas" class="md-nav__link">
+    Melhorias Aplicadas
+  </a>
+  
+    <nav class="md-nav" aria-label="Melhorias Aplicadas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-modularizacao-da-funcao-setupnodeevents" class="md-nav__link">
+    1. Modularização da Função setupNodeEvents
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-reducao-da-complexidade-cognitiva" class="md-nav__link">
+    2. Redução da Complexidade Cognitiva
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-organizacao-das-funcoes-utilitarias" class="md-nav__link">
+    3. Organização das Funções Utilitárias
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#luana-ribeiro" class="md-nav__link">
     Luana Ribeiro
   </a>
@@ -1607,7 +1648,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-reducao-da-complexidade-cognitiva" class="md-nav__link">
+  <a href="#2-reducao-da-complexidade-cognitiva_1" class="md-nav__link">
     2. Redução da Complexidade Cognitiva
   </a>
   
@@ -1665,8 +1706,29 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#guilherme-peixoto" class="md-nav__link">
+    Guilherme Peixoto
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#antes-da-refatoracao" class="md-nav__link">
+    Antes da refatoração:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refatoracao-proposta_4" class="md-nav__link">
+    Refatoração proposta
+  </a>
   
 </li>
       
@@ -2453,38 +2515,38 @@ Note que a função tem uma complexidade ciclomática de 8 devido ao número de 
 <h3 id="henrique">Henrique</h3>
 <p>Para essa entrega, foi utilizado o código do Projeto OWASP <a href="https://github.com/juice-shop/juice-shop">Juice Shop</a>, no qual foi realizada uma análise utilizando a ferramenta <em>Code Climate</em>. A partir dos resultados obtidos, foram identificados pontos de melhoria para refatoração no arquivo <em>lib/codingChallenges.ts</em>. Dessa forma, as melhorias foram nas funções <em>findFilesWithCodeChallenges</em> e <em>getCodingChallengeFromFileContent</em>, com foco na redução da complexidade cognitiva, fazendo a separação dessas duas funções muito grandes, em pequenas funções mais específicas, seguindo os princípios de <em>Clean Code</em>.</p>
 <h4 id="findfileswithcodechallenges">findFilesWithCodeChallenges</h4>
-<div align="center">
-        <img src="../../img/henrique/sprint5/findFiles.png" alt="findFiles" width="80%"/>
-</div>
-
+<p><img alt="Find Files" src="../../../img/henrique/sprint5/findFiles.png" /></p>
 <h4 id="findfileswithcodechallenges-refatorado">findFilesWithCodeChallenges (Refatorado)</h4>
-<div align="center">
-        <img src="../../img/henrique/sprint5/findFiles_refact.png" alt="findFiles" width="80%"/>
-</div>
-
-<p><em>processPath</em>: Decide se o caminho é um diretório ou um arquivo e delega o processamento para as respectivas funções.
-<em>processDirectory</em>: Lida com a lógica de iterar sobre arquivos em um diretório.
-<em>processFile</em>: Lida com a lógica de leitura de arquivos e verificação de conteúdo.
-<em>containsCodeChallenge</em>: Verifica se o código contém desafios de código vulnerável.</p>
+<p><img alt="Find Files" src="../../../img/henrique/sprint5/findFiles_refact.png" /></p>
+<p><em>processPath</em>: Decide se o caminho é um diretório ou um arquivo e delega o processamento para as respectivas funções.</p>
+<p><em>processDirectory</em>: Lida com a lógica de iterar sobre arquivos em um diretório.</p>
+<p><em>processFile</em>: Lida com a lógica de leitura de arquivos e verificação de conteúdo.</p>
+<p><em>containsCodeChallenge</em>: Verifica se o código contém desafios de código vulnerável.</p>
 <h4 id="getcodingchallengefromfilecontent">getCodingChallengeFromFileContent</h4>
-<div align="center">
-        <img src="../../img/henrique/sprint5/getCoding.png" alt="getCodingChallenge" width="80%"/>
-</div>
-
+<p><img alt="Find Files" src="../../../img/henrique/sprint5/getCoding.png" /></p>
 <h4 id="getcodingchallengefromfilecontent-refatorado">getCodingChallengeFromFileContent (Refatorado)</h4>
-<div align="center">
-        <img src="../../img/henrique/sprint5/getCoding_refact.png" alt="getCodingChallenge" width="80%"/>
-</div>
-
-<p><em>extractSnippet</em>: Esta função isola a lógica de extração do snippet de código. Se o snippet não puder ser encontrado, uma exceção é lançada.
-<em>extractLineNumbers</em>: Esta função isola a lógica que encontra as linhas vulneráveis e neutras dentro do snippet. Isso separa a lógica de extração de linhas da lógica de manipulação de strings.
-<em>splitLines</em>: Lida com a divisão do snippet em linhas, independentemente de quebras de linha (\r\n, \n, \r).
-<em>cleanSnippet</em>: Remove as marcações específicas do snippet (como start, end, e hide) para deixar o código limpo.</p>
+<p><img alt="Find Files" src="../../../img/henrique/sprint5/getCoding_refact.png" /></p>
+<p><em>extractSnippet</em>: Esta função isola a lógica de extração do snippet de código. Se o snippet não puder ser encontrado, uma exceção é lançada.</p>
+<p><em>extractLineNumbers</em>: Esta função isola a lógica que encontra as linhas vulneráveis e neutras dentro do snippet. Isso separa a lógica de extração de linhas da lógica de manipulação de strings.</p>
+<p><em>splitLines</em>: Lida com a divisão do snippet em linhas, independentemente de quebras de linha (\r\n, \n, \r).</p>
+<p><em>cleanSnippet</em>: Remove as marcações específicas do snippet (como start, end, e hide) para deixar o código limpo.</p>
 <p>Após a refatoração, o código foi submetido a um pull request. A refatoração focou na melhoria da legibilidade e manutenção do código, resultando em um código mais modular e fácil de testar.</p>
 <div align="center">
         <img src="../../img/henrique/sprint5/juice_MR.png" alt="getCodingChallenge" width="40%"/>
 </div>
 
+<h3 id="ingrid">Ingrid</h3>
+<p>Para esta atividade, escolhi trabalhar no projeto <a href="https://github.com/juice-shop/juice-shop">OWASP Juice Shop</a>. As melhorias aplicadas foram identificadas por meio da plataforma <strong>Code Climate</strong>, que oferece uma análise detalhada do código-fonte, apontando questões relacionadas à complexidade, duplicação de código e tamanho excessivo de funções.
+<img alt="image" src="https://github.com/user-attachments/assets/86bcfe4b-9c81-49cf-89a3-d2061d934799" /></p>
+<h3 id="melhorias-aplicadas">Melhorias Aplicadas</h3>
+<h4 id="1-modularizacao-da-funcao-setupnodeevents">1. Modularização da Função <code>setupNodeEvents</code></h4>
+<p>A função <code>setupNodeEvents</code> era originalmente muito extensa, com mais de 77 linhas, o que ultrapassava o limite recomendado. Para melhorar sua legibilidade e manutenção, a função foi modularizada em várias funções menores e com responsabilidades específicas. </p>
+<h4 id="2-reducao-da-complexidade-cognitiva">2. Redução da Complexidade Cognitiva</h4>
+<p>Ao separar a função setupNodeEvents em pequenas funções, a complexidade cognitiva foi reduzida, tornando o código mais claro e fácil de entender. Cada função agora tem uma responsabilidade bem definida. </p>
+<h4 id="3-organizacao-das-funcoes-utilitarias">3. Organização das Funções Utilitárias</h4>
+<p>Funções utilitárias, como a geração de cupons e o tratamento de produtos, foram extraídas para melhorar a organização do código. Agora, essas funções podem ser reutilizadas, facilitando a manutenção.
+<img alt="image" src="https://github.com/user-attachments/assets/3b09acc0-8c77-4936-86c0-b5ec3d0dedeb" /></p>
+<p>link do fork : <a href="https://github.com/ingridSCarvalho/juice-shop">owasp - fork</a></p>
 <h3 id="luana-ribeiro">Luana Ribeiro</h3>
 <h4 id="juice-shop">Juice-Shop</h4>
 <p>O Juice-Shop é uma aplicação Web Pode ser utilizada em formações de segurança, demonstrações de consciencialização, CTFs e como cobaia para ferramentas de segurança. A Juice Shop engloba vulnerabilidades de todo o Top 10 da OWASP, juntamente com muitas outras falhas de segurança encontradas em aplicações do mundo real!</p>
@@ -2618,7 +2680,7 @@ if (off_peak_consumption and off_peak_consumption == 0) or (off_peak_measured_de
 <li><strong>Modularidade</strong>: A lógica de validação foi extraída para um método estático separado (<code>is_valid_consumption</code>), que encapsula a verificação se o consumo e a demanda medida são válidos. Isso melhora a clareza e a reutilização do código.</li>
 <li><strong>Clareza</strong>: A nova implementação é mais direta ao verificar a validade dos consumos e demandas. Usar o método <code>is_valid_consumption</code> melhora a legibilidade e reduz a complexidade cognitiva, alinhando-se ao princípio de clareza do Clean Code.</li>
 </ul>
-<h4 id="2-reducao-da-complexidade-cognitiva">2. <strong>Redução da Complexidade Cognitiva</strong></h4>
+<h4 id="2-reducao-da-complexidade-cognitiva_1">2. <strong>Redução da Complexidade Cognitiva</strong></h4>
 <p><strong>Simplicidade</strong>: A versão original da função possui múltiplas condições e verificações que aumentam a complexidade cognitiva. A nova versão simplifica a lógica ao utilizar o resultado das verificações feitas pelo método <code>is_valid_consumption</code>, reduzindo a complexidade cognitiva e tornando o código mais fácil de entender e manter.</p>
 <h2 id="mr">MR</h2>
 <p>No meu repositório, o pipeline falhou após eu adicionar um novo código, pois a parte de testes não funcionou devido às mudanças que fiz. Foram mais de cinco arquivos que precisavam ser alterados para corrigir os problemas. No entanto, uma <a href="https://gitlab.com/lappis-unb/projetos-energia/mec-energia/mec-energia-api/-/issues/199">issue</a> foi criada com uma sugestão de refatoração, incluindo trechos de código para melhorar a implementação.</p>
@@ -2680,6 +2742,137 @@ if (off_peak_consumption and off_peak_consumption == 0) or (off_peak_measured_de
 <p>Como sugestão de refatoração restringi a quantidade de dígitos</p>
 <p><code>/(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/</code></p>
 <p>Também adicionei uma validação da entrada verificando se a string tem o formato esperado antes de aplicar a expressão regular.</p>
+<h3 id="guilherme-peixoto">Guilherme Peixoto</h3>
+<p>Nesta entrega optei pelo projeto WebGoat: A deliberately insecure Web Application, que contem diversos exercícios que destinam-se a serem usados para aprender sobre segurança e técnicas de teste de penetração, criados de forma a orientar sobre falhas comuns de segurança em aplicações web.</p>
+<p><img src="../../img/Guilherme Lima/the_project.png" alt="getCodingChallenge" width="60%"/></p>
+<p>Apos a utilização da ferramenta Code Climate, foram detectadas diversos pontos de melhorias mas a funcção escolhida foi a injectableQuery.</p>
+<p><img src="../../img/Guilherme Lima/refact_before1.png" alt="getCodingChallenge" width="60%"/></p>
+<h2 id="antes-da-refatoracao">Antes da refatoração:</h2>
+<pre><code class="language-java">  public AttackResult injectableQuery(String accountName) {
+    String query = &quot;&quot;;
+    try (Connection connection = dataSource.getConnection()) {
+      boolean usedUnion = true;
+      query = &quot;SELECT * FROM user_data WHERE last_name = '&quot; + accountName + &quot;'&quot;;
+      // Check if Union is used
+      if (!accountName.matches(&quot;(?i)(^[^-/*;)]*)(\\s*)UNION(.*$)&quot;)) {
+        usedUnion = false;
+      }
+      try (Statement statement =
+          connection.createStatement(
+              ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+        ResultSet results = statement.executeQuery(query);
+
+        if ((results != null) &amp;&amp; results.first()) {
+          ResultSetMetaData resultsMetaData = results.getMetaData();
+          StringBuilder output = new StringBuilder();
+
+          output.append(SqlInjectionLesson5a.writeTable(results, resultsMetaData));
+
+          String appendingWhenSucceded;
+          if (usedUnion)
+            appendingWhenSucceded =
+                &quot;Well done! Can you also figure out a solution, by appending a new SQL Statement?&quot;;
+          else
+            appendingWhenSucceded =
+                &quot;Well done! Can you also figure out a solution, by using a UNION?&quot;;
+          results.last();
+
+          if (output.toString().contains(&quot;dave&quot;) &amp;&amp; output.toString().contains(&quot;passW0rD&quot;)) {
+            output.append(appendingWhenSucceded);
+            return success(this)
+                .feedback(&quot;sql-injection.advanced.6a.success&quot;)
+                .feedbackArgs(output.toString())
+                .output(&quot; Your query was: &quot; + query)
+                .build();
+          } else {
+            return failed(this).output(output.toString() + YOUR_QUERY_WAS + query).build();
+          }
+        } else {
+          return failed(this)
+              .feedback(&quot;sql-injection.advanced.6a.no.results&quot;)
+              .output(YOUR_QUERY_WAS + query)
+              .build();
+        }
+      } catch (SQLException sqle) {
+        return failed(this).output(sqle.getMessage() + YOUR_QUERY_WAS + query).build();
+      }
+    } catch (Exception e) {
+      return failed(this)
+          .output(this.getClass().getName() + &quot; : &quot; + e.getMessage() + YOUR_QUERY_WAS + query)
+          .build();
+    }
+  }
+
+</code></pre>
+<h2 id="refatoracao-proposta_4">Refatoração proposta</h2>
+<pre><code class="language-java">    public AttackResult injectableQuery(String accountName) {
+        String query = &quot;SELECT * FROM user_data WHERE last_name = '&quot; + accountName + &quot;'&quot;;
+        boolean usedUnion = this.unionQueryChecker(accountName);
+
+        try (Connection connection = dataSource.getConnection()) {
+            return executeSqlInjection(connection,query,usedUnion);
+        } catch (Exception e) {
+            return failed(this)
+                .output(this.getClass().getName() + &quot; : &quot; + e.getMessage() + YOUR_QUERY_WAS + query)
+                .build();
+        }
+    }
+
+    private boolean unionQueryChecker(String accountName){
+        return accountName.matches(&quot;(?i)(^[^-/*;)]*)(\\s*)UNION(.*$)&quot;);
+    }
+
+    private AttackResult executeSqlInjection(Connection connection, String query, boolean usedUnion){
+        try (Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY)) {
+
+            ResultSet results = statement.executeQuery(query);
+
+            if (!((results != null) &amp;&amp; results.first())) {
+                return failed(this)
+                    .feedback(&quot;sql-injection.advanced.6a.no.results&quot;)
+                    .output(YOUR_QUERY_WAS + query)
+                    .build();   
+            }
+
+            ResultSetMetaData resultsMetaData = results.getMetaData();
+            StringBuilder output = new StringBuilder();
+            String appendingWhenSucceded = this.appendSuccededMessage(usedUnion);
+
+            output.append(SqlInjectionLesson5a.writeTable(results, resultsMetaData));
+            results.last();
+
+            return verifySqlInjection(output, appendingWhenSucceded, query);
+        } catch (SQLException sqle) {
+            return failed(this).output(sqle.getMessage() + YOUR_QUERY_WAS + query).build();
+        }
+    }
+
+    private String appendSuccededMessage(boolean isUsedUnion){
+        String appendingWhenSucceded = &quot;Well done! Can you also figure out a solution, by &quot;;
+
+        appendingWhenSucceded += isUsedUnion ? 
+            &quot;appending a new SQL Statement?&quot; :
+            &quot;using a UNION?&quot;;
+
+        return appendingWhenSucceded; 
+    }
+
+    private AttackResult verifySqlInjection(StringBuilder output,String appendingWhenSucceded, String query ){
+        if (!(output.toString().contains(&quot;dave&quot;) &amp;&amp; output.toString().contains(&quot;passW0rD&quot;))) {
+            return failed(this).output(output.toString() + YOUR_QUERY_WAS + query).build();
+        } 
+
+        output.append(appendingWhenSucceded);
+        return success(this)
+            .feedback(&quot;sql-injection.advanced.6a.success&quot;)
+            .feedbackArgs(output.toString())
+            .output(&quot; Your query was: &quot; + query)
+            .build();
+    }
+</code></pre>
+<p>Com foco na redução da complexidade cognitiva, separando a função grande em outras pequenas funções com propositos mais específicos, seguindo os princípios de <em>Clean Code</em>. Além disso foi aplicado o return early. 
+Apos a refatoação, a ferramenta code climate foi novamente executada, porém não apontou novas melhorias para a função. Então foi submetida uma sugestão de melhoria para o git. </p>
+<p><img src="../../img/Guilherme Lima/refactor.png" alt="getCodingChallenge" width="60%"/></p>
 
 
 
