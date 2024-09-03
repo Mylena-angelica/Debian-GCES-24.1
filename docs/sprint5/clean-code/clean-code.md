@@ -338,7 +338,8 @@ void handle_read_event(int fd) {
 
 ### Igor
 
-Para essa atividade, foi utilizado o código do projeto [NINJA-PingU](https://github.com/OWASP/NINJA-PingU). A sugestão de melhoria foi implementada no arquivo `src/listener.c` do código. As sugestões foram embasadas na literatura vigente da disciplina, Clean Code e Clean Architecture. Desse modo, a seguir será apresentado o código original, os problemas encontrados nessa solução, o código refatorado e a explicação do porque foi realizada cada alteração com sua motivação.
+Neste projeto, utilizamos o código do [NINJA-PingU](https://github.com/OWASP/NINJA-PingU) como base. As melhorias foram implementadas no arquivo `src/listener.c`, seguindo os princípios do _Clean Code_ e _Clean Architecture_, conforme abordado na literatura da disciplina. A seguir, apresentaremos o código original, os problemas identificados, o código refatorado, e a justificativa para cada alteração realizada, explicando a motivação por trás dessas mudanças.
+
 
 #### Código antes da refatoração:
 ```c
@@ -373,135 +374,250 @@ struct sockaddr_in source, dest;
 
 
 void createSock() {
-	mSocket = socket(AF_INET, SOCK_RAW, IPPROTO_TCP);
-	if (mSocket < 0) {
-		printf("Socket Error\n");
-		exit(1);
-	}
+    mSocket = socket(AF_INET, SOCK_RAW, IPPROTO_TCP);
+    if (mSocket < 0) {
+        printf("Socket Error\n");
+        exit(1);
+    }
 }
 void *start_receiver(void *agentI) {
-	struct agentInfo *aInfo = agentI;
-	sem_wait(aInfo->startB);
-	printf("\t+Listener  Started at port [%u]\n", aInfo->mPort);
+    struct agentInfo *aInfo = agentI;
+    sem_wait(aInfo->startB);
+    printf("\t+Listener  Started at port [%u]\n", aInfo->mPort);
 
-	openSynFile();
+    openSynFile();
 
-	int saddr_size, data_size;
-	struct sockaddr saddr;
+    int saddr_size, data_size;
+    struct sockaddr saddr;
 
-	char *mBuffer = (char *) malloc(80000);
+    char *mBuffer = (char *) malloc(80000);
 
-	//creates the socket
-	createSock();
+    //creates the socket
+    createSock();
 
-	//tmp cache to hold results
-	int tmpFoundHosts = 0;
+    //tmp cache to hold results
+    int tmpFoundHosts = 0;
 
-	//main loop
-	while (endOfScan == FALSE) {
-		saddr_size = sizeof saddr;
+    //main loop
+    while (endOfScan == FALSE) {
+        saddr_size = sizeof saddr;
 
-		//recieve packets
-		data_size = recvfrom(mSocket, mBuffer, 65536, 0, &saddr, (socklen_t*) &saddr_size);
-		if (data_size < 0) {
-			printf("Recvfrom error , failed to get packets\n");
-			exit(1);
-		}
+        //recieve packets
+        data_size = recvfrom(mSocket, mBuffer, 65536, 0, &saddr, (socklen_t*) &saddr_size);
+        if (data_size < 0) {
+            printf("Recvfrom error , failed to get packets\n");
+            exit(1);
+        }
 
-		struct iphdr *iph = (struct iphdr*) mBuffer;
-		unsigned short iphdrlen;
-		iphdrlen = iph->ihl * 4;
-		struct tcphdr *tcph = (struct tcphdr*) (mBuffer + iphdrlen);
+        struct iphdr *iph = (struct iphdr*) mBuffer;
+        unsigned short iphdrlen;
+        iphdrlen = iph->ihl * 4;
+        struct tcphdr *tcph = (struct tcphdr*) (mBuffer + iphdrlen);
 
-		//we uniquely identify packets by magic port and magic ack seq number	
-		if ((unsigned int) tcph->ack == 1 &&
-					 ntohs(tcph->dest) == aInfo->mPort &&
-					 ntohl(tcph->ack_seq) == MAGIC_ACKSEQ) {
-			//port open
-			if ((unsigned int) tcph->rst  == 0 ) {
-				struct iphdr *iph = (struct iphdr *) mBuffer;
-				iphdrlen = (int) iph->ihl * 4;
-				memset(&source, 0, sizeof(source));
-				source.sin_addr.s_addr = (unsigned int) iph->saddr;
-				memset(&dest, 0, sizeof(dest));
-				dest.sin_addr.s_addr = iph->daddr;
+        //we uniquely identify packets by magic port and magic ack seq number	
+        if ((unsigned int) tcph->ack == 1 &&
+                     ntohs(tcph->dest) == aInfo->mPort &&
+                     ntohl(tcph->ack_seq) == MAGIC_ACKSEQ) {
+            //port open
+            if ((unsigned int) tcph->rst  == 0 ) {
+                struct iphdr *iph = (struct iphdr *) mBuffer;
+                iphdrlen = (int) iph->ihl * 4;
+                memset(&source, 0, sizeof(source));
+                source.sin_addr.s_addr = (unsigned int) iph->saddr;
+                memset(&dest, 0, sizeof(dest));
+                dest.sin_addr.s_addr = iph->daddr;
 
-				if (synOnly == FALSE) {
-					pthread_mutex_lock (&mutex_epfd);
-					while (create_and_connect(inet_ntoa(source.sin_addr), ntohs(tcph->source), epfd) != 0) {
-						//printf("problem");
-					} 
-					pthread_mutex_unlock (&mutex_epfd);
-				}
+                if (synOnly == FALSE) {
+                    pthread_mutex_lock (&mutex_epfd);
+                    while (create_and_connect(inet_ntoa(source.sin_addr), ntohs(tcph->source), epfd) != 0) {
+                        //printf("problem");
+                    } 
+                    pthread_mutex_unlock (&mutex_epfd);
+                }
 				
-				//increments counter result
-				tmpFoundHosts++;
-				if (tmpFoundHosts >= CACHE_SYNC) {
-					incFoundHosts(tmpFoundHosts);
-					tmpFoundHosts = 0;
-				}
-				//persists results
-				persistSyn(inet_ntoa(source.sin_addr), ntohs(tcph->source));
-			} else { //port closed
-				//persists results
-				//persistClosedSyn(inet_ntoa(source.sin_addr), ntohs(tcph->source));
-			}
-		} else { //uncomment for debugging purposes
-			/*struct iphdr *iph = (struct iphdr *) mBuffer;
-			iphdrlen = (int) iph->ihl * 4;
-			memset(&source, 0, sizeof(source));
-			source.sin_addr.s_addr = (unsigned int) iph->saddr;
-			memset(&dest, 0, sizeof(dest));
-			dest.sin_addr.s_addr = iph->daddr;
-			printf("\nTo[%d] From[%s:%d] syn[%d] ack[%d] rst[%d] ack_seq[%d] fin[%d]\n",tcph->source,inet_ntoa(source.sin_addr),
-			ntohs(tcph->source), (unsigned int) tcph->syn,(unsigned int) tcph->ack,(unsigned int) tcph->rst,ntohl(tcph->ack_seq),(unsigned int) tcph->fin );
-			*/
-		}
-	}
-	close(mSocket);
-	return NULL;
+                //increments counter result
+                tmpFoundHosts++;
+                if (tmpFoundHosts >= CACHE_SYNC) {
+                    incFoundHosts(tmpFoundHosts);
+                    tmpFoundHosts = 0;
+                }
+                //persists results
+                persistSyn(inet_ntoa(source.sin_addr), ntohs(tcph->source));
+            } else { //port closed
+                //persists results
+                //persistClosedSyn(inet_ntoa(source.sin_addr), ntohs(tcph->source));
+            }
+        } else { //uncomment for debugging purposes
+            /*struct iphdr *iph = (struct iphdr *) mBuffer;
+            iphdrlen = (int) iph->ihl * 4;
+            memset(&source, 0, sizeof(source));
+            source.sin_addr.s_addr = (unsigned int) iph->saddr;
+            memset(&dest, 0, sizeof(dest));
+            dest.sin_addr.s_addr = iph->daddr;
+            printf("\nTo[%d] From[%s:%d] syn[%d] ack[%d] rst[%d] ack_seq[%d] fin[%d]\n",tcph->source,inet_ntoa(source.sin_addr),
+            ntohs(tcph->source), (unsigned int) tcph->syn,(unsigned int) tcph->ack,(unsigned int) tcph->rst,ntohl(tcph->ack_seq),(unsigned int) tcph->fin );
+            */
+        }
+    }
+    close(mSocket);
+    return NULL;
 }
 ```
 
 #### Problemas encontrados:
 
 ##### 1. Tamanho e Complexidade de Funções
-O princípio SRP (Single Responsibility Principle) do SOLID afirma que uma classe ou função deve ter uma única responsabilidade. No código original, a função start_receiver() é um exemplo clássico de violação deste princípio. Ela é longa, realiza múltiplas tarefas e não está focada em uma única responsabilidade. Ela cria o socket, recebe pacotes, processa os pacotes e persiste resultados, tudo em um único bloco de código.
+O princípio SRP (Single Responsibility Principle) do SOLID estabelece que uma classe ou função deve ter uma única responsabilidade. No código original, a função `start_receiver()` ilustra claramente uma violação desse princípio. Ela é extensa, executa múltiplas tarefas e não se concentra em uma única responsabilidade. Essa função não apenas cria o socket, mas também recebe pacotes, processa-os e persiste os resultados, tudo em um único bloco de código.
 
-Essa prática de agregar múltiplas responsabilidades em uma única função resulta em código difícil de ler, testar e manter. Em termos de Clean Code, funções longas e multifuncionais devem ser divididas em funções menores, cada uma com uma única responsabilidade. Isso facilita a compreensão do fluxo lógico do programa e reduz a complexidade ciclomática, um importante indicador da probabilidade de introdução de erros.
+Essa prática de concentrar múltiplas responsabilidades em uma única função resulta em código difícil de ler, testar e manter. De acordo com os princípios do Clean Code, funções longas e multifuncionais devem ser divididas em funções menores, cada uma dedicada a uma única responsabilidade. Isso não só facilita a compreensão do fluxo lógico do programa, como também reduz a complexidade ciclomática, um indicador crucial da probabilidade de introdução de erros.
 
 ##### 2.  Responsabilidade Única e Coesão
-Além disso, a coesão é baixa, já que a função manipula várias responsabilidades diferentes em um único lugar, resultando em um código que não é modular e é difícil de modificar. Ao quebrar a função em funções menores, podemos criar um código que seja mais fácil de entender e modificar, além de permitir a reutilização de partes do código em outros contextos.
+Além disso, a função apresenta baixa coesão, pois manipula várias responsabilidades distintas em um único lugar, o que resulta em um código não modular e difícil de modificar. Ao dividir essa função em funções menores, conseguimos criar um código mais fácil de entender e modificar, além de permitir a reutilização de partes do código em outros contextos.
 
-##### 3. Gerenciamento de Recursos e Memória
-O código original faz uso de alocação dinâmica de memória com malloc para a variável mBuffer, mas não libera a memória alocada, o que pode levar a vazamentos de memória. O gerenciamento adequado de recursos é uma prática essencial em Clean Code e deve ser uma prioridade, especialmente em sistemas que funcionam por longos períodos, como servidores. A memória deve sempre ser liberada após o uso com free, garantindo que não haja desperdício de recursos.
+##### 3. Gerenciamento de Recursos e Memória 
+O código original utiliza alocação dinâmica de memória com malloc para a variável `mBuffer`, mas não libera a memória alocada, o que pode causar vazamentos de memória. O gerenciamento adequado de recursos é uma prática fundamental em _Clean Code_ e deve ser uma prioridade, especialmente em sistemas que operam por longos períodos, como servidores. A memória deve sempre ser liberada após o uso com `free()`, garantindo que não haja desperdício de recursos
 
 ##### 4. Variáveis
 ###### 4.1. Uso de Variáveis Globais
-Variáveis globais como mSocket, logfile, i, j, source, e dest são usadas em todo o código. O uso de variáveis globais pode levar a efeitos colaterais não intencionais e dificulta o rastreamento do estado do programa, tornando o código mais difícil de depurar e testar.
+Variáveis globais como `mSocket`, `source`, e `dest` são usadas em todo o código, enquanto `logfile`, `i` e `j` são variáveis globais, as quais nem são utilizadas no decorrer do código. O uso de variáveis globais pode resultar em efeitos colaterais indesejados e dificulta o rastreamento do estado do programa, tornando o código mais difícil de depurar e testar.
 
 ###### 4.2. Uso de Números "Mágicos"
 O uso de números "mágicos" (constantes numéricas sem significado evidente, como 65536, 80000) no código original é um problema clássico de manutenção. Esses valores não são autoexplicativos e podem gerar confusão se usados em mais de um lugar no código. Clean Code recomenda substituir números mágicos por constantes nomeadas, como MAX_BUFFER_SIZE ou RECEIVE_BUFFER_SIZE, o que torna o código mais legível e menos propenso a erros.
 
-###### 4.3 Nomes de Variáveis e Funções
-Uma das regras básicas de Clean Code é que o código deve ser autoexplicativo. Nomes de variáveis e funções devem expressar claramente a intenção do código sem a necessidade de comentários adicionais. No código original, variáveis como mSocket, i, j, aInfo, e iphdrlen têm nomes criptográficos, que dificultam a compreensão imediata do que elas representam. Esse problema é frequentemente identificado como "nomenclatura obscura", o que compromete a legibilidade e aumenta o tempo necessário para um novo desenvolvedor entender o código.
+O uso de números "mágicos" (constantes numéricas sem significado evidente, como 65536 ou 80000) no código original é um problema clássico de manutenção. Esses valores não são autoexplicativos e podem gerar confusão, especialmente se utilizados em mais de um ponto do código. O _Clean Code_ recomenda substituir números mágicos por constantes nomeadas, como `MAX_BUFFER_SIZE` ou `RECEIVE_BUFFER_SIZE`, tornando o código mais legível e menos propenso a erros.
+
+###### 4.3 Nomes de Variáveis e Funções 
+Uma das regras fundamentais do _Clean Code_ é que o código deve ser autoexplicativo. Nomes de variáveis e funções devem expressar claramente a intenção do código, eliminando a necessidade de comentários adicionais. No código original, variáveis como `mSocket`, `aInfo`, e `iphdrlen` possuem nomes criptográficos, o que dificulta a compreensão imediata de seus propósitos. Esse problema, conhecido como "nomenclatura obscura", compromete a legibilidade e aumenta o tempo necessário para que um novo desenvolvedor entenda o código.
+
 
 ##### 5. Detalhes
 ###### 5.1. Comentários
-Comentários são frequentemente necessários para explicar trechos de código complexos. No entanto, Clean Code sugere que o código deve ser escrito de forma tão clara que os comentários se tornem desnecessários. No código analisado, há vários comentários que explicam o "como" em vez de "por que", o que é uma prática a ser evitada. Comentários que explicam como o código funciona podem ser substituídos por uma escolha melhor de nomes de variáveis e funções, enquanto comentários que explicam o "por que" oferecem mais valor ao leitor.
+Comentários são frequentemente necessários para explicar trechos de código complexos. No entanto, _Clean Code_ sugere que o código deve ser escrito de forma tão clara que os comentários se tornem desnecessários. No código analisado, há vários comentários que explicam o "como" em vez de "por que", o que é uma prática a ser evitada. Comentários que explicam como o código funciona podem ser substituídos por uma escolha melhor de nomes de variáveis e funções, enquanto comentários que explicam o "por que" oferecem mais valor ao leitor.
 
 ###### 5.2. Tratamento de Erros
-O tratamento de erros no código original é rudimentar e não oferece informações suficientes para diagnóstico em caso de falha. Por exemplo, quando a criação do socket falha, o programa simplesmente imprime "Socket Error" e termina. Esta prática não está alinhada com a recomendação de Clean Code de fornecer mensagens de erro claras e úteis. Além disso, o uso de exit(1) interrompe abruptamente a execução, o que pode ser aceitável em alguns contextos, mas não é uma solução ideal, especialmente em sistemas maiores onde a recuperação de erros é crítica.
+O tratamento de erros no código original é rudimentar e não oferece informações suficientes para diagnóstico em caso de falha. Por exemplo, quando a criação do socket falha, o programa simplesmente imprime "Socket Error" e termina. Esta prática não está alinhada com a recomendação de _Clean Code_ de fornecer mensagens de erro claras e úteis. Além disso, o uso de exit(1) interrompe abruptamente a execução, o que pode ser aceitável em alguns contextos, mas não é uma solução ideal, especialmente em sistemas maiores onde a recuperação de erros é crítica.
 
 ###### 5.3 Estrutura do Código e Estilo
 A estrutura do código, como a organização das funções e o estilo de formatação, não é consistente. Algumas funções e blocos de código não seguem um padrão claro de espaçamento ou indentação. A inconsistência na formatação pode dificultar a leitura do código, especialmente em projetos grandes com vários desenvolvedores.
 
-#### Código com solução 
+#### Código com solução
+```c
+/*   OWASP NINJA PingU: Is Not Just a Ping Utility
+ *
+ *   Copyright (C) 2014 Guifre Ruiz <guifre.ruiz@owasp.org>
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-#### Refatorações designadas para solução / explicação 
+#include <netinet/ip_icmp.h>
+#include <netinet/udp.h>
+#include <arpa/inet.h>
 
-Para a solução proposta foi retirada a utilização das variáveis globais, as quais algumas não eram utilizadas e outras que foram acopladas. Além de definir o nome de constantes como BUFFER_SIZE e PACKET_SIZE. 
+#include "spotter.c"
 
+#define BUFFER_SIZE 80000
+#define PACKET_SIZE 65536
+
+typedef struct {
+    int socket_fd;
+    char *buffer;
+    struct sockaddr_in source, dest;
+} PacketReceiver;
+
+int create_socket() {
+    int socket_fd = socket(AF_INET, SOCK_RAW, IPPROTO_TCP);
+    if (socket_fd < 0) {
+        perror("Socket creation failed");
+        exit(EXIT_FAILURE);
+    }
+    return socket_fd;
+}
+
+PacketReceiver* init_packet_receiver() {
+    PacketReceiver *receiver = malloc(sizeof(PacketReceiver));
+    if (!receiver) {
+        perror("Memory allocation failed");
+        exit(EXIT_FAILURE);
+    }
+    receiver->socket_fd = create_socket();
+    receiver->buffer = malloc(BUFFER_SIZE);
+    if (!receiver->buffer) {
+        perror("Memory allocation for buffer failed");
+        free(receiver);
+        exit(EXIT_FAILURE);
+    }
+    return receiver;
+}
+
+void process_packet(PacketReceiver *receiver, struct agentInfo *aInfo) {
+    struct sockaddr saddr;
+    socklen_t saddr_size = sizeof(saddr);
+
+    int data_size = recvfrom(receiver->socket_fd, receiver->buffer, PACKET_SIZE, 0, &saddr, &saddr_size);
+    if (data_size < 0) {
+        perror("Failed to receive packets");
+        exit(EXIT_FAILURE);
+    }
+
+    struct iphdr *iph = (struct iphdr*) receiver->buffer;
+    unsigned short iphdrlen = iph->ihl * 4;
+    struct tcphdr *tcph = (struct tcphdr*) (receiver->buffer + iphdrlen);
+
+    if ((unsigned int) tcph->ack == 1 &&
+        ntohs(tcph->dest) == aInfo->mPort &&
+        ntohl(tcph->ack_seq) == MAGIC_ACKSEQ) {
+
+        if ((unsigned int) tcph->rst == 0) {
+            receiver->source.sin_addr.s_addr = iph->saddr;
+            receiver->dest.sin_addr.s_addr = iph->daddr;
+
+            if (!synOnly) {
+                pthread_mutex_lock(&mutex_epfd);
+                while (create_and_connect(inet_ntoa(receiver->source.sin_addr), ntohs(tcph->source), epfd) != 0) {
+                    // printf("problem");
+                }
+                pthread_mutex_unlock(&mutex_epfd);
+            }
+
+            incFoundHosts(1);
+            persistSyn(inet_ntoa(receiver->source.sin_addr), ntohs(tcph->source));
+        }
+    }
+}
+
+void* start_receiver(void *agentI) {
+    struct agentInfo *aInfo = agentI;
+    sem_wait(aInfo->startB);
+    printf("\t+Listener Started at port [%u]\n", aInfo->mPort);
+
+    openSynFile();
+    PacketReceiver *receiver = init_packet_receiver();
+
+    while (!endOfScan) {
+        process_packet(receiver, aInfo);
+    }
+
+    close(receiver->socket_fd);
+    free(receiver->buffer);
+    free(receiver);
+    return NULL;
+}
+```
+
+#### Refatorações designadas para solução
+
+Na solução proposta, a utilização de variáveis globais foi eliminada. Algumas dessas variáveis não estavam sendo utilizadas, enquanto outras foram devidamente acopladas em funções ou estruturas mais apropriadas. Além disso, foram definidas constantes com nomes significativos, como `BUFFER_SIZE` e `PACKET_SIZE`. Resultando na eliminação de variáveis globais, números mágicos e melhorando alguns nomes de variáveis.
 ```c
 #include <netinet/ip_icmp.h>
 #include <netinet/udp.h>
@@ -519,8 +635,7 @@ typedef struct {
 } PacketReceiver;
 ```
 
-A função start_receiver foi reduzida, dividindo a resposabilidade com outras funções, as quais realizam trabalhos mais pontuais. Assim, auxiliando a diminuir o tamanho e complexidade da função e, dessa maneira, aumentando a Coesão.
-
+A função `start_receiver()`, que anteriormente concentrava praticamente toda a lógica do programa, foi simplificada ao ser dividida em funções menores, cada uma responsável por tarefas mais específicas. Essa refatoração ajudou a reduzir o tamanho e a complexidade da função principal, aumentando a coesão do código e facilitando sua manutenção.
 ```c
 void* start_receiver(void *agentI) {
     struct agentInfo *aInfo = agentI;
@@ -541,7 +656,7 @@ void* start_receiver(void *agentI) {
 }
 ```
 
-A nova função init_packet_receiver ficou responsabilizada pela inicialização do pacote recebido, além de melhorar as mensagens e tratamento de erro.
+A nova função `init_packet_receiver()` agora é responsável pela inicialização dos pacotes recebidos. Com disso, ela melhora as mensagens e o tratamento de erros, proporcionando uma abordagem mais clara e robusta para o gerenciamento de pacotes.
 ```c
 PacketReceiver* init_packet_receiver() {
     PacketReceiver *receiver = malloc(sizeof(PacketReceiver));
@@ -560,7 +675,7 @@ PacketReceiver* init_packet_receiver() {
 }
 ```
 
-A parte de processamento do pacote foi redirecionada para uma função, a qual eliminamos a utilização de if desnecessário, a remoção de código duplicado, atribuindo os valores de source e dest centralizados dentro da função.
+O processamento dos pacotes foi transferido para a função `process_packet()`. Nessa refatoração, eliminamos um `if` desnecessário e removemos código duplicado. Além disso, os valores de source e dest foram centralizados dentro da função, tornando o código mais limpo e eficiente.
 ```c
 void process_packet(PacketReceiver *receiver, struct agentInfo *aInfo) {
     struct sockaddr saddr;
@@ -598,7 +713,7 @@ void process_packet(PacketReceiver *receiver, struct agentInfo *aInfo) {
     }
 }
 ```
-
+Para toda a realização do trabalho foi pensado em nomes de variáveis e funções mais coerentes, foi realizado um gerenciamento de recursos e memória adequado para evitar qualquer problema e foi seguido um padrão quantos a estrutura do código.
 
 #### PR
 [Pull Request](https://github.com/OWASP/NINJA-PingU/pull/8)
@@ -661,6 +776,7 @@ Após a refatoração, o código foi submetido a um pull request. A refatoraçã
         <img src="../../img/henrique/sprint5/juice_MR.png" alt="getCodingChallenge" width="40%"/>
 </div>
 
+
 ### Ingrid
 
 Para esta atividade, escolhi trabalhar no projeto [OWASP Juice Shop](https://github.com/juice-shop/juice-shop). As melhorias aplicadas foram identificadas por meio da plataforma **Code Climate**, que oferece uma análise detalhada do código-fonte, apontando questões relacionadas à complexidade, duplicação de código e tamanho excessivo de funções.
@@ -681,9 +797,128 @@ Funções utilitárias, como a geração de cupons e o tratamento de produtos, f
 
 link do fork : [owasp - fork](https://github.com/ingridSCarvalho/juice-shop)
 
+### Luana Ribeiro
+
+#### Juice-Shop
+
+O Juice-Shop é uma aplicação Web Pode ser utilizada em formações de segurança, demonstrações de consciencialização, CTFs e como cobaia para ferramentas de segurança. A Juice Shop engloba vulnerabilidades de todo o Top 10 da OWASP, juntamente com muitas outras falhas de segurança encontradas em aplicações do mundo real!
+
+![image](https://github.com/user-attachments/assets/89fd7678-27b5-487f-8e09-382e4581b424)
+
+### Análise de problemáticas
+
+Utilizando a ferramenta code climate foi encontrada uma função que precisava ser refatorada:
+![image](https://github.com/user-attachments/assets/24d36990-45ea-4d41-8917-5c9e74ebe649)
+![image](https://github.com/user-attachments/assets/60497b49-5455-4c74-8478-2c5e5afe8550)
+![image](https://github.com/user-attachments/assets/f5741ee8-c704-4461-b262-b95e7b2ca9b2)
+A função além de muito grande, possuem problemas de complexidade. 
+
+### Correções 
+
+Dessa forma, funções e variáveis foram renomeadas para descreverem melhor seus objetivos. Com relação a  modularidade, função foi dividida em várias funções menores para melhorar a legibilidade e reutilização. Por fim, o tratamento de erros foi direcionado para uma seção específica.
+
+![image](https://github.com/user-attachments/assets/87b9ec2c-2435-47c7-b1c6-09fdc1408c2a)
+![image](https://github.com/user-attachments/assets/54bf1044-4966-472b-b3b2-2e6ca5894806)
+
+### Pull Requests
+
+![image](https://github.com/user-attachments/assets/fc0dc6a8-3a38-4faa-b01d-adb4ce776206)
+
+
 ## MEC-ENERGIA API
 
 ### Leonardo
+
+Utilizando a ferramenta `Clean Code` no repositório [mec-energia-api](https://gitlab.com/lappis-unb/projetos-energia/mec-energia/mec-energia-api) foram encontrados possíveis problemas envolvendo má elaboração de código. Nesse caso, foi selecionado o método `validate_csv_row` do arquivo `contracts/services.py`. Segundo a análise do `Code Climate`, o método apresentava complexidade cognitiva de 37, sendo que o recomendado é 5, ou seja, muito acima do recomendado. 
+
+![cleancode1](../../img/leonardo/cleancode1.jpeg)
+
+## Refatoração proposta
+
+Para a refatoração do código foram criados outros 4 métodos, sendo eles: `error_append`, `check_value`, `get_max_values` e `error_detection`.
+
+    def error_append(self, field, errors):
+        errors[field].append(EnergyBillValueError if field=='invoice_in_reais' else ValueMaxError)
+
+    def check_value(self, value, max_value, row, field, errors):
+        try: 
+            value = float(value.replace(',', '.'))
+            if value > max_value:
+                self.error_append(field, errors)
+        except: 
+            row[field] = value
+            if(value != ""):
+                self.error_append(field, errors)
+
+    def get_max_values(self):
+        return [
+            ('invoice_in_reais', 99999999.99),
+            ('peak_consumption_in_kwh', 9999999.99),
+            ('off_peak_consumption_in_kwh', 9999999.99),
+            ('peak_measured_demand_in_kw', 9999999.99),
+            ('off_peak_measured_demand_in_kw', 9999999.99),
+        ]
+
+    def error_detection(self, row, errors):
+        for field, max_value in self.get_max_values():
+            value = row.get(field, "")
+            if isinstance(value, str):
+                self.check_value(value, max_value, row, field, errors)
+            
+            elif math.isnan(value):
+                row[field] = ""
+
+            elif value > max_value:
+                row[field] = value
+                self.error_append(field, errors)
+
+        if row.get('invoice_in_reais') == '':
+            errors['invoice_in_reais'].append(EnergyBillValueError)
+            
+
+    def validate_csv_row(self, row, consumer_unit_id):
+        errors = defaultdict(list)
+        date = ContractUtils().validate_date(row["date"])
+        if(not isinstance(date, datetime.date)):
+            errors["date"].append(FormatDateError)
+
+        elif models.EnergyBill.check_energy_bill_month_year(consumer_unit_id, date):
+            errors['date'].append(AlreadyHasEnergyBill)
+
+        else:
+            covered, contract_date = models.EnergyBill.check_energy_bill_covered_by_contract(consumer_unit_id, date)
+            if not covered:
+                month_name = contract_date.strftime("%B")
+                month_name_pt = month_translation[month_name]
+                contract_date_str = f"{month_name_pt} de {contract_date.year}"
+                dynamic_error_message = ErrorMensageParser.parse(DateNotCoverByContractError, (contract_date_str))
+                errors["date"].append(dynamic_error_message)
+
+        self.error_detection(row, errors)
+        return errors, date
+## Resultados
+
+Os resultados mostram que a função com maior complexidade do arquivo apresenta valor 6, e infelizamente, uma das funções possui um parâmetro a mais do que o recomendado.
+
+![cleancode2](../../img/leonardo/cleancode2.png)
+
+## Merge Request
+
+Foi criado um Merge Request para as alterações, além de uma issue detalhando as motivações da alteração.
+
+[Link Issue](https://gitlab.com/lappis-unb/projetos-energia/mec-energia/mec-energia-api/-/issues/200)
+
+[Link MR](https://gitlab.com/lappis-unb/projetos-energia/mec-energia/mec-energia-api/-/merge_requests/140)
+
+Entretanto, ao realizar o fork do projeto, a suíte de testes falhou em 2 testes.
+
+![uptodate](../../img/leonardo/uptodate.png)
+
+![pipeline](../../img/leonardo/pipeline.png)
+
+![errors](../../img/leonardo/errors.png)
+
+Após a refatoração do código, apenas esses mesmos erros persistiram.
 
 ### Mylena
 
@@ -738,3 +973,71 @@ Para essa atividade, foi utilizado o código do projeto [mec-energia-api](https:
 No meu repositório, o pipeline falhou após eu adicionar um novo código, pois a parte de testes não funcionou devido às mudanças que fiz. Foram mais de cinco arquivos que precisavam ser alterados para corrigir os problemas. No entanto, uma [issue](https://gitlab.com/lappis-unb/projetos-energia/mec-energia/mec-energia-api/-/issues/199) foi criada com uma sugestão de refatoração, incluindo trechos de código para melhorar a implementação.
 
 ![Erro Pipeline](pipeline-mylena.png)
+
+## SIGE
+
+### Ana Luíza Rodrigues
+
+Para essa atividade, foi utilizado o código do projeto [SIGE](https://gitlab.com/lappis-unb/projetos-energia/SIGE/sige-front). Realizei uma análise utilizando a ferramenta `SonarQube` e, a partir dos resultados obtidos, decidi quais aspectos seriam abordados para refatoração. A sugestão de melhoria foi implementada no código do arquivo `src/pages/TotalCost.vue`, no qual foi identificado hostspots.
+
+![img](sonarsige.png)
+
+```
+exportOptions() {
+      const startDate = this.getStartDate.match(
+        /(?<year>\d+)-(?<month>\d+)-(?<day>\d+)/
+      ).groups;
+      const endDate = this.getEndDate.match(
+        /(?<year>\d+)-(?<month>\d+)-(?<day>\d+)/
+      ).groups;
+      return {
+        location: this.location.campus
+          ? this.location.campus +
+            (this.location.group ? " - " + this.location.group : "")
+          : "",
+        dimension: "Custo Total",
+        startDate: startDate.day + "_" + startDate.month + "_" + startDate.year,
+        endDate: endDate.day + "_" + endDate.month + "_" + endDate.year,
+      };
+},
+```
+
+## Refatoração proposta
+
+```
+exportOptions() {
+      if (/^\d{4}-\d{2}-\d{2}$/.test(this.getStartDate) && /^\d{4}-\d{2}-\d{2}$/.test(this.getEndDate)) {
+        const startDate = this.getStartDate.match(/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/).groups;
+        const endDate = this.getEndDate.match(/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/).groups;
+        return {
+          location: this.location.campus
+            ? this.location.campus +
+              (this.location.group ? " - " + this.location.group : "")
+            : "",
+          dimension: "Custo Total",
+          startDate: startDate.day + "_" + startDate.month + "_" + startDate.year,
+          endDate: endDate.day + "_" + endDate.month + "_" + endDate.year,
+        };
+      } else {
+        console.error("Data inválida: " + this.getStartDate + " ou " + this.getEndDate);
+        return {}; 
+      }
+}
+```
+### Justificativa
+
+**Make sure the regex used here, which is vunerable to super-linear runtime due to backtracking, cannot lead to denial of service**
+
+O aviso do SonarQube sobre ```/(?<year>\d+)-(?<month>\d+)-(?<day>\d+)/``` está relacionado a uma vulnerabilidade potencial chamada "backtracking", que pode levar a um consumo excessivo de recursos e, em casos extremos, a um Denial of Service (DoS). Esse problema ocorre quando uma expressão regular é mal projetada e pode levar a uma quantidade exponencial de operações de correspondência, especialmente com entradas específicas.
+
+A expressão regular ```/(?<year>\d+)-(?<month>\d+)-(?<day>\d+)/``` é usada para extrair ano, mês e dia de uma string no formato YYYY-MM-DD. Embora essa expressão não seja a mais complexa, o uso de \d+ (um ou mais dígitos) pode levar a problemas de desempenho com entradas inesperadas.
+
+- **Backtracking:** A expressão \d+ pode causar backtracking excessivo se a entrada tiver muitos dígitos ou se o padrão for mal interpretado pelo mecanismo de expressão regular.
+
+- **Entradas Maliciosas:** Um atacante pode criar entradas que causam uma quantidade desproporcional de tempo de CPU para processar, levando a um potencial DoS.
+
+Como sugestão de refatoração restringi a quantidade de dígitos
+
+```/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/```
+
+Também adicionei uma validação da entrada verificando se a string tem o formato esperado antes de aplicar a expressão regular.
