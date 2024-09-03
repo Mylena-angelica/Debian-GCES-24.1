@@ -1137,6 +1137,39 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#joao" class="md-nav__link">
+    Joao
+  </a>
+  
+    <nav class="md-nav" aria-label="Joao">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#codigo-antes-da-refatoracao" class="md-nav__link">
+    Código antes da refatoração:
+  </a>
+  
+    <nav class="md-nav" aria-label="Código antes da refatoração:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-tamanho-e-complexidade-de-funcoes" class="md-nav__link">
+    1. Tamanho e Complexidade de Funções
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#bruno" class="md-nav__link">
     Bruno
   </a>
@@ -1145,7 +1178,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#codigo-antes-da-refatoracao" class="md-nav__link">
+  <a href="#codigo-antes-da-refatoracao_1" class="md-nav__link">
     Código antes da refatoração:
   </a>
   
@@ -1294,7 +1327,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#codigo-antes-da-refatoracao_1" class="md-nav__link">
+  <a href="#codigo-antes-da-refatoracao_2" class="md-nav__link">
     Código antes da refatoração:
   </a>
   
@@ -1309,7 +1342,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-tamanho-e-complexidade-de-funcoes" class="md-nav__link">
+  <a href="#1-tamanho-e-complexidade-de-funcoes_1" class="md-nav__link">
     1. Tamanho e Complexidade de Funções
   </a>
   
@@ -1845,9 +1878,349 @@
 <p>Clean code é um conjunto de práticas e princípios de desenvolvimento de software que visam criar código claro, legível e fácil de manter. Um código considerado "limpo" é aquele que, além de funcionar corretamente, é escrito de forma que outros desenvolvedores possam entendê-lo facilmente, fazendo com que a manutenção e a evolução do software sejam mais simples e menos propensas a erros. Entre os princípios de clean code estão a escolha de nomes descritivos para variáveis, funções e classes, a redução da complexidade, a modularização do código em funções pequenas e específicas, e a eliminação de duplicações.
 No contexto da tarefa, sugerimos mudanças baseadas nesses princípios para melhorar a clareza e a qualidade do código, tornando-o mais intuitivo e de fácil compreensão para qualquer desenvolvedor que precise trabalhar com ele no futuro.</p>
 <h2 id="owasp">OWASP</h2>
+<h3 id="joao">Joao</h3>
+<p>Para essa atividade, foi utilizado o código do projeto <a href="https://github.com/WebGoat/WebGoat">WebGoat</a>. A sugestão de melhoria foi implementada no arquivo <code>webgoat-container/src/main/java/org/owasp/webgoat/lessons/AbstractLesson.java</code> do código. As sugestões foram embasadas na literatura vigente da disciplina, <em>Clean Code</em> e <em>Clean Architecture</em>. Desse modo, a seguir será apresentado o código original, os problemas encontrados nessa solução, o código refatorado e a explicação do porquê foi realizada cada alteração com sua motivação.</p>
+<h4 id="codigo-antes-da-refatoracao">Código antes da refatoração:</h4>
+<pre><code class="language-java">/*
+ * This file is part of WebGoat, an Open Web Application Security Project utility. For details, please see http://www.owasp.org/
+ *
+ * Copyright (c) 2002 - 2019 Bruce Mayhew
+ *
+ * This program is free software; you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program; if
+ * not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * Getting Source ==============
+ *
+ * Source for this application is maintained at https://github.com/WebGoat/WebGoat, a repository for free software projects.
+ */
+
+package org.owasp.webgoat.lessons.sqlinjection.introduction;
+
+import static java.sql.ResultSet.CONCUR_UPDATABLE;
+import static java.sql.ResultSet.TYPE_SCROLL_SENSITIVE;
+
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import org.owasp.webgoat.container.LessonDataSource;
+import org.owasp.webgoat.container.assignments.AssignmentEndpoint;
+import org.owasp.webgoat.container.assignments.AssignmentHints;
+import org.owasp.webgoat.container.assignments.AttackResult;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@AssignmentHints(
+    value = {
+      &quot;SqlStringInjectionHint.8.1&quot;,
+      &quot;SqlStringInjectionHint.8.2&quot;,
+      &quot;SqlStringInjectionHint.8.3&quot;,
+      &quot;SqlStringInjectionHint.8.4&quot;,
+      &quot;SqlStringInjectionHint.8.5&quot;
+    })
+public class SqlInjectionLesson8 extends AssignmentEndpoint {
+
+  private final LessonDataSource dataSource;
+
+  public SqlInjectionLesson8(LessonDataSource dataSource) {
+    this.dataSource = dataSource;
+  }
+
+  @PostMapping(&quot;/SqlInjection/attack8&quot;)
+  @ResponseBody
+  public AttackResult completed(@RequestParam String name, @RequestParam String auth_tan) {
+    return injectableQueryConfidentiality(name, auth_tan);
+  }
+
+  protected AttackResult injectableQueryConfidentiality(String name, String auth_tan) {
+    StringBuilder output = new StringBuilder();
+    String query =
+        &quot;SELECT * FROM employees WHERE last_name = '&quot;
+            + name
+            + &quot;' AND auth_tan = '&quot;
+            + auth_tan
+            + &quot;'&quot;;
+
+    try (Connection connection = dataSource.getConnection()) {
+      try {
+        Statement statement =
+            connection.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        log(connection, query);
+        ResultSet results = statement.executeQuery(query);
+
+        if (results.getStatement() != null) {
+          if (results.first()) {
+            output.append(generateTable(results));
+            results.last();
+
+            if (results.getRow() &gt; 1) {
+              // more than one record, the user succeeded
+              return success(this)
+                  .feedback(&quot;sql-injection.8.success&quot;)
+                  .output(output.toString())
+                  .build();
+            } else {
+              // only one record
+              return failed(this).feedback(&quot;sql-injection.8.one&quot;).output(output.toString()).build();
+            }
+
+          } else {
+            // no results
+            return failed(this).feedback(&quot;sql-injection.8.no.results&quot;).build();
+          }
+        } else {
+          return failed(this).build();
+        }
+      } catch (SQLException e) {
+        return failed(this)
+            .output(&quot;&lt;br&gt;&lt;span class='feedback-negative'&gt;&quot; + e.getMessage() + &quot;&lt;/span&gt;&quot;)
+            .build();
+      }
+
+    } catch (Exception e) {
+      return failed(this)
+          .output(&quot;&lt;br&gt;&lt;span class='feedback-negative'&gt;&quot; + e.getMessage() + &quot;&lt;/span&gt;&quot;)
+          .build();
+    }
+  }
+
+  public static String generateTable(ResultSet results) throws SQLException {
+    ResultSetMetaData resultsMetaData = results.getMetaData();
+    int numColumns = resultsMetaData.getColumnCount();
+    results.beforeFirst();
+    StringBuilder table = new StringBuilder();
+    table.append(&quot;&lt;table&gt;&quot;);
+
+    if (results.next()) {
+      table.append(&quot;&lt;tr&gt;&quot;);
+      for (int i = 1; i &lt; (numColumns + 1); i++) {
+        table.append(&quot;&lt;th&gt;&quot; + resultsMetaData.getColumnName(i) + &quot;&lt;/th&gt;&quot;);
+      }
+      table.append(&quot;&lt;/tr&gt;&quot;);
+
+      results.beforeFirst();
+      while (results.next()) {
+        table.append(&quot;&lt;tr&gt;&quot;);
+        for (int i = 1; i &lt; (numColumns + 1); i++) {
+          table.append(&quot;&lt;td&gt;&quot; + results.getString(i) + &quot;&lt;/td&gt;&quot;);
+        }
+        table.append(&quot;&lt;/tr&gt;&quot;);
+      }
+
+    } else {
+      table.append(&quot;Query Successful; however no data was returned from this query.&quot;);
+    }
+
+    table.append(&quot;&lt;/table&gt;&quot;);
+    return (table.toString());
+  }
+
+  public static void log(Connection connection, String action) {
+    action = action.replace('\'', '&quot;');
+    Calendar cal = Calendar.getInstance();
+    SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+    String time = sdf.format(cal.getTime());
+
+    String logQuery =
+        &quot;INSERT INTO access_log (time, action) VALUES ('&quot; + time + &quot;', '&quot; + action + &quot;')&quot;;
+
+    try {
+      Statement statement = connection.createStatement(TYPE_SCROLL_SENSITIVE, CONCUR_UPDATABLE);
+      statement.executeUpdate(logQuery);
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+  }
+}
+</code></pre>
+<p>com base no código acima, foram identificados os seguintes problemas:</p>
+<h5 id="1-tamanho-e-complexidade-de-funcoes">1. Tamanho e Complexidade de Funções</h5>
+<p>A função <code>injectableQueryConfidentiality</code> é extensa e executa múltiplas tarefas, como a construção da query, a execução da consulta, a verificação dos resultados e a geração de feedback. Essa função não segue o princípio SRP (Single Responsibility Principle) do SOLID, que estabelece que uma função deve ter uma única responsabilidade. Funções longas e multifuncionais são difíceis de ler, testar e manter, e devem ser divididas em funções menores, cada uma dedicada a uma única responsabilidade.</p>
+<p>codigo refatorado:</p>
+<pre><code class="language-java">/*
+ * This file is part of WebGoat, an Open Web Application Security Project utility. For details, please see http://www.owasp.org/
+ *
+ * Copyright (c) 2002 - 2019 Bruce Mayhew
+ *
+ * This program is free software; you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program; if
+ * not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * Getting Source ==============
+ *
+ * Source for this application is maintained at https://github.com/WebGoat/WebGoat, a repository for free software projects.
+ */
+
+package org.owasp.webgoat.lessons.sqlinjection.introduction;
+
+import static java.sql.ResultSet.CONCUR_UPDATABLE;
+import static java.sql.ResultSet.TYPE_SCROLL_SENSITIVE;
+
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import org.owasp.webgoat.container.LessonDataSource;
+import org.owasp.webgoat.container.assignments.AssignmentEndpoint;
+import org.owasp.webgoat.container.assignments.AssignmentHints;
+import org.owasp.webgoat.container.assignments.AttackResult;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@AssignmentHints(
+    value = {
+      &quot;SqlStringInjectionHint.8.1&quot;,
+      &quot;SqlStringInjectionHint.8.2&quot;,
+      &quot;SqlStringInjectionHint.8.3&quot;,
+      &quot;SqlStringInjectionHint.8.4&quot;,
+      &quot;SqlStringInjectionHint.8.5&quot;
+    })
+public class SqlInjectionLesson8 extends AssignmentEndpoint {
+
+  private final LessonDataSource dataSource;
+
+  public SqlInjectionLesson8(LessonDataSource dataSource) {
+    this.dataSource = dataSource;
+  }
+
+  @PostMapping(&quot;/SqlInjection/attack8&quot;)
+  @ResponseBody
+  public AttackResult completed(@RequestParam String name, @RequestParam String auth_tan) {
+    return injectableQueryConfidentiality(name, auth_tan);
+  }
+
+  protected AttackResult injectableQueryConfidentiality(String name, String auth_tan) {
+    StringBuilder output = new StringBuilder();
+    String query =
+        &quot;SELECT * FROM employees WHERE last_name = '&quot;
+            + name
+            + &quot;' AND auth_tan = '&quot;
+            + auth_tan
+            + &quot;'&quot;;
+
+    try (Connection connection = dataSource.getConnection()) {
+      try {
+        Statement statement =
+            connection.createStatement(
+                ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        log(connection, query);
+        ResultSet results = statement.executeQuery(query);
+        ResultSetMetaData resultsMetaData = getMetaData(results, output);
+
+      } catch (SQLException e) {
+        return failed(this)
+            .output(&quot;&lt;br&gt;&lt;span class='feedback-negative'&gt;&quot; + e.getMessage() + &quot;&lt;/span&gt;&quot;)
+            .build();
+      }
+
+    } catch (Exception e) {
+      return failed(this)
+          .output(&quot;&lt;br&gt;&lt;span class='feedback-negative'&gt;&quot; + e.getMessage() + &quot;&lt;/span&gt;&quot;)
+          .build();
+    }
+  }
+
+  public static String generateTable(ResultSet results) throws SQLException {
+    ResultSetMetaData resultsMetaData = results.getMetaData();
+    int numColumns = resultsMetaData.getColumnCount();
+    results.beforeFirst();
+    StringBuilder table = new StringBuilder();
+    table.append(&quot;&lt;table&gt;&quot;);
+
+    if (results.next()) {
+      table.append(&quot;&lt;tr&gt;&quot;);
+      for (int i = 1; i &lt; (numColumns + 1); i++) {
+        table.append(&quot;&lt;th&gt;&quot; + resultsMetaData.getColumnName(i) + &quot;&lt;/th&gt;&quot;);
+      }
+      table.append(&quot;&lt;/tr&gt;&quot;);
+
+      results.beforeFirst();
+      while (results.next()) {
+        table.append(&quot;&lt;tr&gt;&quot;);
+        for (int i = 1; i &lt; (numColumns + 1); i++) {
+          table.append(&quot;&lt;td&gt;&quot; + results.getString(i) + &quot;&lt;/td&gt;&quot;);
+        }
+        table.append(&quot;&lt;/tr&gt;&quot;);
+      }
+
+    } else {
+      table.append(&quot;Query Successful; however no data was returned from this query.&quot;);
+    }
+
+    table.append(&quot;&lt;/table&gt;&quot;);
+    return (table.toString());
+  }
+
+  public static void log(Connection connection, String action) {
+    action = action.replace('\'', '&quot;');
+    Calendar cal = Calendar.getInstance();
+    SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+    String time = sdf.format(cal.getTime());
+
+    String logQuery =
+        &quot;INSERT INTO access_log (time, action) VALUES ('&quot; + time + &quot;', '&quot; + action + &quot;')&quot;;
+
+    try {
+      Statement statement = connection.createStatement(TYPE_SCROLL_SENSITIVE, CONCUR_UPDATABLE);
+      statement.executeUpdate(logQuery);
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+  }
+}
+
+  private ResultSetMetaData getMetaData(ResultSet results, StringBuilder output) {
+  if (results.getStatement() != null) {
+    if (results.first()) {
+      output.append(generateTable(results));
+      results.last();
+
+      if (results.getRow() &gt; 1) {
+        // more than one record, the user succeeded
+        return success(this)
+            .feedback(&quot;sql-injection.8.success&quot;)
+            .output(output.toString())
+            .build();
+      } else {
+        // only one record
+        return failed(this).feedback(&quot;sql-injection.8.one&quot;).output(output.toString()).build();
+      }
+
+    } else {
+      // no results
+      return failed(this).feedback(&quot;sql-injection.8.no.results&quot;).build();
+    }
+  } else {
+    return failed(this).build();
+  }
+}
+</code></pre>
+<p><a href="https://github.com/WebGoat/WebGoat/pull/1887">Pull Request</a></p>
 <h3 id="bruno">Bruno</h3>
 <p>Para essa atividade, foi utilizado o código do projeto <a href="https://github.com/OWASP/NINJA-PingU">NINJA-PingU</a>. A sugestão de melhoria foi implementada no arquivo <code>src/connector.c</code> do código. As sugestões foram embasadas na literatura vigente da disciplina, <em>Clean Code</em> e <em>Clean Architecture</em>. Desse modo, a seguir será apresentado o código original, os problemas encontrados nessa solução, o código refatorado e a explicação do porquê foi realizada cada alteração com sua motivação.</p>
-<h4 id="codigo-antes-da-refatoracao">Código antes da refatoração:</h4>
+<h4 id="codigo-antes-da-refatoracao_1">Código antes da refatoração:</h4>
 <pre><code class="language-c">/*   OWASP NINJA PingU: Is Not Just a Ping Utility
  *
  *   Copyright (C) 2014 Guifre Ruiz &lt;guifre.ruiz@owasp.org&gt;
@@ -2154,7 +2527,7 @@ void handle_read_event(int fd);
 <p><a href="https://github.com/OWASP/NINJA-PingU/pull/7">Pull Request</a></p>
 <h3 id="igor">Igor</h3>
 <p>Neste projeto, utilizamos o código do <a href="https://github.com/OWASP/NINJA-PingU">NINJA-PingU</a> como base. As melhorias foram implementadas no arquivo <code>src/listener.c</code>, seguindo os princípios do <em>Clean Code</em> e <em>Clean Architecture</em>, conforme abordado na literatura da disciplina. A seguir, apresentaremos o código original, os problemas identificados, o código refatorado, e a justificativa para cada alteração realizada, explicando a motivação por trás dessas mudanças.</p>
-<h4 id="codigo-antes-da-refatoracao_1">Código antes da refatoração:</h4>
+<h4 id="codigo-antes-da-refatoracao_2">Código antes da refatoração:</h4>
 <pre><code class="language-c">/*   OWASP NINJA PingU: Is Not Just a Ping Utility
  *
  *   Copyright (C) 2014 Guifre Ruiz &lt;guifre.ruiz@owasp.org&gt;
@@ -2276,7 +2649,7 @@ void *start_receiver(void *agentI) {
 }
 </code></pre>
 <h4 id="problemas-encontrados_1">Problemas encontrados:</h4>
-<h5 id="1-tamanho-e-complexidade-de-funcoes">1. Tamanho e Complexidade de Funções</h5>
+<h5 id="1-tamanho-e-complexidade-de-funcoes_1">1. Tamanho e Complexidade de Funções</h5>
 <p>O princípio SRP (Single Responsibility Principle) do SOLID estabelece que uma classe ou função deve ter uma única responsabilidade. No código original, a função <code>start_receiver()</code> ilustra claramente uma violação desse princípio. Ela é extensa, executa múltiplas tarefas e não se concentra em uma única responsabilidade. Essa função não apenas cria o socket, mas também recebe pacotes, processa-os e persiste os resultados, tudo em um único bloco de código.</p>
 <p>Essa prática de concentrar múltiplas responsabilidades em uma única função resulta em código difícil de ler, testar e manter. De acordo com os princípios do Clean Code, funções longas e multifuncionais devem ser divididas em funções menores, cada uma dedicada a uma única responsabilidade. Isso não só facilita a compreensão do fluxo lógico do programa, como também reduz a complexidade ciclomática, um indicador crucial da probabilidade de introdução de erros.</p>
 <h5 id="2-responsabilidade-unica-e-coesao">2.  Responsabilidade Única e Coesão</h5>
