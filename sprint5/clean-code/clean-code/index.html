@@ -1,0 +1,2733 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentação da disciplina de GCES 24.1 do grupo Debian">
+      
+      
+      
+        <link rel="canonical" href="https://mylena-angelica.github.io/GCES-24.1/sprint5/clean-code/clean-code/">
+      
+      
+        <link rel="prev" href="../../../sprint4/mylena4/">
+      
+      
+        <link rel="next" href="../../../tutoriais/atualizacao_upstream/">
+      
+      <link rel="icon" href="../../../img/icon-debian.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.1.6">
+    
+    
+      
+        <title>Clean Code - GCES-24.1 Debian</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ded33207.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#clean-code" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../../.." title="GCES-24.1 Debian" class="md-header__button md-logo" aria-label="GCES-24.1 Debian" data-md-component="logo">
+      
+  <img src="../../../img/logo-debian.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GCES-24.1 Debian
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Clean Code
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent=""  aria-label="Modo noturno"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Modo noturno" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent=""  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Modo claro" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Mylena-angelica/Debian-GCES-24.1" title="Ir para repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Debian-GCES-24.1
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../sprint1/sprintPlanning1/" class="md-tabs__link">
+        Sprint 1
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../sprint2/sprintPlanning2/" class="md-tabs__link">
+        Sprint 2
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../sprint3/anaLuiza3/" class="md-tabs__link">
+        Sprint 3
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../sprint4/anaLuiza4/" class="md-tabs__link">
+        Sprint 4
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        Sprint 5
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../tutoriais/atualizacao_upstream/" class="md-tabs__link">
+        Tutoriais
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="GCES-24.1 Debian" class="md-nav__button md-logo" aria-label="GCES-24.1 Debian" data-md-component="logo">
+      
+  <img src="../../../img/logo-debian.png" alt="logo">
+
+    </a>
+    GCES-24.1 Debian
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Mylena-angelica/Debian-GCES-24.1" title="Ir para repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Debian-GCES-24.1
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Sprint 1
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Sprint 1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint1/sprintPlanning1/" class="md-nav__link">
+        Sprint Planning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint1/anaLuiza1/" class="md-nav__link">
+        Ana Luíza
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint1/hellen1/" class="md-nav__link">
+        Hellen
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint1/ingrid1/" class="md-nav__link">
+        Ingrid
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint1/leonardo1/" class="md-nav__link">
+        Leonardo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint1/mylena1/" class="md-nav__link">
+        Mylena
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Sprint 2
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Sprint 2
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint2/sprintPlanning2/" class="md-nav__link">
+        Sprint Planning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint2/anaLuiza2/" class="md-nav__link">
+        Ana Luíza
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint2/bruno2/" class="md-nav__link">
+        Bruno
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint2/guilherme2/" class="md-nav__link">
+        Guilherme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint2/hellen2/" class="md-nav__link">
+        Hellen
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint2/henrique/" class="md-nav__link">
+        Henrique
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint2/igor2/" class="md-nav__link">
+        Igor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint2/ingrid2/" class="md-nav__link">
+        Ingrid
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint2/joao2/" class="md-nav__link">
+        João
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint2/leonardo2/" class="md-nav__link">
+        Leonardo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint2/luana2/" class="md-nav__link">
+        Luana
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint2/marcelo2.md" class="md-nav__link">
+        Marcelo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint2/mylena2/" class="md-nav__link">
+        Mylena
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Sprint 3
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Sprint 3
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint3/anaLuiza3/" class="md-nav__link">
+        Ana Luíza
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint3/bruno3/" class="md-nav__link">
+        Bruno
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint3/hellen3/" class="md-nav__link">
+        Hellen
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint3/henrique3/" class="md-nav__link">
+        Henrique
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint3/igor3/" class="md-nav__link">
+        Igor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint3/ingrid3/" class="md-nav__link">
+        Ingrid
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint3/leonardo3/" class="md-nav__link">
+        Leonardo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint3/luana3/" class="md-nav__link">
+        Luana
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint3/mylena3/" class="md-nav__link">
+        Mylena
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint3/joao3/" class="md-nav__link">
+        João
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Sprint 4
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Sprint 4
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint4/anaLuiza4/" class="md-nav__link">
+        Ana Luíza
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint4/guilherme4/" class="md-nav__link">
+        Guilherme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint4/hellen4/" class="md-nav__link">
+        Hellen
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint4/henrique4/" class="md-nav__link">
+        Henrique
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint4/igor4/" class="md-nav__link">
+        Igor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint4/ingrid4/" class="md-nav__link">
+        Ingrid
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint4/joao4/" class="md-nav__link">
+        João
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint4/leonardo4/" class="md-nav__link">
+        Leonardo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint4/luana4/" class="md-nav__link">
+        Luana
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprint4/mylena4/" class="md-nav__link">
+        Mylena
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          Sprint 5
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Sprint 5
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Clean Code
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Clean Code
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#owasp" class="md-nav__link">
+    OWASP
+  </a>
+  
+    <nav class="md-nav" aria-label="OWASP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bruno" class="md-nav__link">
+    Bruno
+  </a>
+  
+    <nav class="md-nav" aria-label="Bruno">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#codigo-antes-da-refatoracao" class="md-nav__link">
+    Código antes da refatoração:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problemas-encontrados" class="md-nav__link">
+    Problemas encontrados:
+  </a>
+  
+    <nav class="md-nav" aria-label="Problemas encontrados:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-modularizacao-e-separacao-de-responsabilidades-srp-single-responsibility-principle" class="md-nav__link">
+    1. Modularização e Separação de Responsabilidades (SRP - Single Responsibility Principle):
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-responsabilidade-unica" class="md-nav__link">
+    2.  Responsabilidade Única
+  </a>
+  
+    <nav class="md-nav" aria-label="2.  Responsabilidade Única">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-coesao" class="md-nav__link">
+    2.1 Coesão
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-aplicacao-do-principio-de-abertofechado-ocp-openclosed-principle" class="md-nav__link">
+    2.2 Aplicação do Princípio de Aberto/Fechado (OCP - Open/Closed Principle):
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-gerenciamento-de-recursos-e-melhoria-na-concorrencia" class="md-nav__link">
+    3. Gerenciamento de Recursos e Melhoria na Concorrência:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-variaveis" class="md-nav__link">
+    4. Variáveis
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Variáveis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-uso-de-numeros-magicos" class="md-nav__link">
+    4.1. Uso de Números "Mágicos"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-nomes-de-variaveis-e-funcoes" class="md-nav__link">
+    4.2 Nomes de Variáveis e Funções
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-detalhes" class="md-nav__link">
+    5. Detalhes
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Detalhes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-comentarios" class="md-nav__link">
+    5.1. Comentários
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-tratamento-de-erros" class="md-nav__link">
+    5.2. Tratamento de Erros
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#codigo-com-solucao" class="md-nav__link">
+    Código com solução
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refatoracoes-designadas-para-solucao-explicacao" class="md-nav__link">
+    Refatorações designadas para solução / explicação
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pr" class="md-nav__link">
+    PR
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#igor" class="md-nav__link">
+    Igor
+  </a>
+  
+    <nav class="md-nav" aria-label="Igor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#codigo-antes-da-refatoracao_1" class="md-nav__link">
+    Código antes da refatoração:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problemas-encontrados_1" class="md-nav__link">
+    Problemas encontrados:
+  </a>
+  
+    <nav class="md-nav" aria-label="Problemas encontrados:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-tamanho-e-complexidade-de-funcoes" class="md-nav__link">
+    1. Tamanho e Complexidade de Funções
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-responsabilidade-unica-e-coesao" class="md-nav__link">
+    2.  Responsabilidade Única e Coesão
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-gerenciamento-de-recursos-e-memoria" class="md-nav__link">
+    3. Gerenciamento de Recursos e Memória
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-variaveis_1" class="md-nav__link">
+    4. Variáveis
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Variáveis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-uso-de-variaveis-globais" class="md-nav__link">
+    4.1. Uso de Variáveis Globais
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-uso-de-numeros-magicos" class="md-nav__link">
+    4.2. Uso de Números "Mágicos"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-nomes-de-variaveis-e-funcoes" class="md-nav__link">
+    4.3 Nomes de Variáveis e Funções
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-detalhes_1" class="md-nav__link">
+    5. Detalhes
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Detalhes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-comentarios_1" class="md-nav__link">
+    5.1. Comentários
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-tratamento-de-erros_1" class="md-nav__link">
+    5.2. Tratamento de Erros
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-estrutura-do-codigo-e-estilo" class="md-nav__link">
+    5.3 Estrutura do Código e Estilo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#codigo-com-solucao_1" class="md-nav__link">
+    Código com solução
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refatoracoes-designadas-para-solucao" class="md-nav__link">
+    Refatorações designadas para solução
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pr_1" class="md-nav__link">
+    PR
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hellen-faria" class="md-nav__link">
+    Hellen Faria
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refatoracao-proposta" class="md-nav__link">
+    Refatoração proposta
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#henrique" class="md-nav__link">
+    Henrique
+  </a>
+  
+    <nav class="md-nav" aria-label="Henrique">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#findfileswithcodechallenges" class="md-nav__link">
+    findFilesWithCodeChallenges
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#findfileswithcodechallenges-refatorado" class="md-nav__link">
+    findFilesWithCodeChallenges (Refatorado)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getcodingchallengefromfilecontent" class="md-nav__link">
+    getCodingChallengeFromFileContent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getcodingchallengefromfilecontent-refatorado" class="md-nav__link">
+    getCodingChallengeFromFileContent (Refatorado)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#luana-ribeiro" class="md-nav__link">
+    Luana Ribeiro
+  </a>
+  
+    <nav class="md-nav" aria-label="Luana Ribeiro">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#juice-shop" class="md-nav__link">
+    Juice-Shop
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analise-de-problematicas" class="md-nav__link">
+    Análise de problemáticas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#correcoes" class="md-nav__link">
+    Correções
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-requests" class="md-nav__link">
+    Pull Requests
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mec-energia-api" class="md-nav__link">
+    MEC-ENERGIA API
+  </a>
+  
+    <nav class="md-nav" aria-label="MEC-ENERGIA API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#leonardo" class="md-nav__link">
+    Leonardo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refatoracao-proposta_1" class="md-nav__link">
+    Refatoração proposta
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resultados" class="md-nav__link">
+    Resultados
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#merge-request" class="md-nav__link">
+    Merge Request
+  </a>
+  
+    <nav class="md-nav" aria-label="Merge Request">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mylena" class="md-nav__link">
+    Mylena
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refatoracao-proposta_2" class="md-nav__link">
+    Refatoração proposta
+  </a>
+  
+    <nav class="md-nav" aria-label="Refatoração proposta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#justificativas" class="md-nav__link">
+    Justificativas
+  </a>
+  
+    <nav class="md-nav" aria-label="Justificativas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-modularizacao-e-clareza" class="md-nav__link">
+    1. *Modularização e Clareza*:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-reducao-da-complexidade-cognitiva" class="md-nav__link">
+    2. Redução da Complexidade Cognitiva
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mr" class="md-nav__link">
+    MR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sige" class="md-nav__link">
+    SIGE
+  </a>
+  
+    <nav class="md-nav" aria-label="SIGE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ana-luiza-rodrigues" class="md-nav__link">
+    Ana Luíza Rodrigues
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#refatoracao-proposta_3" class="md-nav__link">
+    Refatoração proposta
+  </a>
+  
+    <nav class="md-nav" aria-label="Refatoração proposta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#justificativa" class="md-nav__link">
+    Justificativa
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          Tutoriais
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Tutoriais
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutoriais/atualizacao_upstream/" class="md-nav__link">
+        Nova versão Upstream
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutoriais/erro_atualizacao_upstream/" class="md-nav__link">
+        Erros comuns na atualização upstream
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/Mylena-angelica/Debian-GCES-24.1/edit/master/docs/sprint5/clean-code/clean-code.md" title="Editar esta página" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/Mylena-angelica/Debian-GCES-24.1/raw/master/docs/sprint5/clean-code/clean-code.md" title="Exibir fonte desta página" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
+    </a>
+  
+
+
+<h1 id="clean-code">Clean code</h1>
+<p>Clean code é um conjunto de práticas e princípios de desenvolvimento de software que visam criar código claro, legível e fácil de manter. Um código considerado "limpo" é aquele que, além de funcionar corretamente, é escrito de forma que outros desenvolvedores possam entendê-lo facilmente, fazendo com que a manutenção e a evolução do software sejam mais simples e menos propensas a erros. Entre os princípios de clean code estão a escolha de nomes descritivos para variáveis, funções e classes, a redução da complexidade, a modularização do código em funções pequenas e específicas, e a eliminação de duplicações.
+No contexto da tarefa, sugerimos mudanças baseadas nesses princípios para melhorar a clareza e a qualidade do código, tornando-o mais intuitivo e de fácil compreensão para qualquer desenvolvedor que precise trabalhar com ele no futuro.</p>
+<h2 id="owasp">OWASP</h2>
+<h3 id="bruno">Bruno</h3>
+<p>Para essa atividade, foi utilizado o código do projeto <a href="https://github.com/OWASP/NINJA-PingU">NINJA-PingU</a>. A sugestão de melhoria foi implementada no arquivo <code>src/connector.c</code> do código. As sugestões foram embasadas na literatura vigente da disciplina, <em>Clean Code</em> e <em>Clean Architecture</em>. Desse modo, a seguir será apresentado o código original, os problemas encontrados nessa solução, o código refatorado e a explicação do porquê foi realizada cada alteração com sua motivação.</p>
+<h4 id="codigo-antes-da-refatoracao">Código antes da refatoração:</h4>
+<pre><code class="language-c">/*   OWASP NINJA PingU: Is Not Just a Ping Utility
+ *
+ *   Copyright (C) 2014 Guifre Ruiz &lt;guifre.ruiz@owasp.org&gt;
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+#include &lt;unistd.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;arpa/inet.h&gt;
+#include &lt;netdb.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;string.h&gt;
+#include &lt;sys/epoll.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;signal.h&gt;
+#include &lt;sys/time.h&gt;
+#include &lt;pthread.h&gt;
+#include &lt;sys/timerfd.h&gt;
+
+#include &quot;socks.c&quot;
+#include &quot;pluginHandler.c&quot;
+
+// the epoll file descriptor
+int epfd;
+
+pthread_mutex_t mutex_epfd = PTHREAD_MUTEX_INITIALIZER;
+
+int *start_connector(void *agentI) {
+    struct agentInfo *aInfo = agentI;
+    loadMethods();
+
+    //wait for sync
+    sem_wait(aInfo-&gt;startB);
+    printf(&quot;\t+Connector Service started [%u]\n&quot;, aInfo-&gt;mPort);
+
+    openAckFile();
+    onInitPlugin();
+
+    // internal variables definition
+    int i, count, datacount;
+
+    //buf to hold the response
+    char buffer[512];
+    int buffersize = sizeof(buffer);
+
+    // epoll structure that will contain the current network socket and event when epoll wakes up
+    static struct epoll_event *events;
+    static struct epoll_event event_mask;
+
+    // create the special epoll file descriptor
+    pthread_mutex_lock(&amp;mutex_epfd);
+    epfd = epoll_create(MAX_SOCKS);
+    pthread_mutex_unlock(&amp;mutex_epfd);
+
+    // allocate enough memory to store all the events in the &quot;events&quot; structure
+    if (NULL == (events = calloc(MAX_SOCKS, sizeof(struct epoll_event)))) {
+        perror(&quot;calloc events&quot;);
+        exit(1);
+    };
+
+    while (endOfScan == FALSE) {
+
+        count = epoll_wait((int )epfd, events, MAX_SOCKS, -1);
+        for (i = 0; i &lt; count; i++) {
+
+            if ((events[i].events &amp; EPOLLERR) || (events[i].events &amp; EPOLLRDHUP) || (events[i].events &amp; EPOLLHUP)) //socket is erroneous
+            {
+                deleteSock(epfd, events[i].data.fd);
+            }
+
+            if (events[i].events &amp; EPOLLOUT) //we can write
+            {
+                if (socket_check(events[i].data.fd) != 0) {
+                    deleteSock(epfd, events[i].data.fd);
+                    continue;
+                } else {
+                    // Request
+                    int porr = (int)getPortBySock(events[i].data.fd);
+                    char *message= malloc(sizeof(char)*80);
+
+                    getServiceInput(porr, message);
+                    int messagelength = strlen(message);
+                    if ((datacount = send(events[i].data.fd, message, messagelength, 0)) &lt; 0) {
+                        //printf(&quot;send failed&quot;);
+                        continue;
+                    } else {
+                        event_mask.events = EPOLLIN | EPOLLRDHUP | EPOLLERR;
+                        event_mask.data.fd = events[i].data.fd;
+                        if (epoll_ctl((int) epfd, EPOLL_CTL_MOD, events[i].data.fd, &amp;event_mask) != 0) {
+                            deleteSock(epfd, events[i].data.fd);
+                            continue;
+                        }
+                    }
+                    if (message != NULL) {
+                        free(message);
+                    }
+                }
+            }
+            if ((events[i].events &amp; EPOLLIN)) //we can read
+            {
+                if (socket_check(events[i].data.fd) != 0) {
+                    deleteSock(epfd, events[i].data.fd);
+                    continue;
+                } else {
+                    struct host hostInfo;
+                    hostInfo.port =  (int)getPortBySock(events[i].data.fd);
+                    hostInfo.ip =  getHostBySock(events[i].data.fd);
+                    if (hostInfo.port == -1 || strlen(hostInfo.ip) == 0){
+                        deleteSock(epfd, events[i].data.fd);
+                        continue;
+                    }
+                    memset(buffer, 0x0, buffersize);
+                    char *msg;
+                    msg = (char *) malloc(5000);
+                    if (msg != NULL) {
+                        int data = 0, datacount = 0;
+                        while ((datacount = recv(events[i].data.fd, buffer, buffersize, 0)) &gt; 0) {
+                            buffer[datacount] = '\0';
+                            if (data + datacount &gt; 4999) {
+                                break;
+                            }
+                            if (data == 0) {
+                                strncpy(msg, buffer,4999);
+                            } else {
+                                strncat(msg, buffer,4999);
+                            }
+                            data = data + datacount;
+                        }
+                        if (data &gt; 0) {
+                            persistAck(hostInfo.ip,hostInfo.port,msg);
+                            provideOutput(hostInfo.ip, hostInfo.port, msg);
+                        }
+                        if (msg!= NULL) {
+                            free(msg);
+                        }
+                    }
+                    deleteSock(epfd, events[i].data.fd);
+                }
+            }
+            if (events[i].events &amp; EPOLLERR) { //error
+                continue;
+            }
+        }
+    }
+    onStopPlugin();
+    return 0;
+}
+</code></pre>
+<h4 id="problemas-encontrados">Problemas encontrados:</h4>
+<h5 id="1-modularizacao-e-separacao-de-responsabilidades-srp-single-responsibility-principle">1. Modularização e Separação de Responsabilidades (SRP - Single Responsibility Principle):</h5>
+<p>O princípio SRP (<em>Single Responsibility Principle</em>) do SOLID afirma que uma classe ou função deve ter uma única responsabilidade. No código original, a função <code>start_connector</code> concentra múltiplas responsabilidades, desde a inicialização dos recursos até o processamento de eventos de leitura e escrita. Essa abordagem viola o princípio da responsabilidade única, tornando o código mais complexo e difícil de manter.</p>
+<p>A refatoração resolve esse problema ao separar as responsabilidades em funções distintas: <code>initialize_connector</code>, <code>handle_write_event</code>, e <code>handle_read_event</code>. Essa modularização promove um código mais coeso e com responsabilidades claramente definidas. Isso facilita a compreensão do fluxo lógico do programa e reduz a complexidade ciclomática, um importante indicador da probabilidade de introdução de erros.</p>
+<h5 id="2-responsabilidade-unica">2.  Responsabilidade Única</h5>
+<h6 id="21-coesao">2.1 Coesão</h6>
+<p>Além disso, a coesão é baixa, já que a função manipula várias responsabilidades diferentes em um único lugar, resultando em um código que não é modular e é difícil de modificar. Ao quebrar a função em funções menores, podemos criar um código que seja mais fácil de entender e modificar, além de permitir a reutilização de partes do código em outros contextos.</p>
+<h6 id="22-aplicacao-do-principio-de-abertofechado-ocp-openclosed-principle">2.2 Aplicação do Princípio de Aberto/Fechado (OCP - Open/Closed Principle):</h6>
+<p>Embora o código refatorado não introduza novas extensões diretamente, a separação de responsabilidades e modularização do código facilita futuras extensões. Com funções específicas para cada tarefa, novos comportamentos podem ser adicionados ou alterados sem modificar a estrutura existente, permitindo que o código seja estendido sem ser modificado, conforme proposto pelo princípio de Aberto/Fechado.</p>
+<h5 id="3-gerenciamento-de-recursos-e-melhoria-na-concorrencia">3. Gerenciamento de Recursos e Melhoria na Concorrência:</h5>
+<p>O gerenciamento adequado de recursos é uma prática essencial em <em>Clean Code</em> e deve ser uma prioridade, especialmente em sistemas que funcionam por longos períodos, como servidores. A memória deve sempre ser liberada após o uso com <code>free()</code>, garantindo que não haja desperdício de recursos. A refatoração também preserva e melhora a segurança em cenários de concorrência. O uso de mutexes para proteger o descritor de arquivo <code>epfd</code> continua presente, mas a separação das operações em funções específicas reduz a chance de erros em ambientes <em>multithread</em>, minimizando possíveis <em>race conditions</em>. O código refatorado também assegura que recursos como memória alocada e <em>file descriptors</em> são devidamente liberados, evitando vazamentos de memória e possíveis falhas no sistema.</p>
+<h5 id="4-variaveis">4. Variáveis</h5>
+<h6 id="41-uso-de-numeros-magicos">4.1. Uso de Números "Mágicos"</h6>
+<p>O uso de números "mágicos" (constantes numéricas sem significado evidente, como 512, 5000, 10) no código original é um problema clássico de manutenção. Esses valores não são autoexplicativos e podem gerar confusão se usados em mais de um lugar no código. <em>Clean Code</em> recomenda substituir números mágicos por constantes nomeadas, como <code>BUFFER_SIZE</code>, <code>MESSAGE_SIZE</code>, e <code>EPOLL_MAX_EVENTS</code> o que elimina os números mágicos, melhorando a legibilidade, facilitando futuras alterações e menos propenso a erros.</p>
+<h6 id="42-nomes-de-variaveis-e-funcoes">4.2 Nomes de Variáveis e Funções</h6>
+<p>Uma das regras básicas de <em>Clean Code</em> é que o código deve ser autoexplicativo. Nomes de variáveis e funções devem expressar claramente a intenção do código sem a necessidade de comentários adicionais. Esse problema é frequentemente identificado como "nomenclatura obscura", o que compromete a legibilidade e aumenta o tempo necessário para um novo desenvolvedor entender o código. O código refatorado utiliza nomes de funções e variáveis mais descritivos, como <code>handle_write_event</code> e <code>handle_read_event</code>, que tornam o código autoexplicativo. Essa prática está alinhada com as recomendações de <em>Clean Code</em>, que enfatizam a importância de nomes claros e que reflitam a intenção do código.</p>
+<h5 id="5-detalhes">5. Detalhes</h5>
+<h6 id="51-comentarios">5.1. Comentários</h6>
+<p>Comentários são frequentemente necessários para explicar trechos de código complexos. No entanto, <em>Clean Code</em> sugere que o código deve ser escrito de forma tão clara que os comentários se tornem desnecessários. No código analisado, há vários comentários que explicam o "como" em vez de "por que", o que é uma prática a ser evitada. Comentários que explicam como o código funciona podem ser substituídos por uma escolha melhor de nomes de variáveis e funções, enquanto comentários que explicam o "por que" oferecem mais valor ao leitor.</p>
+<h6 id="52-tratamento-de-erros">5.2. Tratamento de Erros</h6>
+<p>O tratamento de erros no código original é rudimentar e não oferece informações suficientes para diagnóstico em caso de falha. A refatoração melhora significativamente o gerenciamento de recursos e a manipulação de erros. O uso de mensagens de erro detalhadas com perror, além de verificar imediatamente a falha na alocação de memória, evita potenciais problemas em tempo de execução. </p>
+<h4 id="codigo-com-solucao">Código com solução</h4>
+<h4 id="refatoracoes-designadas-para-solucao-explicacao">Refatorações designadas para solução / explicação</h4>
+<p>Para a solução proposta foi definido o nome de constantes como <code>BUFFER_SIZE</code> e <code>MESSAGE_SIZE</code> e <code>EPOLL_MAX_EVENTS</code>. </p>
+<pre><code class="language-c">#define BUFFER_SIZE 512
+#define MESSAGE_SIZE 5000
+#define EPOLL_MAX_EVENTS 10
+
+pthread_mutex_t mutex_epfd = PTHREAD_MUTEX_INITIALIZER;
+int epfd;
+
+void initialize_connector(struct agentInfo *aInfo);
+void handle_write_event(int fd);
+void handle_read_event(int fd);
+</code></pre>
+<p>A função <code>sart_connector()</code> foi reduziada, sendo dividida em mais outras duas funções. Desse modo, ela continua sendo a função principal do código, porém, agora, com um escopo bem menor de tarefas e com menos responsabilidade.</p>
+<pre><code class="language-c">int* start_connector(void *agentI) {
+    struct agentInfo *aInfo = agentI;
+    initialize_connector(aInfo);
+    static struct epoll_event *events;
+    if (NULL == (events = calloc(MAX_SOCKS, sizeof(struct epoll_event)))) {
+        perror(&quot;calloc events&quot;);
+        exit(1);
+    };
+
+    while (!endOfScan) {
+        int event_count = epoll_wait(epfd, events, EPOLL_MAX_EVENTS, -1);
+        for (int i = 0; i &lt; event_count; i++)
+            if (events[i].events &amp; (EPOLLERR | EPOLLRDHUP | EPOLLHUP))
+                deleteSock(epfd, events[i].data.fd);
+            else if (events[i].events &amp; EPOLLOUT)
+                handle_write_event(events[i].data.fd);
+            else if (events[i].events &amp; EPOLLIN)
+                handle_read_event(events[i].data.fd);
+    }
+
+    onStopPlugin();
+    pthread_mutex_destroy(&amp;mutex_epfd);
+    close(epfd);
+    return 0;
+}
+</code></pre>
+<p>Foi estraida as funções <code>handle_write_event()</code> e <code>handle_read_event()</code>, cada uma com tarefas e atributos bem definidos. Nessas funções, agora, fora utilizado uma ideia de redução ciclomática do código, invertendo a ordem e o fluxo de condicionais.</p>
+<pre><code class="language-c">void handle_write_event(int fd) {
+    if (socket_check(fd) != 0) {
+        deleteSock(epfd, fd);
+        return;
+    }
+
+    int port = (int)getPortBySock(fd);
+    char *message = malloc(sizeof(char) * 80);
+
+    if (message == NULL) {
+        perror(&quot;Failed to allocate memory for message&quot;);
+        return;
+    }
+
+    getServiceInput(port, message);
+    int message_length = strlen(message);
+
+    if (send(fd, message, message_length, 0) &lt; 0) {
+        free(message);
+        return;
+    }
+
+    struct epoll_event event_mask;
+    event_mask.events = EPOLLIN | EPOLLRDHUP | EPOLLERR;
+    event_mask.data.fd = fd;
+
+    if (epoll_ctl(epfd, EPOLL_CTL_MOD, fd, &amp;event_mask) != 0) {
+        deleteSock(epfd, fd);
+    }
+
+    free(message);
+</code></pre>
+<pre><code class="language-c">void handle_read_event(int fd) {
+    if (socket_check(fd) != 0) {
+        deleteSock(epfd, fd);
+        return;
+    }
+
+    struct host hostInfo;
+    hostInfo.port = (int)getPortBySock(fd);
+    hostInfo.ip = getHostBySock(fd);
+
+    if (hostInfo.port == -1 || strlen(hostInfo.ip) == 0) {
+        deleteSock(epfd, fd);
+        return;
+    }
+
+    char buffer[BUFFER_SIZE];
+    memset(buffer, 0x0, BUFFER_SIZE);
+    char *msg = malloc(MESSAGE_SIZE);
+
+    if (msg == NULL) {
+        perror(&quot;Failed to allocate memory for msg&quot;);
+        deleteSock(epfd, fd);
+        return;
+    }
+
+    int total_data = 0, data_count = 0;
+
+    while ((data_count = recv(fd, buffer, BUFFER_SIZE, 0)) &gt; 0) {
+        if (total_data + data_count &gt; MESSAGE_SIZE - 1) break;
+
+        if (total_data == 0) strncpy(msg, buffer, MESSAGE_SIZE - 1);
+        else strncat(msg, buffer, MESSAGE_SIZE - 1 - total_data);
+
+        total_data += data_count;
+    }
+
+    if (total_data &gt; 0) {
+        persistAck(hostInfo.ip, hostInfo.port, msg);
+        provideOutput(hostInfo.ip, hostInfo.port, msg);
+    }
+
+    free(msg);
+    deleteSock(epfd, fd);
+}
+</code></pre>
+<h4 id="pr">PR</h4>
+<p><a href="https://github.com/OWASP/NINJA-PingU/pull/7">Pull Request</a></p>
+<h3 id="igor">Igor</h3>
+<p>Neste projeto, utilizamos o código do <a href="https://github.com/OWASP/NINJA-PingU">NINJA-PingU</a> como base. As melhorias foram implementadas no arquivo <code>src/listener.c</code>, seguindo os princípios do <em>Clean Code</em> e <em>Clean Architecture</em>, conforme abordado na literatura da disciplina. A seguir, apresentaremos o código original, os problemas identificados, o código refatorado, e a justificativa para cada alteração realizada, explicando a motivação por trás dessas mudanças.</p>
+<h4 id="codigo-antes-da-refatoracao_1">Código antes da refatoração:</h4>
+<pre><code class="language-c">/*   OWASP NINJA PingU: Is Not Just a Ping Utility
+ *
+ *   Copyright (C) 2014 Guifre Ruiz &lt;guifre.ruiz@owasp.org&gt;
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+#include &lt;netinet/ip_icmp.h&gt;
+#include &lt;netinet/udp.h&gt;
+#include &lt;arpa/inet.h&gt;
+
+#include &quot;spotter.c&quot;
+
+int mSocket;
+FILE *logfile;
+int i, j;
+struct sockaddr_in source, dest;
+
+
+void createSock() {
+    mSocket = socket(AF_INET, SOCK_RAW, IPPROTO_TCP);
+    if (mSocket &lt; 0) {
+        printf(&quot;Socket Error\n&quot;);
+        exit(1);
+    }
+}
+void *start_receiver(void *agentI) {
+    struct agentInfo *aInfo = agentI;
+    sem_wait(aInfo-&gt;startB);
+    printf(&quot;\t+Listener  Started at port [%u]\n&quot;, aInfo-&gt;mPort);
+
+    openSynFile();
+
+    int saddr_size, data_size;
+    struct sockaddr saddr;
+
+    char *mBuffer = (char *) malloc(80000);
+
+    //creates the socket
+    createSock();
+
+    //tmp cache to hold results
+    int tmpFoundHosts = 0;
+
+    //main loop
+    while (endOfScan == FALSE) {
+        saddr_size = sizeof saddr;
+
+        //recieve packets
+        data_size = recvfrom(mSocket, mBuffer, 65536, 0, &amp;saddr, (socklen_t*) &amp;saddr_size);
+        if (data_size &lt; 0) {
+            printf(&quot;Recvfrom error , failed to get packets\n&quot;);
+            exit(1);
+        }
+
+        struct iphdr *iph = (struct iphdr*) mBuffer;
+        unsigned short iphdrlen;
+        iphdrlen = iph-&gt;ihl * 4;
+        struct tcphdr *tcph = (struct tcphdr*) (mBuffer + iphdrlen);
+
+        //we uniquely identify packets by magic port and magic ack seq number   
+        if ((unsigned int) tcph-&gt;ack == 1 &amp;&amp;
+                     ntohs(tcph-&gt;dest) == aInfo-&gt;mPort &amp;&amp;
+                     ntohl(tcph-&gt;ack_seq) == MAGIC_ACKSEQ) {
+            //port open
+            if ((unsigned int) tcph-&gt;rst  == 0 ) {
+                struct iphdr *iph = (struct iphdr *) mBuffer;
+                iphdrlen = (int) iph-&gt;ihl * 4;
+                memset(&amp;source, 0, sizeof(source));
+                source.sin_addr.s_addr = (unsigned int) iph-&gt;saddr;
+                memset(&amp;dest, 0, sizeof(dest));
+                dest.sin_addr.s_addr = iph-&gt;daddr;
+
+                if (synOnly == FALSE) {
+                    pthread_mutex_lock (&amp;mutex_epfd);
+                    while (create_and_connect(inet_ntoa(source.sin_addr), ntohs(tcph-&gt;source), epfd) != 0) {
+                        //printf(&quot;problem&quot;);
+                    } 
+                    pthread_mutex_unlock (&amp;mutex_epfd);
+                }
+
+                //increments counter result
+                tmpFoundHosts++;
+                if (tmpFoundHosts &gt;= CACHE_SYNC) {
+                    incFoundHosts(tmpFoundHosts);
+                    tmpFoundHosts = 0;
+                }
+                //persists results
+                persistSyn(inet_ntoa(source.sin_addr), ntohs(tcph-&gt;source));
+            } else { //port closed
+                //persists results
+                //persistClosedSyn(inet_ntoa(source.sin_addr), ntohs(tcph-&gt;source));
+            }
+        } else { //uncomment for debugging purposes
+            /*struct iphdr *iph = (struct iphdr *) mBuffer;
+            iphdrlen = (int) iph-&gt;ihl * 4;
+            memset(&amp;source, 0, sizeof(source));
+            source.sin_addr.s_addr = (unsigned int) iph-&gt;saddr;
+            memset(&amp;dest, 0, sizeof(dest));
+            dest.sin_addr.s_addr = iph-&gt;daddr;
+            printf(&quot;\nTo[%d] From[%s:%d] syn[%d] ack[%d] rst[%d] ack_seq[%d] fin[%d]\n&quot;,tcph-&gt;source,inet_ntoa(source.sin_addr),
+            ntohs(tcph-&gt;source), (unsigned int) tcph-&gt;syn,(unsigned int) tcph-&gt;ack,(unsigned int) tcph-&gt;rst,ntohl(tcph-&gt;ack_seq),(unsigned int) tcph-&gt;fin );
+            */
+        }
+    }
+    close(mSocket);
+    return NULL;
+}
+</code></pre>
+<h4 id="problemas-encontrados_1">Problemas encontrados:</h4>
+<h5 id="1-tamanho-e-complexidade-de-funcoes">1. Tamanho e Complexidade de Funções</h5>
+<p>O princípio SRP (Single Responsibility Principle) do SOLID estabelece que uma classe ou função deve ter uma única responsabilidade. No código original, a função <code>start_receiver()</code> ilustra claramente uma violação desse princípio. Ela é extensa, executa múltiplas tarefas e não se concentra em uma única responsabilidade. Essa função não apenas cria o socket, mas também recebe pacotes, processa-os e persiste os resultados, tudo em um único bloco de código.</p>
+<p>Essa prática de concentrar múltiplas responsabilidades em uma única função resulta em código difícil de ler, testar e manter. De acordo com os princípios do Clean Code, funções longas e multifuncionais devem ser divididas em funções menores, cada uma dedicada a uma única responsabilidade. Isso não só facilita a compreensão do fluxo lógico do programa, como também reduz a complexidade ciclomática, um indicador crucial da probabilidade de introdução de erros.</p>
+<h5 id="2-responsabilidade-unica-e-coesao">2.  Responsabilidade Única e Coesão</h5>
+<p>Além disso, a função apresenta baixa coesão, pois manipula várias responsabilidades distintas em um único lugar, o que resulta em um código não modular e difícil de modificar. Ao dividir essa função em funções menores, conseguimos criar um código mais fácil de entender e modificar, além de permitir a reutilização de partes do código em outros contextos.</p>
+<h5 id="3-gerenciamento-de-recursos-e-memoria">3. Gerenciamento de Recursos e Memória</h5>
+<p>O código original utiliza alocação dinâmica de memória com malloc para a variável <code>mBuffer</code>, mas não libera a memória alocada, o que pode causar vazamentos de memória. O gerenciamento adequado de recursos é uma prática fundamental em <em>Clean Code</em> e deve ser uma prioridade, especialmente em sistemas que operam por longos períodos, como servidores. A memória deve sempre ser liberada após o uso com <code>free()</code>, garantindo que não haja desperdício de recursos</p>
+<h5 id="4-variaveis_1">4. Variáveis</h5>
+<h6 id="41-uso-de-variaveis-globais">4.1. Uso de Variáveis Globais</h6>
+<p>Variáveis globais como <code>mSocket</code>, <code>source</code>, e <code>dest</code> são usadas em todo o código, enquanto <code>logfile</code>, <code>i</code> e <code>j</code> são variáveis globais, as quais nem são utilizadas no decorrer do código. O uso de variáveis globais pode resultar em efeitos colaterais indesejados e dificulta o rastreamento do estado do programa, tornando o código mais difícil de depurar e testar.</p>
+<h6 id="42-uso-de-numeros-magicos">4.2. Uso de Números "Mágicos"</h6>
+<p>O uso de números "mágicos" (constantes numéricas sem significado evidente, como 65536, 80000) no código original é um problema clássico de manutenção. Esses valores não são autoexplicativos e podem gerar confusão se usados em mais de um lugar no código. Clean Code recomenda substituir números mágicos por constantes nomeadas, como MAX_BUFFER_SIZE ou RECEIVE_BUFFER_SIZE, o que torna o código mais legível e menos propenso a erros.</p>
+<p>O uso de números "mágicos" (constantes numéricas sem significado evidente, como 65536 ou 80000) no código original é um problema clássico de manutenção. Esses valores não são autoexplicativos e podem gerar confusão, especialmente se utilizados em mais de um ponto do código. O <em>Clean Code</em> recomenda substituir números mágicos por constantes nomeadas, como <code>MAX_BUFFER_SIZE</code> ou <code>RECEIVE_BUFFER_SIZE</code>, tornando o código mais legível e menos propenso a erros.</p>
+<h6 id="43-nomes-de-variaveis-e-funcoes">4.3 Nomes de Variáveis e Funções</h6>
+<p>Uma das regras fundamentais do <em>Clean Code</em> é que o código deve ser autoexplicativo. Nomes de variáveis e funções devem expressar claramente a intenção do código, eliminando a necessidade de comentários adicionais. No código original, variáveis como <code>mSocket</code>, <code>aInfo</code>, e <code>iphdrlen</code> possuem nomes criptográficos, o que dificulta a compreensão imediata de seus propósitos. Esse problema, conhecido como "nomenclatura obscura", compromete a legibilidade e aumenta o tempo necessário para que um novo desenvolvedor entenda o código.</p>
+<h5 id="5-detalhes_1">5. Detalhes</h5>
+<h6 id="51-comentarios_1">5.1. Comentários</h6>
+<p>Comentários são frequentemente necessários para explicar trechos de código complexos. No entanto, <em>Clean Code</em> sugere que o código deve ser escrito de forma tão clara que os comentários se tornem desnecessários. No código analisado, há vários comentários que explicam o "como" em vez de "por que", o que é uma prática a ser evitada. Comentários que explicam como o código funciona podem ser substituídos por uma escolha melhor de nomes de variáveis e funções, enquanto comentários que explicam o "por que" oferecem mais valor ao leitor.</p>
+<h6 id="52-tratamento-de-erros_1">5.2. Tratamento de Erros</h6>
+<p>O tratamento de erros no código original é rudimentar e não oferece informações suficientes para diagnóstico em caso de falha. Por exemplo, quando a criação do socket falha, o programa simplesmente imprime "Socket Error" e termina. Esta prática não está alinhada com a recomendação de <em>Clean Code</em> de fornecer mensagens de erro claras e úteis. Além disso, o uso de exit(1) interrompe abruptamente a execução, o que pode ser aceitável em alguns contextos, mas não é uma solução ideal, especialmente em sistemas maiores onde a recuperação de erros é crítica.</p>
+<h6 id="53-estrutura-do-codigo-e-estilo">5.3 Estrutura do Código e Estilo</h6>
+<p>A estrutura do código, como a organização das funções e o estilo de formatação, não é consistente. Algumas funções e blocos de código não seguem um padrão claro de espaçamento ou indentação. A inconsistência na formatação pode dificultar a leitura do código, especialmente em projetos grandes com vários desenvolvedores.</p>
+<h4 id="codigo-com-solucao_1">Código com solução</h4>
+<pre><code class="language-c">/*   OWASP NINJA PingU: Is Not Just a Ping Utility
+ *
+ *   Copyright (C) 2014 Guifre Ruiz &lt;guifre.ruiz@owasp.org&gt;
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+#include &lt;netinet/ip_icmp.h&gt;
+#include &lt;netinet/udp.h&gt;
+#include &lt;arpa/inet.h&gt;
+
+#include &quot;spotter.c&quot;
+
+#define BUFFER_SIZE 80000
+#define PACKET_SIZE 65536
+
+typedef struct {
+    int socket_fd;
+    char *buffer;
+    struct sockaddr_in source, dest;
+} PacketReceiver;
+
+int create_socket() {
+    int socket_fd = socket(AF_INET, SOCK_RAW, IPPROTO_TCP);
+    if (socket_fd &lt; 0) {
+        perror(&quot;Socket creation failed&quot;);
+        exit(EXIT_FAILURE);
+    }
+    return socket_fd;
+}
+
+PacketReceiver* init_packet_receiver() {
+    PacketReceiver *receiver = malloc(sizeof(PacketReceiver));
+    if (!receiver) {
+        perror(&quot;Memory allocation failed&quot;);
+        exit(EXIT_FAILURE);
+    }
+    receiver-&gt;socket_fd = create_socket();
+    receiver-&gt;buffer = malloc(BUFFER_SIZE);
+    if (!receiver-&gt;buffer) {
+        perror(&quot;Memory allocation for buffer failed&quot;);
+        free(receiver);
+        exit(EXIT_FAILURE);
+    }
+    return receiver;
+}
+
+void process_packet(PacketReceiver *receiver, struct agentInfo *aInfo) {
+    struct sockaddr saddr;
+    socklen_t saddr_size = sizeof(saddr);
+
+    int data_size = recvfrom(receiver-&gt;socket_fd, receiver-&gt;buffer, PACKET_SIZE, 0, &amp;saddr, &amp;saddr_size);
+    if (data_size &lt; 0) {
+        perror(&quot;Failed to receive packets&quot;);
+        exit(EXIT_FAILURE);
+    }
+
+    struct iphdr *iph = (struct iphdr*) receiver-&gt;buffer;
+    unsigned short iphdrlen = iph-&gt;ihl * 4;
+    struct tcphdr *tcph = (struct tcphdr*) (receiver-&gt;buffer + iphdrlen);
+
+    if ((unsigned int) tcph-&gt;ack == 1 &amp;&amp;
+        ntohs(tcph-&gt;dest) == aInfo-&gt;mPort &amp;&amp;
+        ntohl(tcph-&gt;ack_seq) == MAGIC_ACKSEQ) {
+
+        if ((unsigned int) tcph-&gt;rst == 0) {
+            receiver-&gt;source.sin_addr.s_addr = iph-&gt;saddr;
+            receiver-&gt;dest.sin_addr.s_addr = iph-&gt;daddr;
+
+            if (!synOnly) {
+                pthread_mutex_lock(&amp;mutex_epfd);
+                while (create_and_connect(inet_ntoa(receiver-&gt;source.sin_addr), ntohs(tcph-&gt;source), epfd) != 0) {
+                    // printf(&quot;problem&quot;);
+                }
+                pthread_mutex_unlock(&amp;mutex_epfd);
+            }
+
+            incFoundHosts(1);
+            persistSyn(inet_ntoa(receiver-&gt;source.sin_addr), ntohs(tcph-&gt;source));
+        }
+    }
+}
+
+void* start_receiver(void *agentI) {
+    struct agentInfo *aInfo = agentI;
+    sem_wait(aInfo-&gt;startB);
+    printf(&quot;\t+Listener Started at port [%u]\n&quot;, aInfo-&gt;mPort);
+
+    openSynFile();
+    PacketReceiver *receiver = init_packet_receiver();
+
+    while (!endOfScan) {
+        process_packet(receiver, aInfo);
+    }
+
+    close(receiver-&gt;socket_fd);
+    free(receiver-&gt;buffer);
+    free(receiver);
+    return NULL;
+}
+</code></pre>
+<h4 id="refatoracoes-designadas-para-solucao">Refatorações designadas para solução</h4>
+<p>Na solução proposta, a utilização de variáveis globais foi eliminada. Algumas dessas variáveis não estavam sendo utilizadas, enquanto outras foram devidamente acopladas em funções ou estruturas mais apropriadas. Além disso, foram definidas constantes com nomes significativos, como <code>BUFFER_SIZE</code> e <code>PACKET_SIZE</code>. Resultando na eliminação de variáveis globais, números mágicos e melhorando alguns nomes de variáveis.</p>
+<pre><code class="language-c">#include &lt;netinet/ip_icmp.h&gt;
+#include &lt;netinet/udp.h&gt;
+#include &lt;arpa/inet.h&gt;
+
+#include &quot;spotter.c&quot;
+
+#define BUFFER_SIZE 80000
+#define PACKET_SIZE 65536
+
+typedef struct {
+    int socket_fd;
+    char *buffer;
+    struct sockaddr_in source, dest;
+} PacketReceiver;
+</code></pre>
+<p>A função <code>start_receiver()</code>, que anteriormente concentrava praticamente toda a lógica do programa, foi simplificada ao ser dividida em funções menores, cada uma responsável por tarefas mais específicas. Essa refatoração ajudou a reduzir o tamanho e a complexidade da função principal, aumentando a coesão do código e facilitando sua manutenção.</p>
+<pre><code class="language-c">void* start_receiver(void *agentI) {
+    struct agentInfo *aInfo = agentI;
+    sem_wait(aInfo-&gt;startB);
+    printf(&quot;\t+Listener Started at port [%u]\n&quot;, aInfo-&gt;mPort);
+
+    openSynFile();
+    PacketReceiver *receiver = init_packet_receiver();
+
+    while (!endOfScan) {
+        process_packet(receiver, aInfo);
+    }
+
+    close(receiver-&gt;socket_fd);
+    free(receiver-&gt;buffer);
+    free(receiver);
+    return NULL;
+}
+</code></pre>
+<p>A nova função <code>init_packet_receiver()</code> agora é responsável pela inicialização dos pacotes recebidos. Com disso, ela melhora as mensagens e o tratamento de erros, proporcionando uma abordagem mais clara e robusta para o gerenciamento de pacotes.</p>
+<pre><code class="language-c">PacketReceiver* init_packet_receiver() {
+    PacketReceiver *receiver = malloc(sizeof(PacketReceiver));
+    if (!receiver) {
+        perror(&quot;Memory allocation failed&quot;);
+        exit(EXIT_FAILURE);
+    }
+    receiver-&gt;socket_fd = create_socket();
+    receiver-&gt;buffer = malloc(BUFFER_SIZE);
+    if (!receiver-&gt;buffer) {
+        perror(&quot;Memory allocation for buffer failed&quot;);
+        free(receiver);
+        exit(EXIT_FAILURE);
+    }
+    return receiver;
+}
+</code></pre>
+<p>O processamento dos pacotes foi transferido para a função <code>process_packet()</code>. Nessa refatoração, eliminamos um <code>if</code> desnecessário e removemos código duplicado. Além disso, os valores de source e dest foram centralizados dentro da função, tornando o código mais limpo e eficiente.</p>
+<pre><code class="language-c">void process_packet(PacketReceiver *receiver, struct agentInfo *aInfo) {
+    struct sockaddr saddr;
+    socklen_t saddr_size = sizeof(saddr);
+
+    int data_size = recvfrom(receiver-&gt;socket_fd, receiver-&gt;buffer, PACKET_SIZE, 0, &amp;saddr, &amp;saddr_size);
+    if (data_size &lt; 0) {
+        perror(&quot;Failed to receive packets&quot;);
+        exit(EXIT_FAILURE);
+    }
+
+    struct iphdr *iph = (struct iphdr*) receiver-&gt;buffer;
+    unsigned short iphdrlen = iph-&gt;ihl * 4;
+    struct tcphdr *tcph = (struct tcphdr*) (receiver-&gt;buffer + iphdrlen);
+
+    if ((unsigned int) tcph-&gt;ack == 1 &amp;&amp;
+        ntohs(tcph-&gt;dest) == aInfo-&gt;mPort &amp;&amp;
+        ntohl(tcph-&gt;ack_seq) == MAGIC_ACKSEQ) {
+
+        if ((unsigned int) tcph-&gt;rst == 0) {
+            receiver-&gt;source.sin_addr.s_addr = iph-&gt;saddr;
+            receiver-&gt;dest.sin_addr.s_addr = iph-&gt;daddr;
+
+            if (!synOnly) {
+                pthread_mutex_lock(&amp;mutex_epfd);
+                while (create_and_connect(inet_ntoa(receiver-&gt;source.sin_addr), ntohs(tcph-&gt;source), epfd) != 0) {
+                    // printf(&quot;problem&quot;);
+                }
+                pthread_mutex_unlock(&amp;mutex_epfd);
+            }
+
+            incFoundHosts(1);
+            persistSyn(inet_ntoa(receiver-&gt;source.sin_addr), ntohs(tcph-&gt;source));
+        }
+    }
+}
+</code></pre>
+<p>Para toda a realização do trabalho foi pensado em nomes de variáveis e funções mais coerentes, foi realizado um gerenciamento de recursos e memória adequado para evitar qualquer problema e foi seguido um padrão quantos a estrutura do código.</p>
+<h4 id="pr_1">PR</h4>
+<p><a href="https://github.com/OWASP/NINJA-PingU/pull/8">Pull Request</a></p>
+<h3 id="hellen-faria">Hellen Faria</h3>
+<p>Para a entrega do Clean Code, escolhi o projeto OWASP <a href="https://github.com/juice-shop/juice-shop">Juice Shop</a>. Utilizando a ferramenta Code Climate, foi possível analisar o projeto como um todo e identificar possíveis melhorias. A sugestão de melhoria se concentra no arquivo lib/startup/customizeApplication.ts, especificamente na função customizeApplication.
+<img alt="image" src="https://github.com/user-attachments/assets/698dd83d-7f8b-41de-9667-0b617550aa4a" />
+Note que a função tem uma complexidade ciclomática de 8 devido ao número de ramos condicionais (if statements) e chamadas de funções diferentes. Essa alta complexidade torna o código mais difícil de entender, testar, e manter.</p>
+<h3 id="refatoracao-proposta">Refatoração proposta</h3>
+<p>Refatorar a função customizeApplication para usar uma abordagem baseada em configuração, traz várias melhorias significativas em termos de Clean Code e manutenibilidade.</p>
+<p><img alt="image" src="https://github.com/user-attachments/assets/446639b9-04d8-458d-aedd-8fe0c17f0b3c" /></p>
+<p>Essa refatoração melhora a organização, modularidade, e clareza do código, seguindo princípios de Clean Code como a responsabilidade única e a redução da repetição. O código torna-se mais fácil de manter, menos propenso a erros e mais adaptável a mudanças futuras.</p>
+<h3 id="henrique">Henrique</h3>
+<p>Para essa entrega, foi utilizado o código do Projeto OWASP <a href="https://github.com/juice-shop/juice-shop">Juice Shop</a>, no qual foi realizada uma análise utilizando a ferramenta <em>Code Climate</em>. A partir dos resultados obtidos, foram identificados pontos de melhoria para refatoração no arquivo <em>lib/codingChallenges.ts</em>. Dessa forma, as melhorias foram nas funções <em>findFilesWithCodeChallenges</em> e <em>getCodingChallengeFromFileContent</em>, com foco na redução da complexidade cognitiva, fazendo a separação dessas duas funções muito grandes, em pequenas funções mais específicas, seguindo os princípios de <em>Clean Code</em>.</p>
+<h4 id="findfileswithcodechallenges">findFilesWithCodeChallenges</h4>
+<div align="center">
+        <img src="../../img/henrique/sprint5/findFiles.png" alt="findFiles" width="80%"/>
+</div>
+
+<h4 id="findfileswithcodechallenges-refatorado">findFilesWithCodeChallenges (Refatorado)</h4>
+<div align="center">
+        <img src="../../img/henrique/sprint5/findFiles_refact.png" alt="findFiles" width="80%"/>
+</div>
+
+<p><em>processPath</em>: Decide se o caminho é um diretório ou um arquivo e delega o processamento para as respectivas funções.
+<em>processDirectory</em>: Lida com a lógica de iterar sobre arquivos em um diretório.
+<em>processFile</em>: Lida com a lógica de leitura de arquivos e verificação de conteúdo.
+<em>containsCodeChallenge</em>: Verifica se o código contém desafios de código vulnerável.</p>
+<h4 id="getcodingchallengefromfilecontent">getCodingChallengeFromFileContent</h4>
+<div align="center">
+        <img src="../../img/henrique/sprint5/getCoding.png" alt="getCodingChallenge" width="80%"/>
+</div>
+
+<h4 id="getcodingchallengefromfilecontent-refatorado">getCodingChallengeFromFileContent (Refatorado)</h4>
+<div align="center">
+        <img src="../../img/henrique/sprint5/getCoding_refact.png" alt="getCodingChallenge" width="80%"/>
+</div>
+
+<p><em>extractSnippet</em>: Esta função isola a lógica de extração do snippet de código. Se o snippet não puder ser encontrado, uma exceção é lançada.
+<em>extractLineNumbers</em>: Esta função isola a lógica que encontra as linhas vulneráveis e neutras dentro do snippet. Isso separa a lógica de extração de linhas da lógica de manipulação de strings.
+<em>splitLines</em>: Lida com a divisão do snippet em linhas, independentemente de quebras de linha (\r\n, \n, \r).
+<em>cleanSnippet</em>: Remove as marcações específicas do snippet (como start, end, e hide) para deixar o código limpo.</p>
+<p>Após a refatoração, o código foi submetido a um pull request. A refatoração focou na melhoria da legibilidade e manutenção do código, resultando em um código mais modular e fácil de testar.</p>
+<div align="center">
+        <img src="../../img/henrique/sprint5/juice_MR.png" alt="getCodingChallenge" width="40%"/>
+</div>
+
+<h3 id="luana-ribeiro">Luana Ribeiro</h3>
+<h4 id="juice-shop">Juice-Shop</h4>
+<p>O Juice-Shop é uma aplicação Web Pode ser utilizada em formações de segurança, demonstrações de consciencialização, CTFs e como cobaia para ferramentas de segurança. A Juice Shop engloba vulnerabilidades de todo o Top 10 da OWASP, juntamente com muitas outras falhas de segurança encontradas em aplicações do mundo real!</p>
+<p><img alt="image" src="https://github.com/user-attachments/assets/89fd7678-27b5-487f-8e09-382e4581b424" /></p>
+<h3 id="analise-de-problematicas">Análise de problemáticas</h3>
+<p>Utilizando a ferramenta code climate foi encontrada uma função que precisava ser refatorada:
+<img alt="image" src="https://github.com/user-attachments/assets/24d36990-45ea-4d41-8917-5c9e74ebe649" />
+<img alt="image" src="https://github.com/user-attachments/assets/60497b49-5455-4c74-8478-2c5e5afe8550" />
+<img alt="image" src="https://github.com/user-attachments/assets/f5741ee8-c704-4461-b262-b95e7b2ca9b2" />
+A função além de muito grande, possuem problemas de complexidade. </p>
+<h3 id="correcoes">Correções</h3>
+<p>Dessa forma, funções e variáveis foram renomeadas para descreverem melhor seus objetivos. Com relação a  modularidade, função foi dividida em várias funções menores para melhorar a legibilidade e reutilização. Por fim, o tratamento de erros foi direcionado para uma seção específica.</p>
+<p><img alt="image" src="https://github.com/user-attachments/assets/87b9ec2c-2435-47c7-b1c6-09fdc1408c2a" />
+<img alt="image" src="https://github.com/user-attachments/assets/54bf1044-4966-472b-b3b2-2e6ca5894806" /></p>
+<h3 id="pull-requests">Pull Requests</h3>
+<p><img alt="image" src="https://github.com/user-attachments/assets/fc0dc6a8-3a38-4faa-b01d-adb4ce776206" /></p>
+<h2 id="mec-energia-api">MEC-ENERGIA API</h2>
+<h3 id="leonardo">Leonardo</h3>
+<p>Utilizando a ferramenta <code>Clean Code</code> no repositório <a href="https://gitlab.com/lappis-unb/projetos-energia/mec-energia/mec-energia-api">mec-energia-api</a> foram encontrados possíveis problemas envolvendo má elaboração de código. Nesse caso, foi selecionado o método <code>validate_csv_row</code> do arquivo <code>contracts/services.py</code>. Segundo a análise do <code>Code Climate</code>, o método apresentava complexidade cognitiva de 37, sendo que o recomendado é 5, ou seja, muito acima do recomendado. </p>
+<p><img alt="cleancode1" src="../../../img/leonardo/cleancode1.jpeg" /></p>
+<h2 id="refatoracao-proposta_1">Refatoração proposta</h2>
+<p>Para a refatoração do código foram criados outros 4 métodos, sendo eles: <code>error_append</code>, <code>check_value</code>, <code>get_max_values</code> e <code>error_detection</code>.</p>
+<pre><code>def error_append(self, field, errors):
+    errors[field].append(EnergyBillValueError if field=='invoice_in_reais' else ValueMaxError)
+
+def check_value(self, value, max_value, row, field, errors):
+    try: 
+        value = float(value.replace(',', '.'))
+        if value &gt; max_value:
+            self.error_append(field, errors)
+    except: 
+        row[field] = value
+        if(value != ""):
+            self.error_append(field, errors)
+
+def get_max_values(self):
+    return [
+        ('invoice_in_reais', 99999999.99),
+        ('peak_consumption_in_kwh', 9999999.99),
+        ('off_peak_consumption_in_kwh', 9999999.99),
+        ('peak_measured_demand_in_kw', 9999999.99),
+        ('off_peak_measured_demand_in_kw', 9999999.99),
+    ]
+
+def error_detection(self, row, errors):
+    for field, max_value in self.get_max_values():
+        value = row.get(field, "")
+        if isinstance(value, str):
+            self.check_value(value, max_value, row, field, errors)
+
+        elif math.isnan(value):
+            row[field] = ""
+
+        elif value &gt; max_value:
+            row[field] = value
+            self.error_append(field, errors)
+
+    if row.get('invoice_in_reais') == '':
+        errors['invoice_in_reais'].append(EnergyBillValueError)
+
+
+def validate_csv_row(self, row, consumer_unit_id):
+    errors = defaultdict(list)
+    date = ContractUtils().validate_date(row["date"])
+    if(not isinstance(date, datetime.date)):
+        errors["date"].append(FormatDateError)
+
+    elif models.EnergyBill.check_energy_bill_month_year(consumer_unit_id, date):
+        errors['date'].append(AlreadyHasEnergyBill)
+
+    else:
+        covered, contract_date = models.EnergyBill.check_energy_bill_covered_by_contract(consumer_unit_id, date)
+        if not covered:
+            month_name = contract_date.strftime("%B")
+            month_name_pt = month_translation[month_name]
+            contract_date_str = f"{month_name_pt} de {contract_date.year}"
+            dynamic_error_message = ErrorMensageParser.parse(DateNotCoverByContractError, (contract_date_str))
+            errors["date"].append(dynamic_error_message)
+
+    self.error_detection(row, errors)
+    return errors, date
+</code></pre>
+<h2 id="resultados">Resultados</h2>
+<p>Os resultados mostram que a função com maior complexidade do arquivo apresenta valor 6, e infelizamente, uma das funções possui um parâmetro a mais do que o recomendado.</p>
+<p><img alt="cleancode2" src="../../../img/leonardo/cleancode2.png" /></p>
+<h2 id="merge-request">Merge Request</h2>
+<p>Foi criado um Merge Request para as alterações, além de uma issue detalhando as motivações da alteração.</p>
+<p><a href="https://gitlab.com/lappis-unb/projetos-energia/mec-energia/mec-energia-api/-/issues/200">Link Issue</a></p>
+<p><a href="https://gitlab.com/lappis-unb/projetos-energia/mec-energia/mec-energia-api/-/merge_requests/140">Link MR</a></p>
+<p>Entretanto, ao realizar o fork do projeto, a suíte de testes falhou em 2 testes.</p>
+<p><img alt="uptodate" src="../../../img/leonardo/uptodate.png" /></p>
+<p><img alt="pipeline" src="../../../img/leonardo/pipeline.png" /></p>
+<p><img alt="errors" src="../../../img/leonardo/errors.png" /></p>
+<p>Após a refatoração do código, apenas esses mesmos erros persistiram.</p>
+<h3 id="mylena">Mylena</h3>
+<p>Para essa atividade, foi utilizado o código do projeto <a href="https://gitlab.com/lappis-unb/projetos-energia/mec-energia/mec-energia-api">mec-energia-api</a>. Realizei uma análise utilizando a ferramenta <code>Code Climate</code> e, a partir dos resultados obtidos, decidi quais aspectos seriam abordados para refatoração. A sugestão de melhoria foi implementada no código do arquivo <code>utils/energy_bill_util.py</code>, no qual a  complexidade cognitiva  seguindo os princípios de <em>Clean Code</em></p>
+<p><img alt="Sugestão Clean Code" src="../code-climate-mylena.png" /></p>
+<h2 id="refatoracao-proposta_2">Refatoração proposta</h2>
+<pre><code>class EnergyBillValidator:
+
+@staticmethod
+ def is_valid_consumption(consumption, measured_demand):
+ return consumption &gt; 0 and measured_demand &gt; 0
+ @classmethod
+ def check_valid_consumption_demand(cls, energy_bill):
+ off_peak_consumption = energy_bill.off_peak_consumption_in_kwh
+ off_peak_measured_demand  = energy_bill.off_peak_measured_demand_in_kw
+ peak_consumption = energy_bill.peak_consumption_in_kwh
+ peak_measured_demand = energy_bill.peak_measured_demand_in_kw
+
+## retomar essa lógica quando retirar valores zerados do seed
+ off_peak_valid = cls.is_valid_consumption(
+ energy_bill.off_peak_consumption_in_kwh,
+ energy_bill.off_peak_measured_demand_in_kw
+ )
+ peak_valid = cls.is_valid_consumption(
+ energy_bill.peak_consumption_in_kwh,
+ energy_bill.peak_measured_demand_in_kw
+ )
+ ## retomar essa lógica quando retirar valores zerados do seed
+ return True
+
+if (off_peak_consumption and off_peak_consumption == 0) or (off_peak_measured_demand and off_peak_consumption == 0) or (peak_consumption and  peak_consumption == 0) or (peak_measured_demand and peak_measured_demand == 0):
+ return False
+ return True
+ return True
+</code></pre>
+<h3 id="justificativas">Justificativas</h3>
+<h4 id="1-modularizacao-e-clareza">1. <strong><em>*Modularização e Clareza</em>*:</strong></h4>
+<ul>
+<li><strong>Modularidade</strong>: A lógica de validação foi extraída para um método estático separado (<code>is_valid_consumption</code>), que encapsula a verificação se o consumo e a demanda medida são válidos. Isso melhora a clareza e a reutilização do código.</li>
+<li><strong>Clareza</strong>: A nova implementação é mais direta ao verificar a validade dos consumos e demandas. Usar o método <code>is_valid_consumption</code> melhora a legibilidade e reduz a complexidade cognitiva, alinhando-se ao princípio de clareza do Clean Code.</li>
+</ul>
+<h4 id="2-reducao-da-complexidade-cognitiva">2. <strong>Redução da Complexidade Cognitiva</strong></h4>
+<p><strong>Simplicidade</strong>: A versão original da função possui múltiplas condições e verificações que aumentam a complexidade cognitiva. A nova versão simplifica a lógica ao utilizar o resultado das verificações feitas pelo método <code>is_valid_consumption</code>, reduzindo a complexidade cognitiva e tornando o código mais fácil de entender e manter.</p>
+<h2 id="mr">MR</h2>
+<p>No meu repositório, o pipeline falhou após eu adicionar um novo código, pois a parte de testes não funcionou devido às mudanças que fiz. Foram mais de cinco arquivos que precisavam ser alterados para corrigir os problemas. No entanto, uma <a href="https://gitlab.com/lappis-unb/projetos-energia/mec-energia/mec-energia-api/-/issues/199">issue</a> foi criada com uma sugestão de refatoração, incluindo trechos de código para melhorar a implementação.</p>
+<p><img alt="Erro Pipeline" src="../pipeline-mylena.png" /></p>
+<h2 id="sige">SIGE</h2>
+<h3 id="ana-luiza-rodrigues">Ana Luíza Rodrigues</h3>
+<p>Para essa atividade, foi utilizado o código do projeto <a href="https://gitlab.com/lappis-unb/projetos-energia/SIGE/sige-front">SIGE</a>. Realizei uma análise utilizando a ferramenta <code>SonarQube</code> e, a partir dos resultados obtidos, decidi quais aspectos seriam abordados para refatoração. A sugestão de melhoria foi implementada no código do arquivo <code>src/pages/TotalCost.vue</code>, no qual foi identificado hostspots.</p>
+<p><img alt="img" src="../sonarsige.png" /></p>
+<pre><code>exportOptions() {
+      const startDate = this.getStartDate.match(
+        /(?&lt;year&gt;\d+)-(?&lt;month&gt;\d+)-(?&lt;day&gt;\d+)/
+      ).groups;
+      const endDate = this.getEndDate.match(
+        /(?&lt;year&gt;\d+)-(?&lt;month&gt;\d+)-(?&lt;day&gt;\d+)/
+      ).groups;
+      return {
+        location: this.location.campus
+          ? this.location.campus +
+            (this.location.group ? &quot; - &quot; + this.location.group : &quot;&quot;)
+          : &quot;&quot;,
+        dimension: &quot;Custo Total&quot;,
+        startDate: startDate.day + &quot;_&quot; + startDate.month + &quot;_&quot; + startDate.year,
+        endDate: endDate.day + &quot;_&quot; + endDate.month + &quot;_&quot; + endDate.year,
+      };
+},
+</code></pre>
+<h2 id="refatoracao-proposta_3">Refatoração proposta</h2>
+<pre><code>exportOptions() {
+      if (/^\d{4}-\d{2}-\d{2}$/.test(this.getStartDate) &amp;&amp; /^\d{4}-\d{2}-\d{2}$/.test(this.getEndDate)) {
+        const startDate = this.getStartDate.match(/(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/).groups;
+        const endDate = this.getEndDate.match(/(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/).groups;
+        return {
+          location: this.location.campus
+            ? this.location.campus +
+              (this.location.group ? &quot; - &quot; + this.location.group : &quot;&quot;)
+            : &quot;&quot;,
+          dimension: &quot;Custo Total&quot;,
+          startDate: startDate.day + &quot;_&quot; + startDate.month + &quot;_&quot; + startDate.year,
+          endDate: endDate.day + &quot;_&quot; + endDate.month + &quot;_&quot; + endDate.year,
+        };
+      } else {
+        console.error(&quot;Data inválida: &quot; + this.getStartDate + &quot; ou &quot; + this.getEndDate);
+        return {}; 
+      }
+}
+</code></pre>
+<h3 id="justificativa">Justificativa</h3>
+<p><strong>Make sure the regex used here, which is vunerable to super-linear runtime due to backtracking, cannot lead to denial of service</strong></p>
+<p>O aviso do SonarQube sobre <code>/(?&lt;year&gt;\d+)-(?&lt;month&gt;\d+)-(?&lt;day&gt;\d+)/</code> está relacionado a uma vulnerabilidade potencial chamada "backtracking", que pode levar a um consumo excessivo de recursos e, em casos extremos, a um Denial of Service (DoS). Esse problema ocorre quando uma expressão regular é mal projetada e pode levar a uma quantidade exponencial de operações de correspondência, especialmente com entradas específicas.</p>
+<p>A expressão regular <code>/(?&lt;year&gt;\d+)-(?&lt;month&gt;\d+)-(?&lt;day&gt;\d+)/</code> é usada para extrair ano, mês e dia de uma string no formato YYYY-MM-DD. Embora essa expressão não seja a mais complexa, o uso de \d+ (um ou mais dígitos) pode levar a problemas de desempenho com entradas inesperadas.</p>
+<ul>
+<li>
+<p><strong>Backtracking:</strong> A expressão \d+ pode causar backtracking excessivo se a entrada tiver muitos dígitos ou se o padrão for mal interpretado pelo mecanismo de expressão regular.</p>
+</li>
+<li>
+<p><strong>Entradas Maliciosas:</strong> Um atacante pode criar entradas que causam uma quantidade desproporcional de tempo de CPU para processar, levando a um potencial DoS.</p>
+</li>
+</ul>
+<p>Como sugestão de refatoração restringi a quantidade de dígitos</p>
+<p><code>/(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/</code></p>
+<p>Também adicionei uma validação da entrada verificando se a string tem o formato esperado antes de aplicar a expressão regular.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Voltar para o topo
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 Debian GCES 24.1
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "toc.integrate", "content.action.edit", "content.action.view", "navigation.top", "content.tabs.link", "content.code.annotation", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.51198bba.min.js"></script>
+      
+    
+  </body>
+</html>
