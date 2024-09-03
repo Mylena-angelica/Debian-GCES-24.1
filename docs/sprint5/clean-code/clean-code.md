@@ -664,6 +664,7 @@ Após a refatoração, o código foi submetido a um pull request. A refatoraçã
 ### Ingrid
 
 Para esta atividade, escolhi trabalhar no projeto [OWASP Juice Shop](https://github.com/juice-shop/juice-shop). As melhorias aplicadas foram identificadas por meio da plataforma **Code Climate**, que oferece uma análise detalhada do código-fonte, apontando questões relacionadas à complexidade, duplicação de código e tamanho excessivo de funções.
+![image](https://github.com/user-attachments/assets/86bcfe4b-9c81-49cf-89a3-d2061d934799)
 
 ### Melhorias Aplicadas
 
@@ -676,6 +677,7 @@ Ao separar a função setupNodeEvents em pequenas funções, a complexidade cogn
 
 #### 3. Organização das Funções Utilitárias
 Funções utilitárias, como a geração de cupons e o tratamento de produtos, foram extraídas para melhorar a organização do código. Agora, essas funções podem ser reutilizadas, facilitando a manutenção.
+![image](https://github.com/user-attachments/assets/3b09acc0-8c77-4936-86c0-b5ec3d0dedeb)
 
 link do fork : [owasp - fork](https://github.com/ingridSCarvalho/juice-shop)
 
