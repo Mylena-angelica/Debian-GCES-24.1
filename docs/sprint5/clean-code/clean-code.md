@@ -951,3 +951,71 @@ Para essa atividade, foi utilizado o código do projeto [mec-energia-api](https:
 No meu repositório, o pipeline falhou após eu adicionar um novo código, pois a parte de testes não funcionou devido às mudanças que fiz. Foram mais de cinco arquivos que precisavam ser alterados para corrigir os problemas. No entanto, uma [issue](https://gitlab.com/lappis-unb/projetos-energia/mec-energia/mec-energia-api/-/issues/199) foi criada com uma sugestão de refatoração, incluindo trechos de código para melhorar a implementação.
 
 ![Erro Pipeline](pipeline-mylena.png)
+
+## SIGE
+
+### Ana Luíza Rodrigues
+
+Para essa atividade, foi utilizado o código do projeto [SIGE](https://gitlab.com/lappis-unb/projetos-energia/SIGE/sige-front). Realizei uma análise utilizando a ferramenta `SonarQube` e, a partir dos resultados obtidos, decidi quais aspectos seriam abordados para refatoração. A sugestão de melhoria foi implementada no código do arquivo `src/pages/TotalCost.vue`, no qual foi identificado hostspots.
+
+![img](sonarsige.png)
+
+```
+exportOptions() {
+      const startDate = this.getStartDate.match(
+        /(?<year>\d+)-(?<month>\d+)-(?<day>\d+)/
+      ).groups;
+      const endDate = this.getEndDate.match(
+        /(?<year>\d+)-(?<month>\d+)-(?<day>\d+)/
+      ).groups;
+      return {
+        location: this.location.campus
+          ? this.location.campus +
+            (this.location.group ? " - " + this.location.group : "")
+          : "",
+        dimension: "Custo Total",
+        startDate: startDate.day + "_" + startDate.month + "_" + startDate.year,
+        endDate: endDate.day + "_" + endDate.month + "_" + endDate.year,
+      };
+},
+```
+
+## Refatoração proposta
+
+```
+exportOptions() {
+      if (/^\d{4}-\d{2}-\d{2}$/.test(this.getStartDate) && /^\d{4}-\d{2}-\d{2}$/.test(this.getEndDate)) {
+        const startDate = this.getStartDate.match(/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/).groups;
+        const endDate = this.getEndDate.match(/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/).groups;
+        return {
+          location: this.location.campus
+            ? this.location.campus +
+              (this.location.group ? " - " + this.location.group : "")
+            : "",
+          dimension: "Custo Total",
+          startDate: startDate.day + "_" + startDate.month + "_" + startDate.year,
+          endDate: endDate.day + "_" + endDate.month + "_" + endDate.year,
+        };
+      } else {
+        console.error("Data inválida: " + this.getStartDate + " ou " + this.getEndDate);
+        return {}; 
+      }
+}
+```
+### Justificativa
+
+**Make sure the regex used here, which is vunerable to super-linear runtime due to backtracking, cannot lead to denial of service**
+
+O aviso do SonarQube sobre ```/(?<year>\d+)-(?<month>\d+)-(?<day>\d+)/``` está relacionado a uma vulnerabilidade potencial chamada "backtracking", que pode levar a um consumo excessivo de recursos e, em casos extremos, a um Denial of Service (DoS). Esse problema ocorre quando uma expressão regular é mal projetada e pode levar a uma quantidade exponencial de operações de correspondência, especialmente com entradas específicas.
+
+A expressão regular ```/(?<year>\d+)-(?<month>\d+)-(?<day>\d+)/``` é usada para extrair ano, mês e dia de uma string no formato YYYY-MM-DD. Embora essa expressão não seja a mais complexa, o uso de \d+ (um ou mais dígitos) pode levar a problemas de desempenho com entradas inesperadas.
+
+- **Backtracking:** A expressão \d+ pode causar backtracking excessivo se a entrada tiver muitos dígitos ou se o padrão for mal interpretado pelo mecanismo de expressão regular.
+
+- **Entradas Maliciosas:** Um atacante pode criar entradas que causam uma quantidade desproporcional de tempo de CPU para processar, levando a um potencial DoS.
+
+Como sugestão de refatoração restringi a quantidade de dígitos
+
+```/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/```
+
+Também adicionei uma validação da entrada verificando se a string tem o formato esperado antes de aplicar a expressão regular.
