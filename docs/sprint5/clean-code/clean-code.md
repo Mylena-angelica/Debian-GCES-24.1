@@ -661,6 +661,24 @@ Após a refatoração, o código foi submetido a um pull request. A refatoraçã
         <img src="../../img/henrique/sprint5/juice_MR.png" alt="getCodingChallenge" width="40%"/>
 </div>
 
+### Ingrid
+
+Para esta atividade, escolhi trabalhar no projeto [OWASP Juice Shop](https://github.com/juice-shop/juice-shop). As melhorias aplicadas foram identificadas por meio da plataforma **Code Climate**, que oferece uma análise detalhada do código-fonte, apontando questões relacionadas à complexidade, duplicação de código e tamanho excessivo de funções.
+
+### Melhorias Aplicadas
+
+#### 1. Modularização da Função `setupNodeEvents`
+
+A função `setupNodeEvents` era originalmente muito extensa, com mais de 77 linhas, o que ultrapassava o limite recomendado. Para melhorar sua legibilidade e manutenção, a função foi modularizada em várias funções menores e com responsabilidades específicas. 
+
+#### 2. Redução da Complexidade Cognitiva
+Ao separar a função setupNodeEvents em pequenas funções, a complexidade cognitiva foi reduzida, tornando o código mais claro e fácil de entender. Cada função agora tem uma responsabilidade bem definida. 
+
+#### 3. Organização das Funções Utilitárias
+Funções utilitárias, como a geração de cupons e o tratamento de produtos, foram extraídas para melhorar a organização do código. Agora, essas funções podem ser reutilizadas, facilitando a manutenção.
+
+link do fork : [owasp - fork](https://github.com/ingridSCarvalho/juice-shop)
+
 ## MEC-ENERGIA API
 
 ### Leonardo
