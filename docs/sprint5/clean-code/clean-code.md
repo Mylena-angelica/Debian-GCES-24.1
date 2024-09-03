@@ -1040,3 +1040,148 @@ Como sugestão de refatoração restringi a quantidade de dígitos
 ```/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/```
 
 Também adicionei uma validação da entrada verificando se a string tem o formato esperado antes de aplicar a expressão regular.
+
+
+
+### Guilherme Peixoto
+
+Nesta entrega optei pelo projeto WebGoat: A deliberately insecure Web Application, que contem diversos exercícios que destinam-se a serem usados para aprender sobre segurança e técnicas de teste de penetração, criados de forma a orientar sobre falhas comuns de segurança em aplicações web.
+
+<img src="../../img/Guilherme Lima/the_project.png" alt="getCodingChallenge" width="60%"/>
+
+
+Apos a utilização da ferramenta Code Climate, foram detectadas diversos pontos de melhorias mas a funcção escolhida foi a injectableQuery.
+ 
+<img src="../../img/Guilherme Lima/refact_before1.png" alt="getCodingChallenge" width="60%"/>
+
+## Antes da refatoração:
+```java
+  public AttackResult injectableQuery(String accountName) {
+    String query = "";
+    try (Connection connection = dataSource.getConnection()) {
+      boolean usedUnion = true;
+      query = "SELECT * FROM user_data WHERE last_name = '" + accountName + "'";
+      // Check if Union is used
+      if (!accountName.matches("(?i)(^[^-/*;)]*)(\\s*)UNION(.*$)")) {
+        usedUnion = false;
+      }
+      try (Statement statement =
+          connection.createStatement(
+              ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+        ResultSet results = statement.executeQuery(query);
+
+        if ((results != null) && results.first()) {
+          ResultSetMetaData resultsMetaData = results.getMetaData();
+          StringBuilder output = new StringBuilder();
+
+          output.append(SqlInjectionLesson5a.writeTable(results, resultsMetaData));
+
+          String appendingWhenSucceded;
+          if (usedUnion)
+            appendingWhenSucceded =
+                "Well done! Can you also figure out a solution, by appending a new SQL Statement?";
+          else
+            appendingWhenSucceded =
+                "Well done! Can you also figure out a solution, by using a UNION?";
+          results.last();
+
+          if (output.toString().contains("dave") && output.toString().contains("passW0rD")) {
+            output.append(appendingWhenSucceded);
+            return success(this)
+                .feedback("sql-injection.advanced.6a.success")
+                .feedbackArgs(output.toString())
+                .output(" Your query was: " + query)
+                .build();
+          } else {
+            return failed(this).output(output.toString() + YOUR_QUERY_WAS + query).build();
+          }
+        } else {
+          return failed(this)
+              .feedback("sql-injection.advanced.6a.no.results")
+              .output(YOUR_QUERY_WAS + query)
+              .build();
+        }
+      } catch (SQLException sqle) {
+        return failed(this).output(sqle.getMessage() + YOUR_QUERY_WAS + query).build();
+      }
+    } catch (Exception e) {
+      return failed(this)
+          .output(this.getClass().getName() + " : " + e.getMessage() + YOUR_QUERY_WAS + query)
+          .build();
+    }
+  }
+
+```
+
+
+## Refatoração proposta	
+```java
+    public AttackResult injectableQuery(String accountName) {
+        String query = "SELECT * FROM user_data WHERE last_name = '" + accountName + "'";
+        boolean usedUnion = this.unionQueryChecker(accountName);
+        
+        try (Connection connection = dataSource.getConnection()) {
+            return executeSqlInjection(connection,query,usedUnion);
+        } catch (Exception e) {
+            return failed(this)
+                .output(this.getClass().getName() + " : " + e.getMessage() + YOUR_QUERY_WAS + query)
+                .build();
+        }
+    }
+    
+    private boolean unionQueryChecker(String accountName){
+        return accountName.matches("(?i)(^[^-/*;)]*)(\\s*)UNION(.*$)");
+    }
+
+    private AttackResult executeSqlInjection(Connection connection, String query, boolean usedUnion){
+        try (Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY)) {
+
+            ResultSet results = statement.executeQuery(query);
+
+            if (!((results != null) && results.first())) {
+                return failed(this)
+                    .feedback("sql-injection.advanced.6a.no.results")
+                    .output(YOUR_QUERY_WAS + query)
+                    .build();   
+            }
+
+            ResultSetMetaData resultsMetaData = results.getMetaData();
+            StringBuilder output = new StringBuilder();
+            String appendingWhenSucceded = this.appendSuccededMessage(usedUnion);
+
+            output.append(SqlInjectionLesson5a.writeTable(results, resultsMetaData));
+            results.last();
+
+            return verifySqlInjection(output, appendingWhenSucceded, query);
+        } catch (SQLException sqle) {
+            return failed(this).output(sqle.getMessage() + YOUR_QUERY_WAS + query).build();
+        }
+    }
+
+    private String appendSuccededMessage(boolean isUsedUnion){
+        String appendingWhenSucceded = "Well done! Can you also figure out a solution, by ";
+        
+        appendingWhenSucceded += isUsedUnion ? 
+            "appending a new SQL Statement?" :
+            "using a UNION?";
+
+        return appendingWhenSucceded; 
+    }
+
+    private AttackResult verifySqlInjection(StringBuilder output,String appendingWhenSucceded, String query ){
+        if (!(output.toString().contains("dave") && output.toString().contains("passW0rD"))) {
+            return failed(this).output(output.toString() + YOUR_QUERY_WAS + query).build();
+        } 
+
+        output.append(appendingWhenSucceded);
+        return success(this)
+            .feedback("sql-injection.advanced.6a.success")
+            .feedbackArgs(output.toString())
+            .output(" Your query was: " + query)
+            .build();
+    }
+```
+Com foco na redução da complexidade cognitiva, separando a função grande em outras pequenas funções com propositos mais específicos, seguindo os princípios de _Clean Code_. Além disso foi aplicado o return early. 
+Apos a refatoação, a ferramenta code climate foi novamente executada, porém não apontou novas melhorias para a função. Então foi submetida uma sugestão de melhoria para o git. 
+
+<img src="../../img/Guilherme Lima/refactor.png" alt="getCodingChallenge" width="60%"/>
