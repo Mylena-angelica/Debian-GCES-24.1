@@ -738,37 +738,36 @@ Para essa entrega, foi utilizado o código do Projeto OWASP [Juice Shop](https:/
 
 #### findFilesWithCodeChallenges
 
-<div align="center">
-        <img src="../../img/henrique/sprint5/findFiles.png" alt="findFiles" width="80%"/>
-</div>
+![Find Files](../../img/henrique/sprint5/findFiles.png)
 
 #### findFilesWithCodeChallenges (Refatorado)
 
-<div align="center">
-        <img src="../../img/henrique/sprint5/findFiles_refact.png" alt="findFiles" width="80%"/>
-</div>
+![Find Files](../../img/henrique/sprint5/findFiles_refact.png)
 
 _processPath_: Decide se o caminho é um diretório ou um arquivo e delega o processamento para as respectivas funções.
+
 _processDirectory_: Lida com a lógica de iterar sobre arquivos em um diretório.
+
 _processFile_: Lida com a lógica de leitura de arquivos e verificação de conteúdo.
+
 _containsCodeChallenge_: Verifica se o código contém desafios de código vulnerável.
 
 #### getCodingChallengeFromFileContent
 
-<div align="center">
-        <img src="../../img/henrique/sprint5/getCoding.png" alt="getCodingChallenge" width="80%"/>
-</div>
+![Find Files](../../img/henrique/sprint5/getCoding.png)
 
 #### getCodingChallengeFromFileContent (Refatorado)
 
-<div align="center">
-        <img src="../../img/henrique/sprint5/getCoding_refact.png" alt="getCodingChallenge" width="80%"/>
-</div>
+![Find Files](../../img/henrique/sprint5/getCoding_refact.png)
 
 _extractSnippet_: Esta função isola a lógica de extração do snippet de código. Se o snippet não puder ser encontrado, uma exceção é lançada.
+
 _extractLineNumbers_: Esta função isola a lógica que encontra as linhas vulneráveis e neutras dentro do snippet. Isso separa a lógica de extração de linhas da lógica de manipulação de strings.
+
 _splitLines_: Lida com a divisão do snippet em linhas, independentemente de quebras de linha (\r\n, \n, \r).
+
 _cleanSnippet_: Remove as marcações específicas do snippet (como start, end, e hide) para deixar o código limpo.
+
 
 Após a refatoração, o código foi submetido a um pull request. A refatoração focou na melhoria da legibilidade e manutenção do código, resultando em um código mais modular e fácil de testar.
 
