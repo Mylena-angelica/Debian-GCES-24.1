@@ -2,16 +2,16 @@
 
 
 - Ana Luíza
-- [Bruno]()
+- [Bruno](https://mylena-angelica.github.io/Debian-GCES-24.1/entrega-final/bruno5/)
 - Guilherme
 - Hellen
 - Henrique
-- [Igor]()
+- [Igor](https://mylena-angelica.github.io/Debian-GCES-24.1/entrega-final/igor5/)
 - Ingrid
 - João
-- [Leonardo]()
+- [Leonardo](https://mylena-angelica.github.io/Debian-GCES-24.1/entrega-final/leonardo5/)
 - Luana
-- [Mylena]()
+- [Mylena](https://mylena-angelica.github.io/Debian-GCES-24.1/entrega-final/mylena5/)
 
 ## Relato das Decisões Organizacionais
 - (Mylena) Durante o desenvolvimento do projeto, as decisões organizacionais foram baseadas em reuniões que ocorreram durante as aulas ou virtuais. Além da participação de reunião semanais com a equipe Debian.
