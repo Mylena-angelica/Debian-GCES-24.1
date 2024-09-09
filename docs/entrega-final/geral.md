@@ -21,4 +21,6 @@
 - (Mylena) *Falta de documentação*: Muitas atividades relacionadas ao empacotamento no Debian não possuem tutoriais ou guias detalhados, o que gerou dificuldades ao realizar tarefas variadas. A reunião com o grupo do Debian Brasília ocorria apenas uma vez por semana, com duração de 1 hora, para atender a todos os membros. Esse tempo limitado tornava o processo de aprendizado e a solução de dúvidas mais desafiadores.
 
 - (Mylena) *Sprints curtas*: Algumas sprints tinham prazos apertados, o que impactava o andamento do trabalho, especialmente quando era necessário esperar até uma semana para obter suporte mais detalhado da comunidade Debian. Embora o grupo fosse bastante ativo no Telegram, certas questões exigiam um suporte mais personalizado e aprofundado.
+
+- (Luana) *Falta de apoio*: O grupo teve dificuldade de se apoiar, além de dificuldade de comunicação com a equipe do Debian, haja vista que nem todos podem participar da reunião e através do Telegram. Meu elogio com relação à suporte se direciona ao colega Guilherme Puida que auxiliou bastante nas dúvidas e revisões das contribuições.
  
