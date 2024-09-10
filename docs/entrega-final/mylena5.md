@@ -6,7 +6,7 @@ Resumo das contribuições do Debian para a disciplina de GCES.
 |------|------|-------------|
 |1     |3     |3            |
 |2     |2     |1            |
-|3     |1     |0            |
+|3     |1     |1            |
 |4     |2     |1            |
 |5     |1     |0            |
 
