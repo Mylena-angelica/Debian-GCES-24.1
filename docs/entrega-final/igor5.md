@@ -44,11 +44,6 @@ yattag é um gerador de documentos HTML ou XML com Python.
 <br> [Link do tracker](https://tracker.debian.org/pkg/yattag)
 <br> [Link do Merge Request](https://salsa.debian.org/python-team/packages/yattag/-/merge_requests/4)
 
-![rep](../../img/igor/yattag-merge-request.png)
-
-<div style="text-align:center"> Figura 2: Merge request yattag</div>
-<br>
-
 ## Package python-cytoolz
 
 python-cytoolz é uma implementação do pacote toolz, o qual provê uma alta performace funções úteis para interáveis, funções e dicionários.
@@ -78,11 +73,6 @@ gojq é uma implementação do comando jq escrita em Go e é possível incorpora
 <br> [Link do Lintian](https://udd.debian.org/lintian/?packages=gojq)
 <br> [Link do tracker](https://tracker.debian.org/pkg/gojq)
 <br> [Link do Merge Request](https://salsa.debian.org/go-team/packages/gojq/-/merge_requests/2)
-
-![rep](../../img/igor/gojq-merge-request.png)
-
-<div style="text-align:center"> Figura 3: Merge request gojq</div>
-<br>
 
 ## Package continuity
 
