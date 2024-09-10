@@ -22,6 +22,8 @@
 
 - (Mylena) *Sprints curtas*: Algumas sprints tinham prazos apertados, o que impactava o andamento do trabalho, especialmente quando era necessário esperar até uma semana para obter suporte mais detalhado da comunidade Debian. Embora o grupo fosse bastante ativo no Telegram, certas questões exigiam um suporte mais personalizado e aprofundado.
 
+- (Luana) *Falta de apoio*: O grupo teve dificuldade de se apoiar, além de dificuldade de comunicação com a equipe do Debian, haja vista que nem todos podem participar da reunião e através do Telegram. Meu elogio com relação à suporte se direciona ao colega Guilherme Puida que auxiliou bastante nas dúvidas e revisões das contribuições.
+
 - (Ana Luíza) *Falta de documentação*: O Debian possui documentação acerca de empacotamento, mas para uma pessoa iniciante eu não achei suficiente e muitas vezes tive que recorrer ao grupo do Debian Brasília para tentar sanar as dúvidas. 
 
 - (Ana Luíza) *Falta de suporte*: Na disciplina eu senti falta do suporte dos monitores. Nas reuniões do Debian Brasília só tínhamos 1 hora para sanar nossas dúvidas e isso não era tempo suficiente. Isso acabou acarretando em muita demora para revisão ou para corrigir um erro e atrapalhou muito o andamento das sprints.
