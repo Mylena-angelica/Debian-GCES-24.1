@@ -1,12 +1,46 @@
-# Bruno Campos Ribeiro
+# Bruno Ribeiro
+## Empacotamento por Sprint
+### Sprint 1
+_Sprint_ destinada a configuração do ambiente para empacotamento Debian.
 
-Na Sprint 5, devido ao fim do semestre em outras diciplimas, consegui executar um número maior merges requests, os pacotes foram: 
+--- 
+
+### Sprint 2
+#### Package bruteforce-luks
+Foi realizada uma atualização _upstream_. O MR não foi feito pois o código fonte do projeto contém uma condição de corrida.
+
+--- 
+
+### Sprint 3
+#### Package bruteforce-luks
+_Sprint_ destina para corrigir o problema identificado na _sprint_ anterior.
+
+--- 
+
+### Sprint 4
+#### Package gp-saml-gui
+Foi realizada uma atualização _upstream_. O MR ainda está em fase de revisão.
+#### Package pyvirtualdisplay
+Foi realizada uma atualização _upstream_. O MR ainda está em fase de revisão.
+#### Package astroid
+Foi realizada uma atualização _upstream_. O MR ainda está em fase de revisão.
+#### Package python-regex
+Foi realizada uma atualização _upstream_. Contudo, durante a fase de revisão do MR, outro contribuidor fez alterações no projeto, 
+já também atualizando o pacote.
+
+--- 
+
+### Sprint 5
+Essa foi a _Sprint_ de _Clean Code_, na qual foi realizada um sugestão de refatoração no projeto 
+[NINJA-PingU](https://github.com/OWASP/NINJA-PingU) no arquivo `src/connector.c.
+
+Também na _Sprint_ 5, devido ao fim do semestre em outras diciplimas, consegui executar um número maior merges requests, os pacotes foram: 
 `python-npe2`, `pep8-naming`, `python-railroad-diagrams`, `c2go`, `golang-github-adam-hanna-arrayoperations`, `gitleaks`, 
 `golang-github-alecthomas-assert`, `python-svglib` e `golang-github-advancedlogic-goose`. Além de estar acompanhando os merges dos 
 pacotes anteriores e realizando as devidas correções.
 
 
-## Package python-npe2
+#### Package python-npe2
 
 O napari é um visualizador de imagens multi-dimensionais rápido, interativo e desenvolvido em Python. Ele é projetado para navegar, 
 anotar e analisar grandes imagens multi-dimensionais. O napari é construído sobre o Qt (para a interface gráfica), o vispy (para 
@@ -18,7 +52,7 @@ renderização eficiente baseada em GPU) e o conjunto científico do Python (num
 <br> [Link do Merge Request](https://salsa.debian.org/python-team/packages/python-npe2!2)
 
 
-## Package pep8-naming
+#### Package pep8-naming
 
 Este módulo fornece um plugin para o flake8, o verificador de código Python.
 
@@ -29,7 +63,7 @@ Este módulo fornece um plugin para o flake8, o verificador de código Python.
 <br> [Link do Merge Request](https://salsa.debian.org/python-team/packages/pep8-naming!2)
 
 
-## Package python-railroad-diagrams
+#### Package python-railroad-diagrams
 
 Esta é uma pequena biblioteca para gerar diagramas de ferrovias (como os usados no JSON.org) usando SVG, com versões em JavaScript
 e Python. Diagramas de ferrovias são uma forma de representar visualmente uma gramática de maneira mais legível do que usando 
@@ -44,7 +78,7 @@ então escrevi o meu próprio.
 <br> [Link do Merge Request](https://salsa.debian.org/python-team/packages/python-railroad-diagrams!2)
 
 
-## Package c2go
+#### Package c2go
 
 Uma ferramenta para converter C para Go. Os objetivos deste projeto são:
 
@@ -62,7 +96,7 @@ O marco final é ser capaz de compilar o código-fonte do SQLite3 e fazê-lo fun
 <br> [Link do Merge Request](https://salsa.debian.org/go-team/packages/c2go!3)
 
 
-## Package golang-github-adam-hanna-arrayoperations
+#### Package golang-github-adam-hanna-arrayoperations
 
 Uma pequena biblioteca para realizar operações de união, interseção, diferença e distinção em slices em GoLang.
 
@@ -73,7 +107,7 @@ Uma pequena biblioteca para realizar operações de união, interseção, difere
 <br> [Link do Merge Request](https://salsa.debian.org/go-team/packages/golang-github-adam-hanna-arrayoperations!5)
 
 
-## Package gitleaks
+#### Package gitleaks
 
 Uma biblioteca em Go para analisar e aplicar patches gerados por `git diff`, `git show` e `git format-patch`. 
 Ela também pode analisar e aplicar diffs unificados gerados pela ferramenta padrão `diff`.
@@ -85,7 +119,7 @@ Ela também pode analisar e aplicar diffs unificados gerados pela ferramenta pad
 <br> [Link do Merge Request](https://salsa.debian.org/go-team/packages/golang-github-gitleaks-go-gitdiff!1)
 
 
-## Package golang-github-alecthomas-assert
+#### Package golang-github-alecthomas-assert
 
 Esta biblioteca é inspirada pelo `testify/require`, mas com uma superfície de API significativamente reduzida com base
 no uso empírico desse pacote. Ela também fornece uma saída de diffs muito mais agradável, por exemplo.
@@ -97,7 +131,7 @@ no uso empírico desse pacote. Ela também fornece uma saída de diffs muito mai
 <br> [Link do Merge Request](https://salsa.debian.org/go-team/packages/golang-github-alecthomas-assert!2)
 
 
-## Package python-svglib
+#### Package python-svglib
 
 O `Svglib` é uma biblioteca puramente em Python para ler arquivos SVG e convertê-los (a um grau razoável) para outros formatos 
 usando o toolkit de código aberto ReportLab. 
@@ -115,7 +149,7 @@ bitmap ou EPS, é realmente fácil e será melhor suportado em breve).
 <br> [Link do Merge Request](https://salsa.debian.org/python-team/packages/python-svglib/-/merge_requests/1)
 
 
-## Package golang-github-advancedlogic-goose
+#### Package golang-github-advancedlogic-goose
 
 Esta é uma portabilidade em Go do "Goose", originalmente licenciado para a Gravity.com sob um ou mais acordos de 
 licença de contribuidores.
@@ -126,10 +160,25 @@ licença de contribuidores.
 <br> [Link do tracker](https://tracker.debian.org/pkg/golang-github-advancedlogic-goose)
 <br> [Link do Merge Request](https://salsa.debian.org/go-team/packages/golang-github-advancedlogic-goose/-/merge_requests/1)
 
+Resumo das contribuições do Debian para a disciplina de GCES.
 
+## **Resumo geral por Sprint**
+|Sprint|Issues|PR/MR aceitos|
+|------|------|-------------|
+|1     |0     |0            |
+|2     |1     |0            |
+|3     |1     |0            |
+|4     |4     |0            |
+|5     |9     |0            |
+
+## **Listagem de Commits e Issues**
+|          |Commits|Issues|PR/MR realizados|PR/MR aceitos|
+|----------|-------|------|----------------|-------------|
+|Individual|51     |14    |12              |0            |
 
 ### Histórico de versão
 
 |Data|Autor|Descrição|Versão|
 |----|------|------|----|
 | 02/09/2024 | Bruno Ribeiro | Criação do documento | `1.0` |
+| 10/09/2024 | Bruno Ribeiro | Adicionando demais sprints | `2.0` |
