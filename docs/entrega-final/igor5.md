@@ -1,16 +1,38 @@
 # Igor e Silva Penha
 
-Na Sprint 5, terminei as correções que foram nessárias em hcxdumptool, pacote, o qual teve êxito em seu upload. Nessa sprint além do time de python, também, realizei pacotes do time de go, assim realizei os merge request dos seguintes pacotes: yattag, python-cytoolz, paste, continuity, golang-github-adrg-xdg, gojq, golang-barcode, golang-github-a8m-tree e golang-github-akavel-rsrc. Além de estar acompanhando os merges dos pacotes anteriores e realizando as devidas correções.
+## Empacotamento por Sprint
+### Sprint 1
+_Sprint_ destinada a configuração do ambiente para empacotamento Debian.
 
-## Package hcxdumptool
+--- 
 
-[Link do Merge Request](https://salsa.debian.org/pkg-security-team/hcxdumptool/-/merge_requests/6)
-<br> [Link do tracker](https://tracker.debian.org/pkg/hcxdumptool)
+### Sprint 2
+#### Package hcxdumptools
+Foi realizada uma atualização _upstream_. O MR realizado, revisado, corrigido e aceito.
 
-![rep](../../img/igor/hcxdumptool-tracker-upload.png)
+--- 
 
-<div style="text-align:center"> Figura 1: Tracker uploaded hcxdumptool</div>
-<br>
+### Sprint 3
+#### Package hcxtools
+Foi realizada uma atualização _upstream_. O MR realizado e ainda se encontra na etapa de revisão.
+
+--- 
+
+### Sprint 4
+#### Package pyenchant
+Foi realizada uma atualização _upstream_. O MR ainda está em fase de revisão.
+#### Package python-pika
+Foi realizada uma atualização _upstream_. Porém por se tratar de uma versão beta foi indicado que seria melhor aguardar.
+#### Package python-rosettasciio
+Foi realizada uma atualização _upstream_. O MR ainda está em fase de revisão.
+
+--- 
+
+### Sprint 5
+Essa foi a _Sprint_ de _Clean Code_, na qual foi realizada um sugestão de refatoração no projeto 
+[NINJA-PingU](https://github.com/OWASP/NINJA-PingU) no arquivo `src/listener.c`.
+
+Na Sprint 5, terminei as correções que foram nessárias em hcxdumptool, pacote, o qual teve êxito em seu upload. Nessa sprint além do time de python, também, realizei pacotes do time de go, assim realizei os merge request dos seguintes pacotes: `yattag`, `python-cytoolz`, `paste`, `continuity`, `golang-github-adrg-xdg`, `gojq`, `golang-barcode`, `golang-github-a8m-tree` e `golang-github-akavel-rsrc`. Além de estar acompanhando os merges dos pacotes anteriores e realizando as devidas correções.
 
 ## Package yattag
 
@@ -21,11 +43,6 @@ yattag é um gerador de documentos HTML ou XML com Python.
 <br> [Link do Lintian](https://udd.debian.org/lintian/?packages=yattag)
 <br> [Link do tracker](https://tracker.debian.org/pkg/yattag)
 <br> [Link do Merge Request](https://salsa.debian.org/python-team/packages/yattag/-/merge_requests/4)
-
-![rep](../../img/igor/yattag-merge-request.png)
-
-<div style="text-align:center"> Figura 2: Merge request yattag</div>
-<br>
 
 ## Package python-cytoolz
 
@@ -56,11 +73,6 @@ gojq é uma implementação do comando jq escrita em Go e é possível incorpora
 <br> [Link do Lintian](https://udd.debian.org/lintian/?packages=gojq)
 <br> [Link do tracker](https://tracker.debian.org/pkg/gojq)
 <br> [Link do Merge Request](https://salsa.debian.org/go-team/packages/gojq/-/merge_requests/2)
-
-![rep](../../img/igor/gojq-merge-request.png)
-
-<div style="text-align:center"> Figura 3: Merge request gojq</div>
-<br>
 
 ## Package continuity
 
@@ -112,9 +124,26 @@ golang-github-akavel-rsrc é uma ferramenta para incorporar recursos binários e
 <br> [Link do tracker](https://tracker.debian.org/pkg/golang-github-akavel-rsrc)
 <br> [Link do Merge Request](https://salsa.debian.org/go-team/packages/golang-github-akavel-rsrc/-/merge_requests/3)
 
+Resumo das contribuições do Debian para a disciplina de GCES.
+
+## **Resumo geral por Sprint**
+|Sprint|Issues|PR/MR aceitos|
+|------|------|-------------|
+|1     |0     |0            |
+|2     |1     |1            |
+|3     |1     |0            |
+|4     |3     |0            |
+|5     |9     |0            |
+
+## **Listagem de Commits e Issues**
+|          |Commits|Issues|PR/MR realizados|PR/MR aceitos|
+|----------|-------|------|----------------|-------------|
+|Individual|64     |14    |13              |1            |
+
 
 ### Histórico de versão
 
 |Data|Autor|Descrição|Versão|
 |----|------|------|----|
 | 02/09/2024 | Igor Penha | Criação do documento | `1.0` |
+| 10/09/2024 | Igor Penha | Atualização para formato do roteiro | `2.0` |

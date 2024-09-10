@@ -25,4 +25,7 @@
 - (Ana Luíza) *Falta de documentação*: O Debian possui documentação acerca de empacotamento, mas para uma pessoa iniciante eu não achei suficiente e muitas vezes tive que recorrer ao grupo do Debian Brasília para tentar sanar as dúvidas. 
 
 - (Ana Luíza) *Falta de suporte*: Na disciplina eu senti falta do suporte dos monitores. Nas reuniões do Debian Brasília só tínhamos 1 hora para sanar nossas dúvidas e isso não era tempo suficiente. Isso acabou acarretando em muita demora para revisão ou para corrigir um erro e atrapalhou muito o andamento das sprints.
+
+- (Henrique) *Consequências na falta de apoio*: Com o surgimento de bugs e prolemas muito específicos na tentativa de atualizar alguns pacotes que possuiam um nível um pouco maior de problemas, a falta de um apoio mais específico e dentro do período das sprints, fez com que tivesse que abandonar certas issues, para poder tentar realizar outras, para serem entregues no dentro do período da sprint. 
+
  
