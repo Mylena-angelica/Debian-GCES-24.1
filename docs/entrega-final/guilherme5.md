@@ -1,4 +1,4 @@
-# Apresentação final- Mylena Angélica
+# Apresentação final- Guilherme
 Resumo das contribuições do Debian para a disciplina de GCES.
 
 ## **Resumo geral por Sprint**
