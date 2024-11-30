@@ -94,7 +94,7 @@ Os repositórios do Debian Sid podem exigir chaves GPG específicas para verific
 
 ## Etapa 5: Instalar e Executar o `ratt`
 
-Instale o `ratt` diretamente do repositório padrão (Stable ou Testing, dependendo da sua configuração):
+Instale o `ratt` 
 
 ```bash
 sudo apt install ratt
