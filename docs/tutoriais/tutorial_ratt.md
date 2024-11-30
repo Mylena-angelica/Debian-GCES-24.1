@@ -100,27 +100,19 @@ Instale o `ratt` diretamente do repositório padrão (Stable ou Testing, depende
 sudo apt install ratt
 ```
 
-Verifique a instalação:
+
+Execute o `ratt` conforme necessário para seu caso de uso. Normalmente ele será com o arquivo `.changes` que possui a arquitetura do seu pacote, por exemplo:
 
 ```bash
-ratt --version
+ratt <nome_do_pacote>_<versao>_<arquitetura>.changes
 ```
 
-Execute o `ratt` conforme necessário para seu caso de uso.
+exemplo de arquivo:
 
+```bash
+ratt golang-k8s-apimachinery_0.31.3-1_amd64.changes
+```
 ---
 
-## Observações e Avisos
-
-- **Evite instalar pacotes diretamente do Sid, salvo quando absolutamente necessário.** Ele é uma versão instável e pode causar problemas no sistema.
-- **Faça backup do sistema** antes de realizar alterações significativas nas fontes de pacotes.
-- Use as configurações de pinning para evitar atualizações indesejadas do sistema.
-
----
-
-## Solução de Problemas
-
-- **Erros de Chaves GPG**: Certifique-se de adicionar as chaves corretas utilizando os métodos fornecidos.
-- **Pacotes Instáveis**: Se um pacote causar problemas, remova-o e considere utilizar uma alternativa dos repositórios Stable ou Testing.
 
 Seguindo estas etapas, você poderá configurar e executar o `ratt` de maneira segura no Ubuntu e Debian.
