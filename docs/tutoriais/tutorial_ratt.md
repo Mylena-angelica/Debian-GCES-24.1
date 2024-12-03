@@ -30,23 +30,52 @@ Os repositórios do Debian Sid contêm as versões mais recentes de pacotes que 
 
 Para evitar atualizações acidentais do sistema para o Debian Sid, configure as preferências do `apt`:
 
-1. Crie um novo arquivo em `/etc/apt/preferences.d/debian-sid`:
+
+
+1. Execute o comando `apt policy` para verificar a prioridade dos seus repositórios de download de pacotes.
+
+O repositório do Debian deve parecer com isso:
+
+```bash
+   $ apt policy | grep debian
+
+  500 http://deb.debian.org/debian sid/main amd64 Packages
+     origin deb.debian.org
+
+```
+
+Obs: Talvez apareçam outros repositórios Debian, principalmente se sua distro for baseada no debian, tome cuidado para não confundí-las com a Debian Sid recém adicionada
+
+2.  Crie um novo arquivo em `/etc/apt/preferences.d/debian-sid`:
 
     ```bash
     sudo nano /etc/apt/preferences.d/debian-sid
     ```
 
-2. Adicione o seguinte conteúdo:
+3. Adicione o seguinte conteúdo:
 
     ```plaintext
     Package: *
-    Pin: release a=sid
+    Pin: origin deb.debian.org
     Pin-Priority: 50
     ```
-
+  ⚠️ Note que a origin aqui é a mesma apontada pelo `apt policy`.
    Isso garante que os pacotes do Sid só sejam instalados quando especificados explicitamente.
 
-3. Salve o arquivo e saia do editor.
+4. Salve o arquivo e saia do editor.
+
+
+5. Atualize seus pacotes e execute novamente o comando apt policy para checar se o pin funcionou
+
+```bash
+sudo apt update
+apt policy | grep debian
+
+# Dessa vez o output esperado seria esse
+50 http://deb.debian.org/debian sid/main amd64 Packages
+     origin deb.debian.org
+```
+
 
 ---
 
