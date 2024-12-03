@@ -94,7 +94,7 @@ nav:
   - Tutoriais:
     - Nova versão Upstream: tutoriais\atualizacao_upstream.md
     - Erros comuns na atualização upstream: tutoriais\erro_atualizacao_upstream.md
-    - Como usar o ratt para buildar dependências reversas: tutoriais\tutorial_ratt.md
+    - Como usar o ratt para buildar dependencias reversas: tutoriais\tutorial_ratt.md
   - Apresentação final:
     - Grupo: entrega-final\geral.md
     - Ana Luíza: entrega-final\analuiza5.md
